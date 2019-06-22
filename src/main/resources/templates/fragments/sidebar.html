@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Header</title>
+</head>
+
+<body>
+
+<div class="sidebar" data-color="orange" th:fragment="sidebar">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        <image th:src="@{/images/logo.png}" style="max-width: 70%;"></image>
+      </div>
+      <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a th:href="@{/home}">
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/ListOfBoat/1}">
+              <i class="now-ui-icons education_atom"></i>
+              <p>Crew On Board</p>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/ListOfBoat/0}">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Crew On Leave</p>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/assignment}">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>Crew Assignment</p>
+            </a>
+          </li>
+          <li>
+            <a href="./user.html">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Make A New Crew</p>
+            </a>
+          </li>
+          <li class="active ">
+            <a th:href="@{/ListOfBoat/-3}">
+              <i class="now-ui-icons design_bullet-list-67"></i>
+              <p>Re-Signed</p>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/CertificateNearExpire}">
+              <i class="now-ui-icons text_caps-small"></i>
+              <p>Certificate Near Expire</p>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+
+</body>
+
+</html>

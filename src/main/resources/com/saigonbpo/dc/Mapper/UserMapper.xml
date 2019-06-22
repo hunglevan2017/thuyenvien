@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+  'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace='com.saigonbpo.dc.Mapper.UserMapper'>
+
+	<select id="findByUserName" parameterType="String" resultType="com.saigonbpo.dc.Model.UserSeagull">
+		SELECT x.username,y.*
+		FROM sea_userdb.tab_user x
+		join sea_userdb.tab_membership y  on x.userid = y.userid
+		where isactive=1
+		and x.username = #{user_name};
+	</select>
+	
+	
+	
+
+
+</mapper>
+

@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saigonbpo.dc.Mapper.UserSeagullMapper">
+  <resultMap id="BaseResultMap" type="com.saigonbpo.dc.Model.UserSeagull">
+    <id column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="PasswordAnswer" jdbcType="VARCHAR" property="passwordanswer" />
+    <result column="IsActive" jdbcType="BIT" property="isactive" />
+    <result column="IsLockOut" jdbcType="BIT" property="islockout" />
+    <result column="CreateDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="LastLoginDate" jdbcType="TIMESTAMP" property="lastlogindate" />
+    <result column="GroupId" jdbcType="INTEGER" property="groupid" />
+    <result column="last_name" jdbcType="VARCHAR" property="lastName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="first_name" jdbcType="VARCHAR" property="firstName" />
+    <result column="id_file_photo" jdbcType="INTEGER" property="idFilePhoto" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="id_department" jdbcType="INTEGER" property="idDepartment" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.saigonbpo.dc.Model.UserSeagullWithBLOBs">
+    <result column="PasswordQuestion" jdbcType="LONGVARCHAR" property="passwordquestion" />
+    <result column="Comment" jdbcType="LONGVARCHAR" property="comment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    UserId, Password, Email, PasswordAnswer, IsActive, IsLockOut, CreateDate, LastLoginDate, 
+    GroupId, last_name, phone, first_name, id_file_photo, position, id_department
+  </sql>
+  <sql id="Blob_Column_List">
+    PasswordQuestion, Comment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.saigonbpo.dc.Model.UserSeagullExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sea_userdb..tab_membership
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.saigonbpo.dc.Model.UserSeagullExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sea_userdb..tab_membership
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sea_userdb..tab_membership
+    where UserId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sea_userdb..tab_membership
+    where UserId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.saigonbpo.dc.Model.UserSeagullExample">
+    delete from sea_userdb..tab_membership
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="UserId" keyProperty="userid" parameterType="com.saigonbpo.dc.Model.UserSeagullWithBLOBs" useGeneratedKeys="true">
+    insert into sea_userdb..tab_membership (Password, Email, PasswordAnswer, 
+      IsActive, IsLockOut, CreateDate, 
+      LastLoginDate, GroupId, last_name, 
+      phone, first_name, id_file_photo, 
+      position, id_department, PasswordQuestion, 
+      Comment)
+    values (#{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{passwordanswer,jdbcType=VARCHAR}, 
+      #{isactive,jdbcType=BIT}, #{islockout,jdbcType=BIT}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{lastlogindate,jdbcType=TIMESTAMP}, #{groupid,jdbcType=INTEGER}, #{lastName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, #{idFilePhoto,jdbcType=INTEGER}, 
+      #{position,jdbcType=VARCHAR}, #{idDepartment,jdbcType=INTEGER}, #{passwordquestion,jdbcType=LONGVARCHAR}, 
+      #{comment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="UserId" keyProperty="userid" parameterType="com.saigonbpo.dc.Model.UserSeagullWithBLOBs" useGeneratedKeys="true">
+    insert into sea_userdb..tab_membership
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="passwordanswer != null">
+        PasswordAnswer,
+      </if>
+      <if test="isactive != null">
+        IsActive,
+      </if>
+      <if test="islockout != null">
+        IsLockOut,
+      </if>
+      <if test="createdate != null">
+        CreateDate,
+      </if>
+      <if test="lastlogindate != null">
+        LastLoginDate,
+      </if>
+      <if test="groupid != null">
+        GroupId,
+      </if>
+      <if test="lastName != null">
+        last_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="firstName != null">
+        first_name,
+      </if>
+      <if test="idFilePhoto != null">
+        id_file_photo,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="idDepartment != null">
+        id_department,
+      </if>
+      <if test="passwordquestion != null">
+        PasswordQuestion,
+      </if>
+      <if test="comment != null">
+        Comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordanswer != null">
+        #{passwordanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null">
+        #{isactive,jdbcType=BIT},
+      </if>
+      <if test="islockout != null">
+        #{islockout,jdbcType=BIT},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogindate != null">
+        #{lastlogindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="lastName != null">
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null">
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="idFilePhoto != null">
+        #{idFilePhoto,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="idDepartment != null">
+        #{idDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="passwordquestion != null">
+        #{passwordquestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.saigonbpo.dc.Model.UserSeagullExample" resultType="java.lang.Long">
+    select count(*) from sea_userdb..tab_membership
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sea_userdb..tab_membership
+    <set>
+      <if test="record.userid != null">
+        UserId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.password != null">
+        Password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwordanswer != null">
+        PasswordAnswer = #{record.passwordanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isactive != null">
+        IsActive = #{record.isactive,jdbcType=BIT},
+      </if>
+      <if test="record.islockout != null">
+        IsLockOut = #{record.islockout,jdbcType=BIT},
+      </if>
+      <if test="record.createdate != null">
+        CreateDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastlogindate != null">
+        LastLoginDate = #{record.lastlogindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.groupid != null">
+        GroupId = #{record.groupid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastName != null">
+        last_name = #{record.lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstName != null">
+        first_name = #{record.firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idFilePhoto != null">
+        id_file_photo = #{record.idFilePhoto,jdbcType=INTEGER},
+      </if>
+      <if test="record.position != null">
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idDepartment != null">
+        id_department = #{record.idDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="record.passwordquestion != null">
+        PasswordQuestion = #{record.passwordquestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.comment != null">
+        Comment = #{record.comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sea_userdb..tab_membership
+    set UserId = #{record.userid,jdbcType=INTEGER},
+      Password = #{record.password,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      PasswordAnswer = #{record.passwordanswer,jdbcType=VARCHAR},
+      IsActive = #{record.isactive,jdbcType=BIT},
+      IsLockOut = #{record.islockout,jdbcType=BIT},
+      CreateDate = #{record.createdate,jdbcType=TIMESTAMP},
+      LastLoginDate = #{record.lastlogindate,jdbcType=TIMESTAMP},
+      GroupId = #{record.groupid,jdbcType=INTEGER},
+      last_name = #{record.lastName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      first_name = #{record.firstName,jdbcType=VARCHAR},
+      id_file_photo = #{record.idFilePhoto,jdbcType=INTEGER},
+      position = #{record.position,jdbcType=VARCHAR},
+      id_department = #{record.idDepartment,jdbcType=INTEGER},
+      PasswordQuestion = #{record.passwordquestion,jdbcType=LONGVARCHAR},
+      Comment = #{record.comment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sea_userdb..tab_membership
+    set UserId = #{record.userid,jdbcType=INTEGER},
+      Password = #{record.password,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      PasswordAnswer = #{record.passwordanswer,jdbcType=VARCHAR},
+      IsActive = #{record.isactive,jdbcType=BIT},
+      IsLockOut = #{record.islockout,jdbcType=BIT},
+      CreateDate = #{record.createdate,jdbcType=TIMESTAMP},
+      LastLoginDate = #{record.lastlogindate,jdbcType=TIMESTAMP},
+      GroupId = #{record.groupid,jdbcType=INTEGER},
+      last_name = #{record.lastName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      first_name = #{record.firstName,jdbcType=VARCHAR},
+      id_file_photo = #{record.idFilePhoto,jdbcType=INTEGER},
+      position = #{record.position,jdbcType=VARCHAR},
+      id_department = #{record.idDepartment,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.saigonbpo.dc.Model.UserSeagullWithBLOBs">
+    update sea_userdb..tab_membership
+    <set>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordanswer != null">
+        PasswordAnswer = #{passwordanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null">
+        IsActive = #{isactive,jdbcType=BIT},
+      </if>
+      <if test="islockout != null">
+        IsLockOut = #{islockout,jdbcType=BIT},
+      </if>
+      <if test="createdate != null">
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogindate != null">
+        LastLoginDate = #{lastlogindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupid != null">
+        GroupId = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="lastName != null">
+        last_name = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null">
+        first_name = #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="idFilePhoto != null">
+        id_file_photo = #{idFilePhoto,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="idDepartment != null">
+        id_department = #{idDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="passwordquestion != null">
+        PasswordQuestion = #{passwordquestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="comment != null">
+        Comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.saigonbpo.dc.Model.UserSeagullWithBLOBs">
+    update sea_userdb..tab_membership
+    set Password = #{password,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      PasswordAnswer = #{passwordanswer,jdbcType=VARCHAR},
+      IsActive = #{isactive,jdbcType=BIT},
+      IsLockOut = #{islockout,jdbcType=BIT},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      LastLoginDate = #{lastlogindate,jdbcType=TIMESTAMP},
+      GroupId = #{groupid,jdbcType=INTEGER},
+      last_name = #{lastName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      first_name = #{firstName,jdbcType=VARCHAR},
+      id_file_photo = #{idFilePhoto,jdbcType=INTEGER},
+      position = #{position,jdbcType=VARCHAR},
+      id_department = #{idDepartment,jdbcType=INTEGER},
+      PasswordQuestion = #{passwordquestion,jdbcType=LONGVARCHAR},
+      Comment = #{comment,jdbcType=LONGVARCHAR}
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.saigonbpo.dc.Model.UserSeagull">
+    update sea_userdb..tab_membership
+    set Password = #{password,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      PasswordAnswer = #{passwordanswer,jdbcType=VARCHAR},
+      IsActive = #{isactive,jdbcType=BIT},
+      IsLockOut = #{islockout,jdbcType=BIT},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      LastLoginDate = #{lastlogindate,jdbcType=TIMESTAMP},
+      GroupId = #{groupid,jdbcType=INTEGER},
+      last_name = #{lastName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      first_name = #{firstName,jdbcType=VARCHAR},
+      id_file_photo = #{idFilePhoto,jdbcType=INTEGER},
+      position = #{position,jdbcType=VARCHAR},
+      id_department = #{idDepartment,jdbcType=INTEGER}
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>
