@@ -148,7 +148,7 @@ $(document).ready( function () {
                     "width": "20%",
                     "className": "dt-left",
                     "render": function (data, type, row, meta) {
-                        return '<a href="' + page_context + 'InfoCrew/' + row['id'] +  '"><span style="color:black;">' + data + '</span></a>';
+                        return '<a href="' + page_context + 'crew/' + row['id'] +  '"><span style="color:black;">' + data + '</span></a>';
                     }
                 	
                 

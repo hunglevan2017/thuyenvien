@@ -179,7 +179,7 @@
                            </div>
                         </div>
                         <div class="row" v-if="profile.seaThongTinThuyenVien" >
-                           <div class="col-md-6 pr-1">
+                           <div class="col-md-4 pr-1">
                               <div class="form-group">
                                  <label>Size of clothes</label>
                                  <select class="form-control" v-model="profile.seaThongTinThuyenVien.sizequanao" >
@@ -187,7 +187,7 @@
 								  </select>
                               </div>
                            </div>
-                           <div class="col-md-6 pl-1">
+                           <div class="col-md-4 pl-1">
                               <div class="form-group">
                                  <label>Size of shoes</label>
                                  <select class="form-control" v-model="profile.seaThongTinThuyenVien.sizegiay" >
@@ -317,21 +317,29 @@
                            <div class="col-md-6 pl-1">
                               <div class="form-group">
                                  <label>Status</label>
-                                 <input type="text" class="form-control">
+                     
+                                 <select v-model="profile.seaThongTinThuyenVien.tinhtrangdieudong"  class="form-control"  disabled>
+			                            <option value="0">On leave</option>
+			                            <option value="1">On board</option>
+			                 	 </select>
                               </div>
                            </div>
                         </div>
                         <div class="row" v-if="profile.seaThongTinThuyenVien" >
                            <div class="col-md-6 pr-1">
                               <div class="form-group">
-                                 <label>Rank As Ccomp. Cert</label>
-                                 <input type="text" class="form-control"  >
+                                 <label>Rank As Comp. Cert</label>
+                                 <input type="text" class="form-control" v-model="profile.seaThongTinThuyenVien.chucdanhtheochuyenmonid" >
                               </div>
                            </div>
                            <div class="col-md-6 pl-1">
                               <div class="form-group">
                                  <label>Condition</label>
-                                 <input type="text" class="form-control">
+                                 <select  name="trangthaiid" v-model="profile.seaThongTinThuyenVien.trangthaiid" class="form-control"  >
+			                          <option value="1" > Crew</option>
+			                          <option value="0" > Applicant</option>
+			                          <option value="-2"> Resign</option>
+			                 	 </select>
                               </div>
                            </div>
                         </div>
@@ -339,13 +347,13 @@
                            <div class="col-md-6 pr-1">
                               <div class="form-group">
                                  <label>Date of profile received</label>
-                                 <input type="text" class="form-control"  >
+                                   <input type="text" class="form-control" v-model="profile.seaThongTinThuyenVien.datecheckby" >
                               </div>
                            </div>
                            <div class="col-md-6 pl-1">
                               <div class="form-group">
                                  <label>Applicant - Checked by</label>
-                                 <input type="text" class="form-control">
+                                   <input type="text" class="form-control" v-model="profile.seaThongTinThuyenVien.checkby" >
                               </div>
                            </div>
                         </div>
@@ -353,13 +361,15 @@
                            <div class="col-md-6 pr-1">
                               <div class="form-group">
                                  <label>Resign - Reason</label>
-                                 <input type="text" class="form-control"  >
+                                  <select class="form-control" v-model="profile.seaThongTinThuyenVien.reason" >
+									   <option v-for="option in reasons" v-bind:value="option.lov.id" >{{ option.text }}</option>
+								  </select>
                               </div>
                            </div>
                            <div class="col-md-6 pl-1">
                               <div class="form-group">
                                  <label>Resign - Date applied</label>
-                                 <input type="text" class="form-control">
+                                 <input type="text" class="form-control" v-model="profile.seaThongTinThuyenVien.dateapplied">
                               </div>
                            </div>
                         </div>
@@ -367,13 +377,13 @@
                            <div class="col-md-6 pr-1">
                               <div class="form-group">
                                  <label>Date Request Received</label>
-                                 <input type="text" class="form-control"  >
+                                 <input type="text" class="form-control" v-model="profile.seaThongTinThuyenVien.request"  >
                               </div>
                            </div>
                            <div class="col-md-6 pl-1">
                               <div class="form-group">
                                  <label>Date Agreement Completed</label>
-                                 <input type="text" class="form-control">
+                                 <input type="text" class="form-control" v-model="profile.seaThongTinThuyenVien.agreement"> 
                               </div>
                            </div>
                         </div>
@@ -391,7 +401,8 @@
                   nations:[],
                   clothes:[],
                   shoes:[],
-                  debug: true
+                  reasons:[],
+                  debug: false
             
                 },
                 mounted() {
@@ -402,7 +413,8 @@
             
                   // Get Group
                   LoadData() {
-                    axios.get( $('#PageContext').val() + "crew/profile/150"  )
+                	  var pageURL = window.location.href;
+                    axios.get( $('#PageContext').val() + "crew/profile/" + pageURL.substr(pageURL.lastIndexOf('/') + 1)  )
                       .then(response => {
                         this.profile = response.data;
                         this.profile.seaThongTinThuyenVien.ngaysinh = this.frontEndDateFormat(this.profile.seaThongTinThuyenVien.ngaysinh);
@@ -431,6 +443,14 @@
                     axios.get( $('#PageContext').val() + "masterdata/S003"  )
                     .then(response => {
                       this.shoes = response.data;
+                    })
+                    .catch(e => {
+                      this.errors.push(e)
+                    });
+                    
+                    axios.get( $('#PageContext').val() + "masterdata/S011"  )
+                    .then(response => {
+                      this.reasons = response.data;
                     })
                     .catch(e => {
                       this.errors.push(e)
