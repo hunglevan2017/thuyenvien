@@ -8,7 +8,7 @@
 	<context id="context1">
 	
 		<!-- 
-		<plugin type="com.saigonbpo.ntb.Common.DeleteExistingSqlMapsPlugin"></plugin>
+		<plugin type="com.saigonbpo.dc.Common.DeleteExistingSqlMapsPlugin"></plugin>
 		 -->
 		 <commentGenerator>
              <property name="suppressDate" value="true"/>
@@ -22,18 +22,18 @@
 			userId="${jdbc.username}"  />
 			
 		<!-- JAVA -->
-		<javaModelGenerator targetPackage="com.saigonbpo.ntb.Model"
-			targetProject="ntb" />
+		<javaModelGenerator targetPackage="com.saigonbpo.dc.Model"
+			targetProject="dc" />
 			
 		<!-- XML -->
-		<sqlMapGenerator targetPackage="com.saigonbpo.ntb.Mapper" targetProject="ntb/src/main/resources" />
+		<sqlMapGenerator targetPackage="com.saigonbpo.dc.Mapper" targetProject="dc/src/main/resources" />
 		
 		<!-- Mapper -->
-		<javaClientGenerator targetPackage="com.saigonbpo.ntb.Mapper"
-			targetProject="ntb" type="XMLMAPPER" />
+		<javaClientGenerator targetPackage="com.saigonbpo.dc.Mapper"
+			targetProject="dc" type="XMLMAPPER" />
 			
 
-		<table catalog="${jdbc.schema}" tableName="sea_chungchithuyenvien"  domainObjectName="ChungChiThuyenVien">		
+		<table catalog="${jdbc.schema}" tableName="tab_file"  domainObjectName="SeaFile">		
 			 <!-- 
 	 			<property name="enableInsert" value="true"/>
 	 			<property name="enableSelectByPrimaryKey" value="true"/>

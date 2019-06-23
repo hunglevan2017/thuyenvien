@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.saigonbpo.dc.Mapper.AppMapper;
+import com.saigonbpo.dc.Model.MasterData;
 
 @RestController
 public class HomeRestCtrl {
@@ -30,53 +32,14 @@ public class HomeRestCtrl {
 
 	// Log
 	Logger logger = LoggerFactory.getLogger(HomeRestCtrl.class);
-	@RequestMapping(value = { "/ListOfBoatFollowState/{tinhtrangdieudong}" }, method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
-	public List<Map<String, Object>> ListOfBoatFollowState(@PathVariable("tinhtrangdieudong") int tinhtrangdieudong) {
 
-		logger.info("ListOfBoatFollowState");
-		// Input
-		Map<String, Object> Input = new HashMap<>();
-		List<Map<String, Object>> ListOfCrew = new ArrayList<>();
+	
+	@RequestMapping(value = { "/masterdata/{code}" }, method = RequestMethod.GET)
+	public List<MasterData> crew(@PathVariable("code") String code) {
 
-		if (tinhtrangdieudong >= 0) {
-			// 1 is on leave
-			// 0 is onboard
-			Input.put("tinhtrangdieudong", tinhtrangdieudong);
-
-			// Call Service
-			ListOfCrew = appMapper.getListOfBoat(Input);
-		} else if (tinhtrangdieudong == -2) {
-
-			// Total
-			Input.put("tinhtrangdieudong", null);
-			logger.info(""+Input);
-			
-			ListOfCrew = appMapper.getListOfBoat_v3(Input);
-
-			for (Iterator<Map<String, Object>> iter = ListOfCrew.iterator(); iter.hasNext();) {
-				Map<String, Object> map = iter.next();
-				Object c_id = map.get("trangthaiId").toString();
-				if (c_id.equals("-2"))
-					iter.remove();
-			}
-
-		} else if (tinhtrangdieudong == -1) {
-			// Applicant
-			Input.put("trangthaiId", 0);
-			ListOfCrew = appMapper.getListOfBoat_v3(Input);
-		} else if (tinhtrangdieudong == -3) {
-			// Resign
-			Input.put("trangthaiId", -2);
-			ListOfCrew = appMapper.getListOfBoat_v3(Input);
-		}
-
-		logger.info("ListOfCrew:" + ListOfCrew.size());
-
-		return ListOfCrew;
-
+		
+		return appMapper.SP_LOV_GET(code);
 	}
 	
-
 
 }

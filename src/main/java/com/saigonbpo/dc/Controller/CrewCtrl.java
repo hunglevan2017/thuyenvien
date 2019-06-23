@@ -17,20 +17,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.reflect.TypeToken;
 
 @Controller
-public class HomeCtrl {
+public class CrewCtrl {
 
-	Logger logger = LoggerFactory.getLogger(HomeCtrl.class);
-	
+	// Log
+	Logger logger = LoggerFactory.getLogger(CrewCtrl.class);
 	Type typeListMap = new TypeToken<List<Map<String, String>>>(){}.getType();
 	
-
-	@RequestMapping(value = { "/ListOfBoat/{tinhtrangdieudong}" }, method = RequestMethod.GET)
-	public ModelAndView ListOfBoat(@PathVariable("tinhtrangdieudong") int tinhtrangdieudong) {
-		ModelAndView mav = new ModelAndView("component/ListOfBoat");
-		mav.addObject("tinhtrangdieudong", tinhtrangdieudong);
+	@RequestMapping(value = { "/crew/{id}" }, method = RequestMethod.GET)
+	public ModelAndView crew(@PathVariable("id") int crewId) {
+		ModelAndView mav = new ModelAndView("component/crew");
 		return mav;
 	}
-
 	
 
 }

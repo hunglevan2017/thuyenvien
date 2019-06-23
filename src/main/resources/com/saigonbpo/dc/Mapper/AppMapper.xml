@@ -28,7 +28,7 @@
 	</select>
 	
 	
-	<select id="sp_sea_get_profile_user" resultType="map">
+	<select id="sp_sea_get_profile_user" parameterType="int" resultType="com.saigonbpo.dc.Model.ShortProfileCrew">
 		call ${jdbc.schema}.sp_sea_get_profile_user(413,#{thuyenvienid},null,null,null,null, null,null,null) 
 	</select>
 	
@@ -37,9 +37,12 @@
 		call ${jdbc.schema}.sp_get_info_crew(#{thuyenvienid}) 
 	</select>
 	
-	<select id="SP_LOV_GET" resultType="map">
-		call ${jdbc.schema_02}.SP_LOV_GET(413,25,#{code}) 
+	
+	
+	<select id="SP_LOV_GET" parameterType="string" resultType="com.saigonbpo.dc.Model.MasterData">
+		call sea_userdb.SP_LOV_GET(413,25,#{code}) 
 	</select>
+	
 	
 	<select id="sp_get_thongtingiadinh" resultType="map">
 		call ${jdbc.schema}.sp_get_thongtingiadinh(413,#{thuyenvien_id}) 
