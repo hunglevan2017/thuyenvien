@@ -18,37 +18,37 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li>
+          <li th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'active':''}" >
             <a th:href="@{/home}">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
+          <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/1' ? 'active':''}" >
             <a th:href="@{/ListOfBoat/1}">
               <i class="now-ui-icons education_atom"></i>
               <p>Crew On Board</p>
             </a>
           </li>
-          <li>
+          <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}" >
             <a th:href="@{/ListOfBoat/0}">
               <i class="now-ui-icons location_map-big"></i>
               <p>Crew On Leave</p>
             </a>
           </li>
-          <li>
+          <li th:classappend="${#httpServletRequest.getRequestURI() == '/assignment' ? 'active':''}" >
             <a th:href="@{/assignment}">
               <i class="now-ui-icons ui-1_bell-53"></i>
               <p>Crew Assignment</p>
             </a>
           </li>
-          <li>
-            <a href="./user.html">
+          <li th:classappend="${#httpServletRequest.getRequestURI() == '/crew/0' ? 'active':''}">
+            <a th:href="@{/crew/0}" >
               <i class="now-ui-icons users_single-02"></i>
               <p>Make A New Crew</p>
             </a>
           </li>
-          <li class="active ">
+          <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/-3' ? 'active':''}" >
             <a th:href="@{/ListOfBoat/-3}">
               <i class="now-ui-icons design_bullet-list-67"></i>
               <p>Re-Signed</p>

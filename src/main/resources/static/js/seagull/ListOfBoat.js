@@ -50,31 +50,11 @@ function getRowContractSelect(table)
 
 $(document).ready( function () {
 	
+	 $('#TitlePage').text( $("li.active a").text() );
 	
-
 	var nameShip="LAST VESSEL";
 	var dateOn="DATE OFF";
-	switch ( parseInt($('#tinhtrangdieudong').val()) ) {
-	    case 0:
-	      	$('#title').text('ON LEAVE');
-	   
-	        break;
-	    case 1:
-	        $('#title').text('ON BOARD');
-	       	nameShip = "VESSEL";
-	      	dateOn="DATE ON";
-	        break;
-	 
-	    case -1:
-	    	$('#title').text('APPLICANT');
-	        break;
-	    case -2:
-	    	$('#title').text('TOTAL');
-	        break;
-	    case -3:
-	    	$('#title').text('RE-SIGNED');
-	        break;
-	}
+	
 	
 	var page_context =  $('#PageContext').val() ;
     var url = $('#PageContext').val() + "ListOfBoatFollowState/" + $('#tinhtrangdieudong').val()   ;
@@ -119,6 +99,9 @@ $(document).ready( function () {
   
     var title = ["#","NAME","AGE","RANK",nameShip,dateOn,"MONTHS","NOTES","REPATRIATION","SS","ID",""];
     table = $('#tb_ListOfCrew').DataTable({
+				"language": {
+				    "search": "Filter:"
+				  },		
 				dom: "Blfrtip",
 				 buttons:report,
 				"sAjaxSource": url,
@@ -163,9 +146,11 @@ $(document).ready( function () {
                 {
                     "targets": 1,
                     "width": "20%",
+                    "className": "dt-left",
                     "render": function (data, type, row, meta) {
                         return '<a href="' + page_context + 'InfoCrew/' + row['id'] +  '"><span style="color:black;">' + data + '</span></a>';
                     }
+                	
                 
                    
                 } ,
@@ -196,16 +181,22 @@ $(document).ready( function () {
 	                	}
 	                	else
 	                	{
-	                		var date = new Date(data);
-	                		var month = date.getMonth() + 1;
+	                		return formatDate(data);
+	                		//var date = new Date(data);
+	                		//var month = date.getMonth() + 1;
 	             
-	                		return date.getDate() +  "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
+	                		//return date.getDate() +  "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
 	                	}
 	                }
                 }      ,
                 {
                     "targets": 7,
+                    "className": "dt-left",
                     "width": "25%"
+                } ,
+                {
+                    "targets": 8,
+                    "className": "dt-left"
                 } ,
                 {
                     "targets": 9,
@@ -233,7 +224,7 @@ $(document).ready( function () {
                     "render": function (data, type, row, meta) {
 			        	  
                     	
-                    		var   his = '<button type="button" class="btn btn-primary btn-xs btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
+                    		var   his = '<a style="color:#0c2646"  href="#" class="btnQuaTrinhCongTac" data-id=' + row['id'] + ' > <i class="fa fa-history"></i> </a>';
                     
                     
 			        	  
@@ -241,7 +232,8 @@ $(document).ready( function () {
 			        	              
 			           }
                 
-                }
+                },
+                {"className": "dt-center", "targets": "_all"}
 
                 
                 ],

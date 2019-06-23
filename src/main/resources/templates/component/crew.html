@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+   <head>
+      <title>Header</title>
+   </head>
+   <body>
+      <!--  table-responsive -->
+      <div class="content" layout:fragment="content">
+         <div class="row">
+            <div class="col-md-8">
+               <div class="card">
+                  <div class="card-header">
+                     <h5 class="title">Profile</h5>
+                  </div>
+              
+                  <div class="card-body">
+                
+                     <form>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Name</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Material Status</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>D.O.B</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Place of birth</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Height</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Weight</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Bank Account No</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Repatriation Destination</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Mobile</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Email</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                 <label>Permanent Address</label>
+                                 <input type="text" class="form-control"  value="">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                 <label>Temporary Address</label>
+                                 <input type="text" class="form-control"  value="">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                 <label>Gender</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-4 px-1">
+                              <div class="form-group">
+                                 <label>Nationality</label>
+                                 <input type="text" class="form-control" >
+                              </div>
+                           </div>
+                           <div class="col-md-4 pl-1">
+                              <div class="form-group">
+                                 <label>Blood Type</label>
+                                 <input  class="form-control" >
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-4 pr-1">
+                              <div class="form-group">
+                                 <label>ID Card</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-4 px-1">
+                              <div class="form-group">
+                                 <label>Issued Date</label>
+                                 <input type="text" class="form-control" >
+                              </div>
+                           </div>
+                           <div class="col-md-4 pl-1">
+                              <div class="form-group">
+                                 <label>Issued Place</label>
+                                 <input  class="form-control" >
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Size of clothes</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Size of shoes</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                 <label>Note</label>
+                                 <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" ></textarea>
+                              </div>
+                           </div>
+                        </div>
+                        
+                        <form id="upload-file-form">
+						  <label for="upload-file-input">Upload your file:</label>
+						  <input onclick="this.select();" id="upload-file-input" type="file" name="uploadfile" accept="*">
+						</form>
+                        
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div class="card card-user">
+                  <div class="image">
+                     <img th:src="@{/images/bg5.jpg}" alt="...">
+                  </div>
+                  <div class="card-body">
+                     <div class="author">
+                        <a href="#">
+                           <img class="avatar border-gray" th:src="@{/images/mike.jpg}" alt="..." style="margin-bottom: 0.5em;">
+                           <h5 class="title" style="margin-bottom: 0.5em;">Lê Văn Hùng</h5>
+                        </a>
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa fa-birthday-cake"></i> </span>
+                           </div>
+                           <input name="" class="form-control" placeholder="Full name" type="text" value="14/05/1989">
+                        </div>
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa  fa-exclamation-circle"></i> </span>
+                           </div>
+                           <input name="" class="form-control" placeholder="Full name" type="text" value="On board">
+                        </div>
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa  fa-ship"></i> </span>
+                           </div>
+                           <input name="" class="form-control" placeholder="Full name" type="text" value="GREAT WALRUS">
+                        </div>
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa fa-calendar-alt"></i> </span>
+                           </div>
+                           <input name="" class="form-control" placeholder="Full name" type="text" value="05/03/2019">
+                        </div>
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                           </div>
+                           <input name="" class="form-control" placeholder="Full name" type="text" value="0986967925 | 0989330484">
+                        </div>
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa  fa-exclamation-circle"></i> </span>
+                           </div>
+                           <input name="" class="form-control" placeholder="Full name" type="text" value="RANK ONBOARD : On board">
+                        </div>
+                        
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa  fa-exclamation-circle"></i> </span>
+                           </div>
+                           <input name="" class="form-control" placeholder="Full name" type="text" value="RANK AS COMP.CERT : On board">
+                        </div>
+                        
+                        
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                           </div>
+                           <input name="" class="form-control" placeholder="Email address" type="email" value="hung.levan@live.com">
+                        </div>
+                        
+                        <div class="form-group input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fas fa-store-alt"></i></span>
+                           </div>
+                           <textarea rows="20" cols="100" class="form-control" placeholder="Here can be your description" >11/1/8/36 Đường Đông Hưng Thuận 17, tổ 14, KP2, P.Đông Hưng Thuận, Quận 12, Tp.HCM</textarea>
+                        </div>
+                        <div class="form-group input-group">
+                        <a id="btnSave" class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Save Profile</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         
+         <div class="row">
+            <div class="col-md-8">
+               <div class="card">
+                  <div class="card-header">
+                     <h5 class="title">Working Status</h5>
+                  </div>
+                  <div class="card-body">
+                     <form>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Date With Operator</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Status</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Rank As Ccomp. Cert</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Condition</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Date of profile received</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Applicant - Checked by</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Resign - Reason</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Resign - Date applied</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 pr-1">
+                              <div class="form-group">
+                                 <label>Date Request Received</label>
+                                 <input type="text" class="form-control"  >
+                              </div>
+                           </div>
+                           <div class="col-md-6 pl-1">
+                              <div class="form-group">
+                                 <label>Date Agreement Completed</label>
+                                 <input type="text" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                       
+                     </form>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+         
+      </div>
+   </body>
+</html>

@@ -30,12 +30,16 @@ public class HomeCtrl {
 
 	@RequestMapping(value = { "/ListOfBoat/{tinhtrangdieudong}" }, method = RequestMethod.GET)
 	public ModelAndView ListOfBoat(@PathVariable("tinhtrangdieudong") int tinhtrangdieudong) {
-
 		ModelAndView mav = new ModelAndView("component/ListOfBoat");
 		mav.addObject("tinhtrangdieudong", tinhtrangdieudong);
-
 		return mav;
-
 	}
+	
+	@RequestMapping(value = { "/crew/{id}" }, method = RequestMethod.GET)
+	public ModelAndView crew(@PathVariable("id") int crewId) {
+		ModelAndView mav = new ModelAndView("component/crew");
+		return mav;
+	}
+	
 
 }
