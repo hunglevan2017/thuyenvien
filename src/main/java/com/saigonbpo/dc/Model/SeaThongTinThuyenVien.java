@@ -2,6 +2,8 @@ package com.saigonbpo.dc.Model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SeaThongTinThuyenVien {
     private Integer id;
 
@@ -11,6 +13,7 @@ public class SeaThongTinThuyenVien {
 
     private Boolean gioitinh;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date ngaysinh;
 
     private String noisinh;
@@ -25,6 +28,7 @@ public class SeaThongTinThuyenVien {
 
     private String cmnd;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String cmndngaycap;
 
     private String cmndnoicap;
@@ -35,6 +39,7 @@ public class SeaThongTinThuyenVien {
 
     private String solaodong;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date solaodongngaycap;
 
     private String masothuecanhan;
@@ -75,16 +80,19 @@ public class SeaThongTinThuyenVien {
 
     private String nguoilienhe;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date ngaybatdaulamviec;
 
     private String kynanglamviec;
 
     private String trangthaiid;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date ngaytao;
 
     private Integer nguoitaoid;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date ngaycapnhat;
 
     private Integer nguoicapnhatid;
@@ -97,34 +105,44 @@ public class SeaThongTinThuyenVien {
 
     private Integer isdelete;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date passportngaycap;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date passportngayhethan;
 
     private String reason;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date request;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date agreement;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date datereceived;
 
     private String checkedby;
 
     private String smp;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date smpngaycap;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date smpngayhethan;
 
     private String smb;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date smbngayhethan;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateapplied;
 
     private String checkby;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date datecheckby;
 
     private Integer ss;

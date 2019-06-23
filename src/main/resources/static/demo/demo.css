@@ -70,3 +70,8 @@
 .rightProfile {
 	text-transform: uppercase;
 }
+
+.requiredStar:after {
+    content: " *";
+    color: red;
+}

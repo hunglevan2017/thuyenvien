@@ -138,9 +138,9 @@
 		<appender-ref ref="ERROR-LOG-FILE" />
 	</root>
 	
-	<!-- -->
+
 	<root name="com.saigonbpo.dc" level="INFO">
-		<appender-ref ref="consoleAppender" />
+			<!--<appender-ref ref="consoleAppender" /> -->
 		<appender-ref ref="INFO-LOG-FILE" />
 	</root>
 	  

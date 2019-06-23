@@ -1,25 +1,37 @@
 package com.saigonbpo.dc.Controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.saigonbpo.dc.Mapper.AppMapper;
 import com.saigonbpo.dc.Mapper.SeaFileMapper;
 import com.saigonbpo.dc.Mapper.SeaThongTinThuyenVienMapper;
 import com.saigonbpo.dc.Model.FullProfileCrew;
+import com.saigonbpo.dc.Model.ResResult;
 import com.saigonbpo.dc.Model.SeaFile;
 import com.saigonbpo.dc.Model.SeaThongTinThuyenVien;
 import com.saigonbpo.dc.Model.ShortProfileCrew;
@@ -51,6 +63,9 @@ public class CrewRestCtrl {
 		fullProfileCrew.setSeaFile(new SeaFile());
 		fullProfileCrew.setShortProfileCrew(new ShortProfileCrew());
 		
+		
+		fullProfileCrew.getSeaThongTinThuyenVien().setTinhtrangdieudong(0);
+		fullProfileCrew.getSeaThongTinThuyenVien().setTrangthaiid("1");
 		if(crewId==0)
 			return fullProfileCrew;
 		
@@ -126,6 +141,89 @@ public class CrewRestCtrl {
 		logger.info("ListOfCrew:" + ListOfCrew.size());
 
 		return ListOfCrew;
+
+	}
+	
+	@Autowired
+	private Environment env;
+	
+	@RequestMapping(value = "/crew/upload", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
+	public SeaFile uploadFile(@RequestParam("file") MultipartFile uploadfile) {
+		SeaFile seaFile = new SeaFile();
+		try {
+
+			// Init Time
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			Date date = new Date();
+			System.out.println(formatter.format(date));
+			int year = Calendar.getInstance().get(Calendar.YEAR);
+
+			// Init Path Upload
+			String PATH = env.getProperty("FILE_PATH");
+			String directoryName = PATH + year;
+
+			// Init File Name
+			String originalFilename = uploadfile.getOriginalFilename();
+			String filename = FilenameUtils.getBaseName(originalFilename) + date.getTime() + "."
+					+ FilenameUtils.getExtension(originalFilename);
+			// String filename = uploadfile.getOriginalFilename() ;
+
+			File directory = new File(directoryName);
+			if (!directory.exists()) {
+				directory.mkdir();
+				// If you require it to make the entire directory path including parents,
+				// use directory.mkdirs(); here instead.
+			}
+
+			String filepath = Paths.get(directoryName, filename).toString();
+
+			// Save the file locally
+			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+			stream.write(uploadfile.getBytes());
+			stream.close();
+
+			// Insert To Tab File DB
+			seaFile.setName( year + "/" + filename);
+			seaFile.setFullPath(originalFilename);
+			seaFile.setSize( Float.parseFloat(uploadfile.getSize()+"") );
+			
+		
+
+			if (uploadfile.getContentType().length() > 40) {
+				int length = uploadfile.getContentType().length();
+				seaFile.setType( uploadfile.getContentType().substring(length - 8, length) );
+	
+			} else {
+				seaFile.setType( uploadfile.getContentType());
+			}
+			seaFileMapper.insertSelective(seaFile);
+	
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+
+		return seaFile;
+	}
+	
+	@RequestMapping(value = "/crew/save", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
+	public ResResult uploadFile(@RequestBody FullProfileCrew profile) {
+	
+		ResResult resResult = new ResResult();
+		try {
+			profile.getSeaThongTinThuyenVien().setHinh(profile.getSeaFile().getId());
+			
+			if( profile.getSeaThongTinThuyenVien().getId() == null )
+				seaThongTinThuyenVienMapper.insertSelective(profile.getSeaThongTinThuyenVien());
+			else
+				seaThongTinThuyenVienMapper.updateByPrimaryKeySelective( profile.getSeaThongTinThuyenVien() );
+		} catch (Exception e) {
+			e.printStackTrace();
+			resResult.setStatus(false);
+			resResult.setMessage(e.toString());
+
+		}
+		return resResult;
 
 	}
 	

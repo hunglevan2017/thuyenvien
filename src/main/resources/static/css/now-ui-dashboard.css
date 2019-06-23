@@ -825,7 +825,7 @@ fieldset[disabled]
   color: #2c2c2c;
   line-height: normal;
   height: auto;
-  font-size: 0.8571em;
+  font-size: 1.1em;
   transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
   box-shadow: none; }
   .form-control:focus {
@@ -3182,12 +3182,14 @@ Created using IcoMoon - icomoon.io
     width: 30px;
     height: 30px;
     overflow: hidden;
-    border-radius: 50%;
+    /*border-radius: 50%; */
     margin-bottom: 15px; }
   .card label {
-    font-size: 0.8571em;
+    font-size: 1em;
     margin-bottom: 5px;
-    color: #9A9A9A; }
+    color: #9A9A9A;
+    font-weight: 600;
+     }
   .card .card-footer {
     background-color: transparent;
     border: 0; }
@@ -3255,8 +3257,8 @@ Created using IcoMoon - icomoon.io
     margin-top: -7px; }
 
 .card-user .avatar {
-  width: 124px;
-  height: 124px;
+  width: 121px;
+  height: 151px;
   border: 1px solid #FFFFFF;
   position: relative; }
 
