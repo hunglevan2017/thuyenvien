@@ -19,7 +19,7 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'active':''}" >
-            <a th:href="@{/home}">
+            <a href="#">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
@@ -37,12 +37,12 @@
             </a>
           </li>
           <li th:classappend="${#httpServletRequest.getRequestURI() == '/assignment' ? 'active':''}" >
-            <a th:href="@{/assignment}">
+            <a href="#">
               <i class="now-ui-icons ui-1_bell-53"></i>
               <p>Crew Assignment</p>
             </a>
           </li>
-          <li th:classappend="${#httpServletRequest.getRequestURI() == '/crew/0' ? 'active':''}">
+          <li th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/crew') == true ? 'active':''}">
             <a th:href="@{/crew/0}" >
               <i class="now-ui-icons users_single-02"></i>
               <p>Make A New Crew</p>

@@ -16,6 +16,8 @@ public interface AppMapper {
 
 	List<MasterData> SP_LOV_GET(String code);
 
+	List<Map<String, Object>> sp_get_thongtingiadinh(int crewId);
+
 
 
 }

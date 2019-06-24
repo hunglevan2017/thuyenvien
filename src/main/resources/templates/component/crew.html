@@ -10,7 +10,12 @@
             <div class="col-md-8">
                <div class="card">
                   <div class="card-header">
-                     <h5 class="title">Profile</h5>
+                     <h5 class="title" style="color:#f96332">
+                     Profile  
+                     <a style="color:black" :href="'/crew/resume/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Resumes  </a>
+                     <a style="color:black" :href="'/crew/certificate/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Certificate  </a>
+                     <a style="color:black" :href="'/crew/rank/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Rank  </a>
+                     </h5>
                   </div>
                   <div v-show="debug">
                      <p>{{profile.seaThongTinThuyenVien}}</p>
@@ -500,8 +505,8 @@
                       // Call Insert
                       axios.post( $('#PageContext').val() + "crew/save", this.profile)
                         .then(response => {
-                        	alert("Success");
-                        	this.LoadData();
+                        	window.location.replace( $('#PageContext').val() + "crew/" + response.data.seaThongTinThuyenVien.id  );
+                   
                         })
                         .catch(e => {
                           this.errors.push(e)

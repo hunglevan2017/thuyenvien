@@ -26,6 +26,14 @@ public class CrewCtrl {
 	@RequestMapping(value = { "/crew/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crew(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/crew");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = { "/crew/resume/{id}" }, method = RequestMethod.GET)
+	public ModelAndView crewResume(@PathVariable("id") int crewId) {
+		ModelAndView mav = new ModelAndView("component/CrewResume");
+		
 		return mav;
 	}
 	

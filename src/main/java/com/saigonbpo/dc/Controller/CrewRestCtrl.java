@@ -94,6 +94,8 @@ public class CrewRestCtrl {
 	}
 	
 	
+	
+	
 
 	// Log
 	Logger logger = LoggerFactory.getLogger(CrewRestCtrl.class);
@@ -207,11 +209,12 @@ public class CrewRestCtrl {
 	}
 	
 	@RequestMapping(value = "/crew/save", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
-	public ResResult uploadFile(@RequestBody FullProfileCrew profile) {
+	public FullProfileCrew uploadFile(@RequestBody FullProfileCrew profile) {
 	
-		ResResult resResult = new ResResult();
+
 		try {
-			profile.getSeaThongTinThuyenVien().setHinh(profile.getSeaFile().getId());
+			if(profile.getSeaFile()!= null && profile.getSeaFile().getId()!=null)
+				profile.getSeaThongTinThuyenVien().setHinh(profile.getSeaFile().getId());
 			
 			if( profile.getSeaThongTinThuyenVien().getId() == null )
 				seaThongTinThuyenVienMapper.insertSelective(profile.getSeaThongTinThuyenVien());
@@ -219,11 +222,9 @@ public class CrewRestCtrl {
 				seaThongTinThuyenVienMapper.updateByPrimaryKeySelective( profile.getSeaThongTinThuyenVien() );
 		} catch (Exception e) {
 			e.printStackTrace();
-			resResult.setStatus(false);
-			resResult.setMessage(e.toString());
 
 		}
-		return resResult;
+		return profile;
 
 	}
 	

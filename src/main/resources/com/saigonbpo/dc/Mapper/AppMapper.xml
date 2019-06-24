@@ -44,7 +44,7 @@
 	</select>
 	
 	
-	<select id="sp_get_thongtingiadinh" resultType="map">
+	<select id="sp_get_thongtingiadinh" resultType="map" parameterType="int">
 		call ${jdbc.schema}.sp_get_thongtingiadinh(413,#{thuyenvien_id}) 
 	</select>
 	
