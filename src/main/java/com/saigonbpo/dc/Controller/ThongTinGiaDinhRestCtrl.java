@@ -36,6 +36,8 @@ import com.saigonbpo.dc.Model.SeaFile;
 import com.saigonbpo.dc.Model.SeaThongTinThuyenVien;
 import com.saigonbpo.dc.Model.ShortProfileCrew;
 
+import javafx.scene.media.Media;
+
 @RestController
 public class ThongTinGiaDinhRestCtrl {
 	
@@ -48,7 +50,7 @@ public class ThongTinGiaDinhRestCtrl {
 	@Autowired
 	SeaFileMapper seaFileMapper;
 
-	@RequestMapping(value = { "/crew/thongtingiadinh/{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/crew/thongtingiadinh/{id}" }, method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Map<String,Object>> thongtingiadinh(@PathVariable("id") int crewId) {
 		
 		return appMapper.sp_get_thongtingiadinh(crewId);
