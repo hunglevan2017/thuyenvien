@@ -19,9 +19,11 @@ import com.saigonbpo.dc.Mapper.SeaThongTinGiaDinhMapper;
 import com.saigonbpo.dc.Mapper.SeaThongTinThuyenVienMapper;
 import com.saigonbpo.dc.Mapper.SeaTrinhDoChuyenMonMapper;
 import com.saigonbpo.dc.Mapper.SeaTrinhDoNgoaiNguMapper;
+import com.saigonbpo.dc.Mapper.SeaTrinhDoViTinhMapper;
 import com.saigonbpo.dc.Model.SeaThongTinGiaDinh;
 import com.saigonbpo.dc.Model.SeaTrinhDoChuyenMon;
 import com.saigonbpo.dc.Model.SeaTrinhDoNgoaiNgu;
+import com.saigonbpo.dc.Model.SeaTrinhDoViTinh;
 
 
 @RestController
@@ -41,6 +43,9 @@ public class ResumeRestCtrl {
 	
 	@Autowired
 	SeaTrinhDoNgoaiNguMapper seaTrinhDoNgoaiNguMapper;
+	
+	@Autowired
+	SeaTrinhDoViTinhMapper seaTrinhDoViTinhMapper;
 	
 	@Autowired
 	SeaFileMapper seaFileMapper;
@@ -226,6 +231,71 @@ public class ResumeRestCtrl {
 		try
 		{
 				seaTrinhDoNgoaiNguMapper.deleteByPrimaryKey(SeaTrinhDoNgoaiNguID);
+				return true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
+	
+	}
+	
+	/**
+	 * Vi Tinh
+	 * @param crewId
+	 * @return
+	 */
+	@RequestMapping(value = { "/crew/vitinh/{id}" }, method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Map<String,Object>> vitinh(@PathVariable("id") int crewId) {
+		
+		return appMapper.sp_get_trinhdovitinh(crewId);
+		
+	}
+	
+
+	
+	@RequestMapping(value = { "/getViTinh/{id}" }, method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public SeaTrinhDoViTinh getViTinh(@PathVariable("id") int SeaTrinhDoViTinhID) {
+		
+
+		SeaTrinhDoViTinh seaTrinhDoViTinh = new SeaTrinhDoViTinh();
+		try
+		{
+			if( SeaTrinhDoViTinhID == 0 )
+				return seaTrinhDoViTinh;
+			return seaTrinhDoViTinhMapper.selectByPrimaryKey(SeaTrinhDoViTinhID);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	@RequestMapping(value = { "/saveViTinh" }, method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public SeaTrinhDoViTinh saveNgoaiNgu(@RequestBody SeaTrinhDoViTinh record) {
+		
+		try
+		{
+			if(record.getId() == null )
+				seaTrinhDoViTinhMapper.insertSelective(record);
+			else
+				seaTrinhDoViTinhMapper.updateByPrimaryKeySelective(record);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return null;
+		}
+		return record;
+	}
+	
+	@RequestMapping(value = { "/removeViTinh/{id}" }, method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean removeViTinh(@PathVariable("id") int SeaTrinhDoViTinhID) {
+		try
+		{
+				seaTrinhDoViTinhMapper.deleteByPrimaryKey(SeaTrinhDoViTinhID);
 				return true;
 		}
 		catch(Exception ex)

@@ -1,0 +1,130 @@
+<div class="modal-dialog" id="root" >
+    <form  method="POST" class="form-horizontal" id="form">
+        <div class="modal-content">
+        	<input id="SeaTrinhDoViTinhID" type="hidden" th:value="${SeaTrinhDoViTinhID}"></input>
+            <div class="modal-header" style="display: table;" >
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="margin-top:0px" >Language</h4>
+            
+            </div>
+            
+            <div class="modal-body">
+            
+                <div class="form-group form-inline">
+                    <label class="col-sm-4 control-label  left-title"  >Software Name </label>
+                    <div class="col-sm-8">
+                       <input type="text" class="form-control"  v-model="record.tenphanmem" >
+                    </div>
+                </div>
+                
+            
+             <div class="form-group form-inline">
+                    <label class="col-sm-4 control-label left-title requiredStar" >Rank </label>
+                    <div class="col-sm-8">
+                     		<select class="form-control" v-model="record.xeploai" >
+                                 <option v-for="option in ranks" v-bind:value="option.lov.id" >{{ option.text }}</option>
+                            </select>
+                    </div>
+                </div>
+                
+
+           
+
+                 <div class="form-group">
+                    <label class="col-sm-4 control-label" >Ghi chú </label>
+                    <div class="col-sm-12">
+                        <textarea  class="form-control "  cols="20" style="min-height:50px"  v-model="record.ghichu" ></textarea>                  
+                    </div>
+                </div>
+
+            <div class="modal-footer">
+                <button id="save" type="button" class="btn btn-success" v-on:click="Save" data-dismiss="modal"><i
+                        class="mdi mdi-check mdi-17px"></i> Save
+                </button>
+                
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <i class="mdi mdi-close mdi-17px"></i> Cancel
+                </button>
+            </div>
+
+        </div>
+        </div>
+       </form>
+</div>
+
+<script >
+
+new Vue({
+    el: '#root',
+    data: {
+        record: {},
+        ranks: [],
+        debug: false,
+        errors: []
+    },
+    mounted() {
+        this.LoadData();
+    },
+    computed: {},
+    methods: {
+        LoadData() {
+        	var pageURL = window.location.href;
+            axios.get( _ctx + "getViTinh/" + $('#SeaTrinhDoViTinhID').val() )
+                .then(response => {
+                    this.record = response.data;
+                })
+                .catch(e => {
+                    this.errors.push(e)
+            });
+
+            axios.get(_ctx + "masterdata/S009")
+                .then(response => {
+                    this.ranks = response.data;
+                })
+                .catch(e => {
+                    this.errors.push(e)
+                });
+
+            //Load Family Information
+
+
+           
+        },
+
+        Save: function(event) {
+
+            //Validate Form
+            this.errors = [];
+            console.log(this.record.tenphanmem);
+            if (this.record.tenphanmem == null) {
+                this.errors.push({
+                    message: "Software name required."
+                });
+            }
+
+      
+            if (!this.errors.length) {
+                // Call Insert
+
+                this.record.thuyenvienid = getLastParameterOnURL();
+                axios.post(_ctx + "saveViTinh", this.record)
+                    .then(response => {
+                    		location.reload();
+                    	
+                    })
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
+            }
+            
+        }
+        
+
+    }
+
+});
+	
+</script>
+
+

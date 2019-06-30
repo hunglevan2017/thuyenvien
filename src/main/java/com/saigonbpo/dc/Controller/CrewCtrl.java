@@ -21,70 +21,76 @@ public class CrewCtrl {
 
 	// Log
 	Logger logger = LoggerFactory.getLogger(CrewCtrl.class);
-	Type typeListMap = new TypeToken<List<Map<String, String>>>(){}.getType();
-	
+	Type typeListMap = new TypeToken<List<Map<String, String>>>() {
+	}.getType();
+
 	@RequestMapping(value = { "/crew/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crew(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/crew");
-		
+
 		return mav;
 	}
-	
+
 	@RequestMapping(value = { "/crew/resume/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crewResume(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/CrewResume");
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = { "/editInformationFamily/{id}" }, method = RequestMethod.GET)
-	public ModelAndView editInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID ) {
+	public ModelAndView editInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID) {
 		ModelAndView mav = new ModelAndView("component/resume/information_edit");
-		mav.addObject("SeaThongTinGiaDinhID",SeaThongTinGiaDinhID);
+		mav.addObject("SeaThongTinGiaDinhID", SeaThongTinGiaDinhID);
 		return mav;
 	}
-	
 
 	@RequestMapping(value = { "/deleteInformationFamily/{id}" }, method = RequestMethod.GET)
-	public ModelAndView deleteInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID ) {
+	public ModelAndView deleteInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID) {
 		ModelAndView mav = new ModelAndView("component/resume/information_delete");
-		mav.addObject("SeaThongTinGiaDinhID",SeaThongTinGiaDinhID);
+		mav.addObject("SeaThongTinGiaDinhID", SeaThongTinGiaDinhID);
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = { "/editChuyenMon/{id}" }, method = RequestMethod.GET)
-	public ModelAndView editChuyenMon(@PathVariable("id") int SeaTrinhDoChuyenMonID ) {
+	public ModelAndView editChuyenMon(@PathVariable("id") int SeaTrinhDoChuyenMonID) {
 		ModelAndView mav = new ModelAndView("component/resume/chuyenmon_edit");
-		mav.addObject("SeaTrinhDoChuyenMonID",SeaTrinhDoChuyenMonID);
+		mav.addObject("SeaTrinhDoChuyenMonID", SeaTrinhDoChuyenMonID);
 		return mav;
 	}
-	
 
 	@RequestMapping(value = { "/deleteChuyenMon/{id}" }, method = RequestMethod.GET)
-	public ModelAndView deleteChuyenMon(@PathVariable("id") int SeaTrinhDoChuyenMonID ) {
+	public ModelAndView deleteChuyenMon(@PathVariable("id") int SeaTrinhDoChuyenMonID) {
 		ModelAndView mav = new ModelAndView("component/resume/chuyenmon_delete");
-		mav.addObject("SeaTrinhDoChuyenMonID",SeaTrinhDoChuyenMonID);
+		mav.addObject("SeaTrinhDoChuyenMonID", SeaTrinhDoChuyenMonID);
 		return mav;
 	}
-	
-	
-	
-	
+
 	@RequestMapping(value = { "/editNgoaiNgu/{id}" }, method = RequestMethod.GET)
-	public ModelAndView editNgoaiNgu(@PathVariable("id") int SeaTrinhDoNgoaiNguID ) {
+	public ModelAndView editNgoaiNgu(@PathVariable("id") int SeaTrinhDoNgoaiNguID) {
 		ModelAndView mav = new ModelAndView("component/resume/ngoaingu_edit");
-		mav.addObject("SeaTrinhDoNgoaiNguID",SeaTrinhDoNgoaiNguID);
+		mav.addObject("SeaTrinhDoNgoaiNguID", SeaTrinhDoNgoaiNguID);
 		return mav;
 	}
-	
 
 	@RequestMapping(value = { "/deleteNgoaiNgu/{id}" }, method = RequestMethod.GET)
-	public ModelAndView deleteNgoaiNgu(@PathVariable("id") int SeaTrinhDoNgoaiNguID ) {
+	public ModelAndView deleteNgoaiNgu(@PathVariable("id") int SeaTrinhDoNgoaiNguID) {
 		ModelAndView mav = new ModelAndView("component/resume/ngoaingu_delete");
-		mav.addObject("SeaTrinhDoNgoaiNguID",SeaTrinhDoNgoaiNguID);
+		mav.addObject("SeaTrinhDoNgoaiNguID", SeaTrinhDoNgoaiNguID);
 		return mav;
 	}
-	
+
+	@RequestMapping(value = { "/editViTinh/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editViTinh(@PathVariable("id") int SeaTrinhDoViTinhID) {
+		ModelAndView mav = new ModelAndView("component/resume/vitinh_edit");
+		mav.addObject("SeaTrinhDoViTinhID", SeaTrinhDoViTinhID);
+		return mav;
+	}
+
+	@RequestMapping(value = { "/deleteViTinh/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteViTinh(@PathVariable("id") int SeaTrinhDoViTinhID) {
+		ModelAndView mav = new ModelAndView("component/resume/vitinh_delete");
+		mav.addObject("SeaTrinhDoViTinhID", SeaTrinhDoViTinhID);
+		return mav;
+	}
 
 }

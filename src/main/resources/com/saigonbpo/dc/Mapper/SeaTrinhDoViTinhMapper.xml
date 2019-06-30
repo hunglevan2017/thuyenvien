@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saigonbpo.dc.Mapper.SeaTrinhDoViTinhMapper">
+  <resultMap id="BaseResultMap" type="com.saigonbpo.dc.Model.SeaTrinhDoViTinh">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenphanmem" jdbcType="VARCHAR" property="tenphanmem" />
+    <result column="xeploai" jdbcType="VARCHAR" property="xeploai" />
+    <result column="thuyenvienId" jdbcType="INTEGER" property="thuyenvienid" />
+    <result column="ghichu" jdbcType="VARCHAR" property="ghichu" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tenphanmem, xeploai, thuyenvienId, ghichu
+  </sql>
+  <select id="selectByExample" parameterType="com.saigonbpo.dc.Model.SeaTrinhDoViTinhExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ${jdbc.schema}.sea_trinhdovitinh
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ${jdbc.schema}.sea_trinhdovitinh
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ${jdbc.schema}.sea_trinhdovitinh
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.saigonbpo.dc.Model.SeaTrinhDoViTinhExample">
+    delete from ${jdbc.schema}.sea_trinhdovitinh
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.saigonbpo.dc.Model.SeaTrinhDoViTinh" useGeneratedKeys="true">
+    insert into ${jdbc.schema}.sea_trinhdovitinh (tenphanmem, xeploai, thuyenvienId, 
+      ghichu)
+    values (#{tenphanmem,jdbcType=VARCHAR}, #{xeploai,jdbcType=VARCHAR}, #{thuyenvienid,jdbcType=INTEGER}, 
+      #{ghichu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.saigonbpo.dc.Model.SeaTrinhDoViTinh" useGeneratedKeys="true">
+    insert into ${jdbc.schema}.sea_trinhdovitinh
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenphanmem != null">
+        tenphanmem,
+      </if>
+      <if test="xeploai != null">
+        xeploai,
+      </if>
+      <if test="thuyenvienid != null">
+        thuyenvienId,
+      </if>
+      <if test="ghichu != null">
+        ghichu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenphanmem != null">
+        #{tenphanmem,jdbcType=VARCHAR},
+      </if>
+      <if test="xeploai != null">
+        #{xeploai,jdbcType=VARCHAR},
+      </if>
+      <if test="thuyenvienid != null">
+        #{thuyenvienid,jdbcType=INTEGER},
+      </if>
+      <if test="ghichu != null">
+        #{ghichu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.saigonbpo.dc.Model.SeaTrinhDoViTinhExample" resultType="java.lang.Long">
+    select count(*) from ${jdbc.schema}.sea_trinhdovitinh
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ${jdbc.schema}.sea_trinhdovitinh
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenphanmem != null">
+        tenphanmem = #{record.tenphanmem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xeploai != null">
+        xeploai = #{record.xeploai,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thuyenvienid != null">
+        thuyenvienId = #{record.thuyenvienid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ghichu != null">
+        ghichu = #{record.ghichu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ${jdbc.schema}.sea_trinhdovitinh
+    set id = #{record.id,jdbcType=INTEGER},
+      tenphanmem = #{record.tenphanmem,jdbcType=VARCHAR},
+      xeploai = #{record.xeploai,jdbcType=VARCHAR},
+      thuyenvienId = #{record.thuyenvienid,jdbcType=INTEGER},
+      ghichu = #{record.ghichu,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.saigonbpo.dc.Model.SeaTrinhDoViTinh">
+    update ${jdbc.schema}.sea_trinhdovitinh
+    <set>
+      <if test="tenphanmem != null">
+        tenphanmem = #{tenphanmem,jdbcType=VARCHAR},
+      </if>
+      <if test="xeploai != null">
+        xeploai = #{xeploai,jdbcType=VARCHAR},
+      </if>
+      <if test="thuyenvienid != null">
+        thuyenvienId = #{thuyenvienid,jdbcType=INTEGER},
+      </if>
+      <if test="ghichu != null">
+        ghichu = #{ghichu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.saigonbpo.dc.Model.SeaTrinhDoViTinh">
+    update ${jdbc.schema}.sea_trinhdovitinh
+    set tenphanmem = #{tenphanmem,jdbcType=VARCHAR},
+      xeploai = #{xeploai,jdbcType=VARCHAR},
+      thuyenvienId = #{thuyenvienid,jdbcType=INTEGER},
+      ghichu = #{ghichu,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
