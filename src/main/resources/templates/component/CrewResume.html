@@ -62,10 +62,10 @@
                   <div class="card-body">
                      <h6>Language Skills</h6>
                      <div class="nav navbar-right panel_toolbox">
-                        <button type="button" class="btn btn-primary btn-xs"id="btnAddTrinhDoChuyenMon"> <i class="fa fa-plus"> </i>  Add</button>
+                        <button data-id="0" type="button" class="btn btn-primary btn-xs trinhdongoaingu-add" > <i class="fa fa-plus"> </i>  Add</button>
                      </div>
-                     <div id="div_family">
-                        <table id="family"
+                     <div id="div_ngoaingu">
+                        <table id="ngoaingu"
                            class="table table-striped table-bordered dataTable no-footer jambo_table bulk_action"
                            style="width: 100%">
                            <thead>
@@ -181,6 +181,7 @@
          <script>
          var tableInformation;
          var tableChuyenMon;
+         var tableNgoaiNgu;
          new Vue({
         	    el: '#root',
         	    data: {
@@ -193,6 +194,7 @@
         	    mounted() {
         	        this.LoadDataThongTinGiaDinh();
         	        this.LoadDataTrinhDoChuyenMon();
+        	        this.LoadDataTrinhDoNgoaiNgu();
         	    },
         	    computed: {},
         	    methods: {
@@ -289,7 +291,6 @@
 
         	            axios.get(_ctx + "crew/chuyenmon/" + getLastParameterOnURL () )
     	                .then(response => {
-    	                    this.family = response.data;
     	                    var columnDefs = [{"title": "STT","targets": 0},
     	      				  { 
     	      					"targets": 1,
@@ -361,31 +362,84 @@
     	            			popupModalAdd( _ctx + 'editChuyenMon/0' );
     	            		});
     	                });
-        	            
-        	            
-        	            axios.get(_ctx + "crew/profile/" + getLastParameterOnURL() )
-        	                .then(response => {
-        	                    this.profile = response.data;
-        	                    if (this.profile.seaFile && this.profile.seaFile.name) {
-        	                        this.profile.seaFile.name = _ctx + 'disk/' + this.profile.seaFile.name;
-        	                    }
-        	                })
-        	                .catch(e => {
-        	                    this.errors.push(e)
-        	                });
-
-        	            axios.get(_ctx + "masterdata/S001")
-        	                .then(response => {
-        	                    this.nations = response.data;
-        	                })
-        	                .catch(e => {
-        	                    this.errors.push(e)
-        	                });
-
-        	            //Load Family Information
-
-
-        	           
+        	        },
+        	        LoadDataTrinhDoNgoaiNgu() {
+        	            axios.get(_ctx + "crew/ngoaingu/" + getLastParameterOnURL () )
+    	                .then(response => {
+    	             
+    	                    var columnDefs = [{"title": "STT","targets": 0},
+    	      				  { 
+    	    					"targets": 1,
+    	    					"visible": false,
+    	    	                "searchable": false
+    	    				  },
+    	    				  {"title": "Ngoại ngữ","targets": 2,"width":"15%"},
+    	    				  {"title": "Nghe","targets": 3},
+    	    				  {"title": "Nói","targets": 4},
+    	    				  {"title": "Đọc","targets": 5},
+    	    				  {"title": "Viết","targets": 6},
+    	    				  {"title": "Ghi Chú","targets": 7},
+    	    				  {
+    	    					  "title": "",
+    	    					  "targets": 8,
+    	    	                  
+    	    	                  "render": function (data, type, row, meta) {
+    	    	                	   return '<button type="button" class="btn btn-primary btn-xs trinhdongoaingu-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';           
+    	    	                   }
+    	    	         
+    	    				  },
+    	    				  {
+    	    					  "title": "",
+    	    					  "targets": 9,
+    	    					  "render": function (data, type, row, meta) {
+    	    	                	   return '<button type="button" class="btn btn-primary btn-xs trinhdongoaingu-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';           
+    	    	                   }
+    	    				  }
+    	    				  ];
+			
+			    	      var aoData = [{ "mData": "stt","defaultContent":""},
+			 				 { "mData": "id", "defaultContent":"" },
+						     { "mData": "text", "defaultContent":"" },
+						  	 { "mData": "nghe", "defaultContent":"" },
+							 { "mData": "noi", "defaultContent":"" },
+							 { "mData": "doc", "defaultContent":"" },
+							 { "mData": "viet", "defaultContent":"" },
+							 { "mData": "ghichu", "defaultContent":"" },
+							 { "mData": null},
+							 { "mData": null}
+							 ];
+			    	      
+			    	      
+    	                    
+    	                    
+			    	      tableNgoaiNgu = $('#ngoaingu').DataTable({
+    	                        data: response.data,
+    	                        "columnDefs": columnDefs,
+    	                        "aoColumns": aoData,
+    	                        "bInfo": false,
+    	                        "bPaginate": false,
+    	                        "searching": false,
+    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+    	                            var index = iDisplayIndex + 1;
+    	                            $('td:eq(0)', nRow).html(index);
+    	                            return nRow;
+    	                        },
+    	                        "createdRow": function(row, data, dataIndex, full) {
+    	                            $(row).attr('data-id', data.id);
+    	                        }
+    	                        
+    	                    });
+    	                    
+    	                    var url = _ctx + 'editNgoaiNgu/';
+    	            		initEventClickForEditOrDelete("ngoaingu",".trinhdongoaingu-edit",url);
+    	            		
+    	            		url = _ctx + 'deleteNgoaiNgu/';
+    	            		initEventClickForEditOrDelete("ngoaingu",".trinhdongoaingu-delete",url);
+    	            		
+    	            		$( ".trinhdongoaingu-add" ).bind( "click", function() {
+    	            			popupModalAdd( _ctx + 'editNgoaiNgu/0' );
+    	            		});
+    	                });
         	        },
 
         	        Save: function(event) {

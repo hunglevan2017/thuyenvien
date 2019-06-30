@@ -317,7 +317,7 @@
 	 </delete>
 	 
 	 
-	 <select id="sp_get_trinhdongoaingu" resultType="map">
+	 <select id="sp_get_trinhdongoaingu" resultType="map" parameterType="int">
 		call ${jdbc.schema}.sp_get_trinhdongoaingu(413,#{thuyenvien_id}) 
 	</select>
 	

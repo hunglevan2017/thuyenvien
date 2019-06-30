@@ -20,6 +20,8 @@ public interface AppMapper {
 
 	List<Map<String, Object>> sp_get_trinhdochuyenmon(int crewId);
 
+	List<Map<String, Object>> sp_get_trinhdongoaingu(int crewId);
+
 
 
 }

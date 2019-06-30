@@ -1,63 +1,56 @@
 <div class="modal-dialog" id="root" >
     <form  method="POST" class="form-horizontal" id="form">
         <div class="modal-content">
-        	<input id="SeaTrinhDoChuyenMonID" type="hidden" th:value="${SeaTrinhDoChuyenMonID}"></input>
+        	<input id="SeaTrinhDoNgoaiNguID" type="hidden" th:value="${SeaTrinhDoNgoaiNguID}"></input>
             <div class="modal-header" style="display: table;" >
 
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" style="margin-top:0px" >Qualification</h4>
+                <h4 class="modal-title" style="margin-top:0px" >Language</h4>
             
             </div>
             
             <div class="modal-body">
+            
+             <div class="form-group form-inline">
+                    <label class="col-sm-4 control-label left-title requiredStar" >Type Language </label>
+                    <div class="col-sm-8">
+                     		<select class="form-control" v-model="record.loaingoaingu" >
+                                 <option v-for="option in languages" v-bind:value="option.lov.id" >{{ option.text }}</option>
+                            </select>
+                    </div>
+                </div>
+                
 
                 <div class="form-group form-inline">
-                    <label class="col-sm-4 control-label requiredStar left-title"  >Bằng cấp</label>
+                    <label class="col-sm-4 control-label  left-title"  >Listening </label>
                     <div class="col-sm-8">
-                       <input type="text" class="form-control"  v-model="record.bangcap" >
+                       <input type="text" class="form-control"  v-model="record.nghe" >
                     </div>
                 </div>
                 
-                <div class="form-group form-inline">
-                    <label class="col-sm-4 control-label left-title" >Chuyên ngành </label>
-                     <div class="col-sm-8">
-                       <input type="text" class="form-control"  v-model="record.chuyennganh" >
-                    </div>
-                </div>
-                
-                  <div class="form-group form-inline">
-                    <label class="col-sm-4 control-label left-title" >Trường đào tạo </label>
-                      <div class="col-sm-8">
-                       <input type="text" class="form-control"  v-model="record.truong" >
-                    </div>
-                </div>
-                
-                <div class="form-group form-inline">
-                    <label class="col-sm-4 control-label left-title" >Xếp loại/Hạng </label>
-                    <div class="col-sm-8">
-						<input type="text" class="form-control"  v-model="record.xeploai"  >
-                    </div>
-                </div>
-                
-               
-                
-                  <div class="form-group form-inline">
-                    <label class="col-sm-4 control-label left-title" >Năm bắt đầu </label>
-                   <div class="col-sm-8">
-                       <input type="text" class="form-control"  v-model="record.tungay" >
-                    </div>
-                </div>
-                
-               
                  <div class="form-group form-inline">
-                    <label class="col-sm-4 control-label" >Năm tốt nghiệp </label>
-                     <div class="col-sm-8">
-                       <input type="text" class="form-control"  v-model="record.denngay" >
+                    <label class="col-sm-4 control-label  left-title"  >Speaking </label>
+                    <div class="col-sm-8">
+                       <input type="text" class="form-control"  v-model="record.noi" >
                     </div>
                 </div>
                 
+                 <div class="form-group form-inline">
+                    <label class="col-sm-4 control-label  left-title"  >Reading </label>
+                    <div class="col-sm-8">
+                       <input type="text" class="form-control"  v-model="record.doc" >
+                    </div>
+                </div>
                 
-                  <div class="form-group">
+                 <div class="form-group form-inline">
+                    <label class="col-sm-4 control-label  left-title"  >Write </label>
+                    <div class="col-sm-8">
+                       <input type="text" class="form-control"  v-model="record.viet" >
+                    </div>
+                </div>
+                
+
+                 <div class="form-group">
                     <label class="col-sm-4 control-label" >Ghi chú </label>
                     <div class="col-sm-12">
                         <textarea  class="form-control "  cols="20" style="min-height:50px"  v-model="record.ghichu" ></textarea>                  
@@ -85,7 +78,7 @@ new Vue({
     el: '#root',
     data: {
         record: {},
-        relations: [],
+        languages: [],
         debug: false,
         errors: []
     },
@@ -96,7 +89,7 @@ new Vue({
     methods: {
         LoadData() {
         	var pageURL = window.location.href;
-            axios.get( _ctx + "getChuyenMon/" + $('#SeaTrinhDoChuyenMonID').val() )
+            axios.get( _ctx + "getNgoaiNgu/" + $('#SeaTrinhDoNgoaiNguID').val() )
                 .then(response => {
                     this.record = response.data;
                 })
@@ -104,31 +97,39 @@ new Vue({
                     this.errors.push(e)
             });
 
- 
+            axios.get(_ctx + "masterdata/S008")
+                .then(response => {
+                    this.languages = response.data;
+                })
+                .catch(e => {
+                    this.errors.push(e)
+                });
+
+            //Load Family Information
+
+
+           
         },
 
         Save: function(event) {
 
             //Validate Form
             this.errors = [];
-
-            if (this.record.bangcap == null) {
+            console.log(this.record.loaingoaingu);
+            if (this.record.loaingoaingu == null) {
                 this.errors.push({
-                    message: "Bằng cấp required."
+                    message: "Type language required."
                 });
             }
 
       
             if (!this.errors.length) {
                 // Call Insert
-  
-                this.record.thuyenvienid =getLastParameterOnURL();
-                axios.post(_ctx + "saveChuyenMon", this.record)
+
+                this.record.thuyenvienid = getLastParameterOnURL();
+                axios.post(_ctx + "saveNgoaiNgu", this.record)
                     .then(response => {
-                    	
                     		location.reload();
-                    	
-                    	
                     	
                     })
                     .catch(e => {

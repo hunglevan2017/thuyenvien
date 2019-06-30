@@ -98,7 +98,7 @@ new Vue({
     methods: {
         LoadData() {
         	var pageURL = window.location.href;
-            axios.get( $('#PageContext').val() + "getInformationFamily/" + $('#SeaThongTinGiaDinhID').val() )
+            axios.get( _ctx + "getInformationFamily/" + $('#SeaThongTinGiaDinhID').val() )
                 .then(response => {
                     this.record = response.data;
                 })
@@ -106,7 +106,7 @@ new Vue({
                     this.errors.push(e)
             });
 
-            axios.get($('#PageContext').val() + "masterdata/S007")
+            axios.get(_ctx + "masterdata/S007")
                 .then(response => {
                     this.relations = response.data;
                 })
@@ -115,13 +115,9 @@ new Vue({
                 });
 
             //Load Family Information
-
-
-           
         },
 
         Save: function(event) {
-
             //Validate Form
             this.errors = [];
             console.log(this.record.hoten);
@@ -131,18 +127,12 @@ new Vue({
                 });
             }
 
-      
             if (!this.errors.length) {
                 // Call Insert
-
                 this.record.thuyenvienid = getLastParameterOnURL();
-                axios.post($('#PageContext').val() + "saveInformationFamily", this.record)
+                axios.post(_ctx + "saveInformationFamily", this.record)
                     .then(response => {
-                    	
                     		location.reload();
-                    	
-                    	
-                    	
                     })
                     .catch(e => {
                         this.errors.push(e)
@@ -150,8 +140,6 @@ new Vue({
             }
             
         }
-        
-
     }
 
 });

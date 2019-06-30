@@ -18,8 +18,10 @@ import com.saigonbpo.dc.Mapper.SeaFileMapper;
 import com.saigonbpo.dc.Mapper.SeaThongTinGiaDinhMapper;
 import com.saigonbpo.dc.Mapper.SeaThongTinThuyenVienMapper;
 import com.saigonbpo.dc.Mapper.SeaTrinhDoChuyenMonMapper;
+import com.saigonbpo.dc.Mapper.SeaTrinhDoNgoaiNguMapper;
 import com.saigonbpo.dc.Model.SeaThongTinGiaDinh;
 import com.saigonbpo.dc.Model.SeaTrinhDoChuyenMon;
+import com.saigonbpo.dc.Model.SeaTrinhDoNgoaiNgu;
 
 
 @RestController
@@ -38,6 +40,9 @@ public class ResumeRestCtrl {
 	SeaTrinhDoChuyenMonMapper seaTrinhDoChuyenMonMapper;
 	
 	@Autowired
+	SeaTrinhDoNgoaiNguMapper seaTrinhDoNgoaiNguMapper;
+	
+	@Autowired
 	SeaFileMapper seaFileMapper;
 	
 	
@@ -53,9 +58,6 @@ public class ResumeRestCtrl {
 		
 		return appMapper.sp_get_thongtingiadinh(crewId);
 	}
-	
-
-	
 	
 	@RequestMapping(value = { "/getInformationFamily/{id}" }, method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public SeaThongTinGiaDinh getInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID) {
@@ -160,6 +162,70 @@ public class ResumeRestCtrl {
 		try
 		{
 				seaTrinhDoChuyenMonMapper.deleteByPrimaryKey(SeaTrinhDoChuyenMonID);
+				return true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
+	
+	}
+	
+	/**
+	 * Ngoai ngu
+	 * @param crewId
+	 * @return
+	 */
+	@RequestMapping(value = { "/crew/ngoaingu/{id}" }, method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Map<String,Object>> ngoaingu(@PathVariable("id") int crewId) {
+		
+		return appMapper.sp_get_trinhdongoaingu(crewId);
+	}
+	
+
+	
+	@RequestMapping(value = { "/getNgoaiNgu/{id}" }, method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public SeaTrinhDoNgoaiNgu getNgoaiNgu(@PathVariable("id") int SeaTrinhDoNgoaiNguID) {
+		
+
+		SeaTrinhDoNgoaiNgu seaTrinhDoNgoaiNgu = new SeaTrinhDoNgoaiNgu();
+		try
+		{
+			if( SeaTrinhDoNgoaiNguID == 0 )
+				return seaTrinhDoNgoaiNgu;
+			return seaTrinhDoNgoaiNguMapper.selectByPrimaryKey(SeaTrinhDoNgoaiNguID);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	@RequestMapping(value = { "/saveNgoaiNgu" }, method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public SeaTrinhDoNgoaiNgu saveNgoaiNgu(@RequestBody SeaTrinhDoNgoaiNgu record) {
+		
+		try
+		{
+			if(record.getId() == null )
+				seaTrinhDoNgoaiNguMapper.insertSelective(record);
+			else
+				seaTrinhDoNgoaiNguMapper.updateByPrimaryKeySelective(record);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return null;
+		}
+		return record;
+	}
+	
+	@RequestMapping(value = { "/removeNgoaiNgu/{id}" }, method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean removeNgoaiNgu(@PathVariable("id") int SeaTrinhDoNgoaiNguID) {
+		try
+		{
+				seaTrinhDoNgoaiNguMapper.deleteByPrimaryKey(SeaTrinhDoNgoaiNguID);
 				return true;
 		}
 		catch(Exception ex)

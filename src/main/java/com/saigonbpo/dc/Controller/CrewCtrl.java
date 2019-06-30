@@ -68,5 +68,23 @@ public class CrewCtrl {
 		return mav;
 	}
 	
+	
+	
+	
+	@RequestMapping(value = { "/editNgoaiNgu/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editNgoaiNgu(@PathVariable("id") int SeaTrinhDoNgoaiNguID ) {
+		ModelAndView mav = new ModelAndView("component/resume/ngoaingu_edit");
+		mav.addObject("SeaTrinhDoNgoaiNguID",SeaTrinhDoNgoaiNguID);
+		return mav;
+	}
+	
+
+	@RequestMapping(value = { "/deleteNgoaiNgu/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteNgoaiNgu(@PathVariable("id") int SeaTrinhDoNgoaiNguID ) {
+		ModelAndView mav = new ModelAndView("component/resume/ngoaingu_delete");
+		mav.addObject("SeaTrinhDoNgoaiNguID",SeaTrinhDoNgoaiNguID);
+		return mav;
+	}
+	
 
 }
