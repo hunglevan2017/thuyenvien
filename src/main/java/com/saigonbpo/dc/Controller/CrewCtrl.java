@@ -36,6 +36,12 @@ public class CrewCtrl {
 		ModelAndView mav = new ModelAndView("component/CrewResume");
 		return mav;
 	}
+	
+	@RequestMapping(value = { "/crew/certificate/{id}" }, method = RequestMethod.GET)
+	public ModelAndView crewCertificate(@PathVariable("id") int crewId) {
+		ModelAndView mav = new ModelAndView("component/CrewCertificate");
+		return mav;
+	}
 
 	@RequestMapping(value = { "/editInformationFamily/{id}" }, method = RequestMethod.GET)
 	public ModelAndView editInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID) {
@@ -90,6 +96,21 @@ public class CrewCtrl {
 	public ModelAndView deleteViTinh(@PathVariable("id") int SeaTrinhDoViTinhID) {
 		ModelAndView mav = new ModelAndView("component/resume/vitinh_delete");
 		mav.addObject("SeaTrinhDoViTinhID", SeaTrinhDoViTinhID);
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = { "/editCertificate/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editCertificate(@PathVariable("id") int SeaChungChiThuyenVienID) {
+		ModelAndView mav = new ModelAndView("component/certificate/certificate_edit");
+		mav.addObject("SeaChungChiThuyenVienID", SeaChungChiThuyenVienID);
+		return mav;
+	}
+
+	@RequestMapping(value = { "/deleteCertificate/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteCertificate(@PathVariable("id") int SeaChungChiThuyenVienID) {
+		ModelAndView mav = new ModelAndView("component/certificate/certificate_delete");
+		mav.addObject("SeaChungChiThuyenVienID", SeaChungChiThuyenVienID);
 		return mav;
 	}
 

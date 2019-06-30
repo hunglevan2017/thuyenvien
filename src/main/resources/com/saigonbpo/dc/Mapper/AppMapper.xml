@@ -510,7 +510,20 @@
 	 	update  ${jdbc.schema_02}.tab_lov set ISACTIVE=0 where ID = #{ID}
 	 </update>
 	
+	<select id="sp_get_certificate" resultType="map" parameterType="string">
+		call ${jdbc.schema}.SP_Boatman_Certificate_Search (413,#{thuyenvien_id},null,null,null,null,null,null,1,100000);
+	</select>
 	
+	 <select id="getCertificatesNotExist" parameterType="int" resultType="com.saigonbpo.dc.Model.Lov">
+		    select x.VALUE  as ID ,x.text as TEXT
+		    from sea_userdb.tab_lov x
+		    left join  ( SELECT * FROM sea_quanlythuyenviendb.sea_chungchithuyenvien cctt WHERE cctt.thuyenvienId = #{crewId} ) y
+		    on x.VALUE = y.tenchungchiVAL
+		    WHERE x.CODE='TV001' and x.ISACTIVE=1 
+		    and y.tenchungchiVAL IS NULL;
+		    
+		    
+  	</select>
 	
 	
 	

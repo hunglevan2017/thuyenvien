@@ -95,7 +95,7 @@ new Vue({
     computed: {},
     methods: {
         LoadData() {
-        	var pageURL = window.location.href;
+        
             axios.get( _ctx + "getChuyenMon/" + $('#SeaTrinhDoChuyenMonID').val() )
                 .then(response => {
                     this.record = response.data;
@@ -122,7 +122,7 @@ new Vue({
             if (!this.errors.length) {
                 // Call Insert
   
-                this.record.thuyenvienid =getLastParameterOnURL();
+                this.record.thuyenvienid = getLastParameterOnURL();
                 axios.post(_ctx + "saveChuyenMon", this.record)
                     .then(response => {
                     	

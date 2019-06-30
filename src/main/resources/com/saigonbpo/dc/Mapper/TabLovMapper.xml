@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saigonbpo.dc.Mapper.TabLovMapper">
+  <resultMap id="BaseResultMap" type="com.saigonbpo.dc.Model.TabLov">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="PARENTID" jdbcType="INTEGER" property="parentid" />
+    <result column="VALUE" jdbcType="VARCHAR" property="value" />
+    <result column="ISACTIVE" jdbcType="INTEGER" property="isactive" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="LASTMODIFYDATE" jdbcType="TIMESTAMP" property="lastmodifydate" />
+    <result column="REMOVEDATE" jdbcType="TIMESTAMP" property="removedate" />
+    <result column="DEFAULT_VALUE" jdbcType="BIT" property="defaultValue" />
+    <result column="text" jdbcType="VARCHAR" property="text" />
+    <result column="textEn" jdbcType="VARCHAR" property="texten" />
+    <result column="MODIFYDATE" jdbcType="TIMESTAMP" property="modifydate" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="domainId" jdbcType="INTEGER" property="domainid" />
+    <result column="tab_lovcol" jdbcType="VARCHAR" property="tabLovcol" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CODE, PARENTID, VALUE, ISACTIVE, SORT, CREATEDATE, LASTMODIFYDATE, REMOVEDATE, 
+    DEFAULT_VALUE, text, textEn, MODIFYDATE, level, path, domainId, tab_lovcol
+  </sql>
+  <select id="selectByExample" parameterType="com.saigonbpo.dc.Model.TabLovExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sea_userdb.tab_lov
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sea_userdb.tab_lov
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sea_userdb.tab_lov
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.saigonbpo.dc.Model.TabLovExample">
+    delete from sea_userdb.tab_lov
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.saigonbpo.dc.Model.TabLov" useGeneratedKeys="true">
+    insert into sea_userdb.tab_lov (CODE, PARENTID, VALUE, 
+      ISACTIVE, SORT, CREATEDATE, 
+      LASTMODIFYDATE, REMOVEDATE, DEFAULT_VALUE, 
+      text, textEn, MODIFYDATE, 
+      level, path, domainId, 
+      tab_lovcol)
+    values (#{code,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR}, 
+      #{isactive,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{lastmodifydate,jdbcType=TIMESTAMP}, #{removedate,jdbcType=TIMESTAMP}, #{defaultValue,jdbcType=BIT}, 
+      #{text,jdbcType=VARCHAR}, #{texten,jdbcType=VARCHAR}, #{modifydate,jdbcType=TIMESTAMP}, 
+      #{level,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{domainid,jdbcType=INTEGER}, 
+      #{tabLovcol,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.saigonbpo.dc.Model.TabLov" useGeneratedKeys="true">
+    insert into sea_userdb.tab_lov
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="parentid != null">
+        PARENTID,
+      </if>
+      <if test="value != null">
+        VALUE,
+      </if>
+      <if test="isactive != null">
+        ISACTIVE,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="createdate != null">
+        CREATEDATE,
+      </if>
+      <if test="lastmodifydate != null">
+        LASTMODIFYDATE,
+      </if>
+      <if test="removedate != null">
+        REMOVEDATE,
+      </if>
+      <if test="defaultValue != null">
+        DEFAULT_VALUE,
+      </if>
+      <if test="text != null">
+        text,
+      </if>
+      <if test="texten != null">
+        textEn,
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="domainid != null">
+        domainId,
+      </if>
+      <if test="tabLovcol != null">
+        tab_lovcol,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null">
+        #{isactive,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifydate != null">
+        #{lastmodifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removedate != null">
+        #{removedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="defaultValue != null">
+        #{defaultValue,jdbcType=BIT},
+      </if>
+      <if test="text != null">
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="texten != null">
+        #{texten,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="domainid != null">
+        #{domainid,jdbcType=INTEGER},
+      </if>
+      <if test="tabLovcol != null">
+        #{tabLovcol,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.saigonbpo.dc.Model.TabLovExample" resultType="java.lang.Long">
+    select count(*) from sea_userdb.tab_lov
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sea_userdb.tab_lov
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null">
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null">
+        PARENTID = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.value != null">
+        VALUE = #{record.value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isactive != null">
+        ISACTIVE = #{record.isactive,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null">
+        SORT = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdate != null">
+        CREATEDATE = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifydate != null">
+        LASTMODIFYDATE = #{record.lastmodifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.removedate != null">
+        REMOVEDATE = #{record.removedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.defaultValue != null">
+        DEFAULT_VALUE = #{record.defaultValue,jdbcType=BIT},
+      </if>
+      <if test="record.text != null">
+        text = #{record.text,jdbcType=VARCHAR},
+      </if>
+      <if test="record.texten != null">
+        textEn = #{record.texten,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifydate != null">
+        MODIFYDATE = #{record.modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.path != null">
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainid != null">
+        domainId = #{record.domainid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tabLovcol != null">
+        tab_lovcol = #{record.tabLovcol,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sea_userdb.tab_lov
+    set ID = #{record.id,jdbcType=INTEGER},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      PARENTID = #{record.parentid,jdbcType=INTEGER},
+      VALUE = #{record.value,jdbcType=VARCHAR},
+      ISACTIVE = #{record.isactive,jdbcType=INTEGER},
+      SORT = #{record.sort,jdbcType=INTEGER},
+      CREATEDATE = #{record.createdate,jdbcType=TIMESTAMP},
+      LASTMODIFYDATE = #{record.lastmodifydate,jdbcType=TIMESTAMP},
+      REMOVEDATE = #{record.removedate,jdbcType=TIMESTAMP},
+      DEFAULT_VALUE = #{record.defaultValue,jdbcType=BIT},
+      text = #{record.text,jdbcType=VARCHAR},
+      textEn = #{record.texten,jdbcType=VARCHAR},
+      MODIFYDATE = #{record.modifydate,jdbcType=TIMESTAMP},
+      level = #{record.level,jdbcType=INTEGER},
+      path = #{record.path,jdbcType=VARCHAR},
+      domainId = #{record.domainid,jdbcType=INTEGER},
+      tab_lovcol = #{record.tabLovcol,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.saigonbpo.dc.Model.TabLov">
+    update sea_userdb.tab_lov
+    <set>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        PARENTID = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        VALUE = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null">
+        ISACTIVE = #{isactive,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifydate != null">
+        LASTMODIFYDATE = #{lastmodifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removedate != null">
+        REMOVEDATE = #{removedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="defaultValue != null">
+        DEFAULT_VALUE = #{defaultValue,jdbcType=BIT},
+      </if>
+      <if test="text != null">
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="texten != null">
+        textEn = #{texten,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="domainid != null">
+        domainId = #{domainid,jdbcType=INTEGER},
+      </if>
+      <if test="tabLovcol != null">
+        tab_lovcol = #{tabLovcol,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.saigonbpo.dc.Model.TabLov">
+    update sea_userdb.tab_lov
+    set CODE = #{code,jdbcType=VARCHAR},
+      PARENTID = #{parentid,jdbcType=INTEGER},
+      VALUE = #{value,jdbcType=VARCHAR},
+      ISACTIVE = #{isactive,jdbcType=INTEGER},
+      SORT = #{sort,jdbcType=INTEGER},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      LASTMODIFYDATE = #{lastmodifydate,jdbcType=TIMESTAMP},
+      REMOVEDATE = #{removedate,jdbcType=TIMESTAMP},
+      DEFAULT_VALUE = #{defaultValue,jdbcType=BIT},
+      text = #{text,jdbcType=VARCHAR},
+      textEn = #{texten,jdbcType=VARCHAR},
+      MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+      level = #{level,jdbcType=INTEGER},
+      path = #{path,jdbcType=VARCHAR},
+      domainId = #{domainid,jdbcType=INTEGER},
+      tab_lovcol = #{tabLovcol,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

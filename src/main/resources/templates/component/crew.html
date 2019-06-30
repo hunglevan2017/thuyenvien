@@ -13,6 +13,7 @@
                      <h5 class="title" style="color:#f96332">
                      Profile  
                      <a style="color:black" :href="'/crew/resume/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Resumes  </a>
+                     <a style="color:black" :href="'/crew/experience/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Experience  </a>
                      <a style="color:black" :href="'/crew/certificate/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Certificate  </a>
                      <a style="color:black" :href="'/crew/rank/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Rank  </a>
                      </h5>

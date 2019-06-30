@@ -3,6 +3,7 @@ package com.saigonbpo.dc.Mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.saigonbpo.dc.Model.Lov;
 import com.saigonbpo.dc.Model.MasterData;
 import com.saigonbpo.dc.Model.ShortProfileCrew;
 
@@ -23,6 +24,10 @@ public interface AppMapper {
 	List<Map<String, Object>> sp_get_trinhdongoaingu(int crewId);
 
 	List<Map<String, Object>> sp_get_trinhdovitinh(int crewId);
+
+	List<Map<String, Object>> sp_get_certificate(String crewId);
+
+	List<Lov> getCertificatesNotExist(int crewId);
 
 
 
