@@ -33,7 +33,38 @@ public class CrewCtrl {
 	@RequestMapping(value = { "/crew/resume/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crewResume(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/CrewResume");
-		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = { "/editInformationFamily/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID ) {
+		ModelAndView mav = new ModelAndView("component/resume/information_edit");
+		mav.addObject("SeaThongTinGiaDinhID",SeaThongTinGiaDinhID);
+		return mav;
+	}
+	
+
+	@RequestMapping(value = { "/deleteInformationFamily/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID ) {
+		ModelAndView mav = new ModelAndView("component/resume/information_delete");
+		mav.addObject("SeaThongTinGiaDinhID",SeaThongTinGiaDinhID);
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = { "/editChuyenMon/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editChuyenMon(@PathVariable("id") int SeaTrinhDoChuyenMonID ) {
+		ModelAndView mav = new ModelAndView("component/resume/chuyenmon_edit");
+		mav.addObject("SeaTrinhDoChuyenMonID",SeaTrinhDoChuyenMonID);
+		return mav;
+	}
+	
+
+	@RequestMapping(value = { "/deleteChuyenMon/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteChuyenMon(@PathVariable("id") int SeaTrinhDoChuyenMonID ) {
+		ModelAndView mav = new ModelAndView("component/resume/chuyenmon_delete");
+		mav.addObject("SeaTrinhDoChuyenMonID",SeaTrinhDoChuyenMonID);
 		return mav;
 	}
 	

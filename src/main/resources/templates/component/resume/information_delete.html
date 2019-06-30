@@ -1,0 +1,71 @@
+<div class="modal-dialog" id="root" >
+    <form  method="POST" class="form-horizontal" id="form">
+        <div class="modal-content">
+        	<input id="SeaThongTinGiaDinhID" type="hidden" th:value="${SeaThongTinGiaDinhID}"></input>
+            <div class="modal-header" style="display: table;" >
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="margin-top:0px" >Delete Information Family</h4>
+            
+            </div>
+            
+            <div class="modal-body">
+
+
+            <div class="modal-footer">
+                <button id="save" type="button" class="btn btn-success" v-on:click="Save" data-dismiss="modal"><i
+                        class="mdi mdi-check mdi-17px"></i> Save
+                </button>
+                
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <i class="mdi mdi-close mdi-17px"></i> Cancel
+                </button>
+            </div>
+
+        </div>
+        </div>
+       </form>
+</div>
+
+<script >
+
+new Vue({
+    el: '#root',
+    data: {
+        record: {},
+        relations: [],
+        debug: false,
+        errors: []
+    },
+    mounted() {
+        this.LoadData();
+    },
+    computed: {},
+    methods: {
+        LoadData() {},
+
+        Save: function(event) {
+
+            if (!this.errors.length) {
+
+                this.record.thuyenvienid = getLastParameterOnURL ();
+                
+                axios.delete(_ctx + "removeInformationFamily/" + $('#SeaThongTinGiaDinhID').val() )
+                    .then(response => {
+                    	location.reload();
+                    })
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
+            }
+            
+        }
+        
+
+    }
+
+});
+	
+</script>
+
+

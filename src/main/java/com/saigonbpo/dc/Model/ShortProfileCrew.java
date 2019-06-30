@@ -2,10 +2,14 @@ package com.saigonbpo.dc.Model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ShortProfileCrew {
 
 	private int chucdanhId;
 	private int tinhtrangdieudong;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "vi-VN",timezone = "Asia/Ho_Chi_Minh")
 	private Date ngayOffHoacOnGanNhat;
 	private int tauIdOffHoacOnGanNhat;
 	private String ttddtext;

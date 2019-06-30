@@ -59,6 +59,10 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
 	compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.4'
+	
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.4'
+	
 
 
 	// https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
@@ -132,7 +136,7 @@ compile group: 'org.mybatis.generator', name: 'mybatis-generator-core', version:
 	compile group: 'org.springframework', name: 'spring-context-support', version: '5.1.0.RELEASE'
 	
 
-	
+
 
 
 	

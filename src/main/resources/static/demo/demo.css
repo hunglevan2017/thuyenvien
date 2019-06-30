@@ -75,3 +75,6 @@
     content: " *";
     color: red;
 }
+.left-title{
+	display: -webkit-box !important;
+}

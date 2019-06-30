@@ -122,6 +122,16 @@
                            </div>
                         </div>
                         <div class="row" v-if="profile.seaThongTinThuyenVien" >
+                           
+                            <div class="col-md-4 px-1">
+                              <div class="form-group">
+                                 <label>Nationality</label>
+                                 <select class="form-control" v-model="profile.seaThongTinThuyenVien.quoctich" >
+                                    <option v-for="option in nations" v-bind:value="option.lov.id" >{{ option.text }}</option>
+                                 </select>
+                              </div>
+                           </div>
+                           
                            <div class="col-md-4 pr-1">
                               <div class="form-group">
                                  <label>Gender</label>
@@ -131,14 +141,7 @@
                                  </select>
                               </div>
                            </div>
-                           <div class="col-md-4 px-1">
-                              <div class="form-group">
-                                 <label>Nationality</label>
-                                 <select class="form-control" v-model="profile.seaThongTinThuyenVien.quoctich" >
-                                    <option v-for="option in nations" v-bind:value="option.lov.id" >{{ option.text }}</option>
-                                 </select>
-                              </div>
-                           </div>
+                          
                            <div class="col-md-4 pl-1">
                               <div class="form-group">
                                  <label>Blood Type</label>
@@ -406,7 +409,7 @@
                   LoadData() {
                 	var pageURL = window.location.href;
                 	
-                    axios.get( $('#PageContext').val() + "crew/profile/" + pageURL.substr(pageURL.lastIndexOf('/') + 1)  )
+                    axios.get( _ctx + "crew/profile/" + pageURL.substr(pageURL.lastIndexOf('/') + 1)  )
                       .then(response => {
                         this.profile = response.data;
                         
@@ -417,14 +420,14 @@
                         
                         if(this.profile.seaFile && this.profile.seaFile.name)
                         {
-                        	this.profile.seaFile.name = $('#PageContext').val() +'disk/' + this.profile.seaFile.name;
+                        	this.profile.seaFile.name = _ctx +'disk/' + this.profile.seaFile.name;
                         }
                       })
                       .catch(e => {
                         this.errors.push(e)
                       });
                     
-                    axios.get( $('#PageContext').val() + "masterdata/S001"  )
+                    axios.get( _ctx + "masterdata/S001"  )
                     .then(response => {
                       this.nations = response.data;
                     })
@@ -432,7 +435,7 @@
                       this.errors.push(e)
                     });
                     
-                    axios.get( $('#PageContext').val() + "masterdata/S002"  )
+                    axios.get( _ctx + "masterdata/S002"  )
                     .then(response => {
                       this.clothes = response.data;
                     })
@@ -440,7 +443,7 @@
                       this.errors.push(e)
                     });
                     
-                    axios.get( $('#PageContext').val() + "masterdata/S003"  )
+                    axios.get( _ctx + "masterdata/S003"  )
                     .then(response => {
                       this.shoes = response.data;
                     })
@@ -448,7 +451,7 @@
                       this.errors.push(e)
                     });
                     
-                    axios.get( $('#PageContext').val() + "masterdata/S011"  )
+                    axios.get( _ctx + "masterdata/S011"  )
                     .then(response => {
                       this.reasons = response.data;
                     })
@@ -466,13 +469,13 @@
                 	    this.file = this.$refs.file.files[0];
                 	    let formData = new FormData();
                 	    formData.append('file', this.file);
-                	    axios.post( $('#PageContext').val() + "crew/upload",formData,  {headers: {'Content-Type': 'multipart/form-data'}})
+                	    axios.post( _ctx + "crew/upload",formData,  {headers: {'Content-Type': 'multipart/form-data'}})
                         .then(response => {
                         	
                           this.profile.seaFile = response.data;
                           if(this.profile.seaFile.name)
                           {
-                          	this.profile.seaFile.name = $('#PageContext').val() +'disk/' + this.profile.seaFile.name;
+                          	this.profile.seaFile.name = _ctx +'disk/' + this.profile.seaFile.name;
                           }
                           
                         })
@@ -503,9 +506,12 @@
                     }
                     if (!this.errors.length) {
                       // Call Insert
-                      axios.post( $('#PageContext').val() + "crew/save", this.profile)
+                      
+                      this.profile.seaThongTinThuyenVien.ngaysinh = this.profile.seaThongTinThuyenVien.ngaysinh;
+                      axios.post( _ctx + "crew/save", this.profile)
                         .then(response => {
-                        	window.location.replace( $('#PageContext').val() + "crew/" + response.data.seaThongTinThuyenVien.id  );
+                        	
+                        	window.location.replace( _ctx + "crew/" + response.data.seaThongTinThuyenVien.id  );
                    
                         })
                         .catch(e => {
