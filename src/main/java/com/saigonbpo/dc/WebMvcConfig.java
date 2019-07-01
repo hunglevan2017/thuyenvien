@@ -2,6 +2,8 @@ package com.saigonbpo.dc;
 
 
 
+import org.apache.ibatis.mapping.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -43,6 +45,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	 * 
 	 * }
 	 */
+	
+
+	@Autowired
+	org.springframework.core.env.Environment ev;
 
 	@Bean(name = "messageSource")
 	public MessageSource getMessageResource() {
@@ -106,7 +112,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 						"classpath:/static/js/",
 						"classpath:/static/demo/",
 						"classpath:/static/scss/",
-						"file:D:/xampp/tomcat//webapps/seagull/resources/assets/uploads/");
+						"file:" + ev.getProperty("FILE_PATH")
+						);
 	}
 	
 	  
