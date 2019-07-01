@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.reflect.TypeToken;
+import com.saigonbpo.dc.Mapper.SeaThongTinDieuDongMapper;
+import com.saigonbpo.dc.Model.SeaThongTinDieuDong;
 
 @Controller
 public class CrewCtrl {
@@ -24,6 +27,12 @@ public class CrewCtrl {
 	Type typeListMap = new TypeToken<List<Map<String, String>>>() {
 	}.getType();
 
+	
+	@Autowired
+	SeaThongTinDieuDongMapper seaThongTinDieuDongMapper;
+	
+	
+	
 	@RequestMapping(value = { "/crew/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crew(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/crew");
@@ -155,6 +164,33 @@ public class CrewCtrl {
 		mav.addObject("SeaThongTinChucDanhID", SeaThongTinChucDanhID);
 		return mav;
 	}
+	
+	
+	@RequestMapping(value = { "/editDieuDong/{id}/{crewID}" }, method = RequestMethod.GET)
+	public ModelAndView editDieuDong(@PathVariable("id") int SeaThongTinDieuDongID,@PathVariable("crewID") int crewID) {
+		ModelAndView mav = new ModelAndView("component/assignment/dieudong_edit");
+		mav.addObject("SeaThongTinDieuDongID", SeaThongTinDieuDongID);
+		mav.addObject("crewID", crewID);
+		return mav;
+	}
+	
+	@RequestMapping(value = { "/editDieuDong/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editDieuDong(@PathVariable("id") int SeaThongTinDieuDongID) {
+		ModelAndView mav = new ModelAndView("component/assignment/dieudong_edit");
+		SeaThongTinDieuDong seaThongTinDieuDong= seaThongTinDieuDongMapper.selectByPrimaryKey(SeaThongTinDieuDongID);
+		mav.addObject("SeaThongTinDieuDongID", SeaThongTinDieuDongID);
+		mav.addObject("crewID", seaThongTinDieuDong.getThuyenvienid());
+		return mav;
+	}
+
+	@RequestMapping(value = { "/deleteDieuDong/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteDieuDong(@PathVariable("id") int SeaThongTinDieuDongID) {
+		ModelAndView mav = new ModelAndView("component/assignment/dieudong_delete");
+		mav.addObject("SeaThongTinDieuDongID", SeaThongTinDieuDongID);
+		return mav;
+	}
+	
+	
 	
 
 }

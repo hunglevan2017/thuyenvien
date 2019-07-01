@@ -106,7 +106,7 @@ function initTable(idDiv, idTable) {
     html += ' 	style="width: 100%">';
     html += ' 	<thead></thead>';
     html += ' </table>';
-    $('#' + idDiv).append(html);
+    $('#' + idDiv).html(html);
 
 }
 
@@ -140,12 +140,12 @@ function initTableInformation(data,element) {
         {"title": "Năm sinh","targets": 7},
         {"title": "","targets": 8,
             "render": function(data, type, row, meta) {
-                return '<button type="button" class="btn btn-primary btn-xs information-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';
+                return '<button type="button" class="dt-button btn btn-success source  information-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';
             }
         },
         {"title": "","targets": 9,
             "render": function(data, type, row, meta) {
-                return '<button type="button" class="btn btn-primary btn-xs information-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';
+                return '<button type="button" class="dt-button btn btn-success source  information-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';
             }
         },
         {"className": "dt-center","targets": "_all"}

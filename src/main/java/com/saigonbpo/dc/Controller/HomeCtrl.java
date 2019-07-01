@@ -30,6 +30,14 @@ public class HomeCtrl {
 		mav.addObject("tinhtrangdieudong", tinhtrangdieudong);
 		return mav;
 	}
+	
+	
+	@RequestMapping(value = { "/assignment/{tauId}" }, method = RequestMethod.GET)
+	public ModelAndView assignment() {
+		ModelAndView mav = new ModelAndView("component/Assignment");
+		return mav;
+	}
+
 
 	
 

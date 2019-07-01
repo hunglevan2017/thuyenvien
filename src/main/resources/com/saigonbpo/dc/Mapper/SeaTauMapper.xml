@@ -344,4 +344,13 @@
       alias = #{alias,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  	<select id="loadCrewOnShip" resultType="map" parameterType="int">
+		call ${jdbc.schema}.SP_DieuDong_Search (413,#{tauid},null,null,null,null,null,true,1,100000)
+	</select>
+	
+		<select id="loadTVDuTru" resultType="map" parameterType="int">
+		call ${jdbc.schema}.SP_Tim_Kiem_TV_Du_Tru (413,null,null,null,null,null,#{tauid},1,null)
+	</select>
+  
 </mapper>

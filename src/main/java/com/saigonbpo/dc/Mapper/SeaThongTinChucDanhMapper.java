@@ -27,4 +27,6 @@ public interface SeaThongTinChucDanhMapper {
     int updateByPrimaryKeySelective(SeaThongTinChucDanh record);
 
     int updateByPrimaryKey(SeaThongTinChucDanh record);
+
+	SeaThongTinChucDanh getChucDanhHienTai(int crewID);
 }

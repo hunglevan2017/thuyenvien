@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+   <head>
+      <title>Header</title>
+   </head>
+   <body>
+      <!--  table-responsive -->
+      <div class="content" layout:fragment="content">
+         <div class="row" id="root">
+            <div class="col-md-12">
+               <div class="card">
+                  <div class="card-body">
+                     <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Crews on ship</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">Reserve crews</a>
+                        </li>
+                     </ul>
+                     <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="home-tab">
+                           <div class="form-group form-inline">
+                              <div
+                                 class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                           
+                                  <select class="form-control" v-model="selected" v-on:change="onChange"  >
+                                 	<option v-for="option in ships" v-bind:value="option.id" >{{ option.ten }}</option>
+                            	 </select>
+                                 
+                                 <button style="margin:5px" type="button" class="btn btn-success source" id="btnExportShip" v-on:click="ExportCertificate" ><i class="fa fa-download"> </i>  Excel</button>
+                              </div>
+                           </div>
+                           
+                            <div id="div_board">
+		                        <table id="board"
+		                           class="table table-striped table-bordered dataTable no-footer jambo_table bulk_action"
+		                           style="width: 100%">
+		                           <thead>
+		                           </thead>
+		                        </table>
+		                   </div>
+                           
+                        </div>
+                        
+                        
+                        
+                        
+                        <!-- *************** -->
+                        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
+                             
+                             <div id="div_leave">
+		                        <table id="leave"
+		                           class="table table-striped table-bordered dataTable no-footer jambo_table bulk_action"
+		                           style="width: 100%">
+		                           <thead>
+		                           </thead>
+		                        </table>
+		                   	 </div>
+		                   	 
+		                   	 
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <script>
+					var tableBoard;
+					var tableLeave;
+			       new Vue({
+			           el: '#root',
+			           data: {
+			               record: {},
+						   selected:getLastParameterOnURL(),
+			               ships: [],
+			               debug: false,
+			               errors: []
+			           },
+			           mounted() {
+			               this.LoadData();
+			           },
+			           computed: {},
+			           methods: {
+			               LoadData() {
+			                   axios.get(_ctx + "ships")
+			                   .then(response => {
+			                       this.ships = response.data;
+			                   })
+			                   .catch(e => {
+			                       this.errors.push(e)
+			                   });
+			                   
+			                   if(this.selected != "0" )
+			                   {
+			                	    initTable("div_board","board");
+				                	initTable("div_leave","leave");
+				                	
+				                	axios.get(_ctx + "loadCrewOnShip/" + this.selected )
+			    	                .then(response => {
+			    	                  
+			    	                    var aoData = [{ "mData": "stt","defaultContent":""},
+			    	           			 { "mData": "id", "defaultContent":"" },
+			    	        			 { "mData": "thuyenvienId", "defaultContent":"" },
+			    	        			 { "mData": "tauId", "defaultContent":"" },
+			    	        			 { "mData": null},
+			    	        		     { "mData": "hotenTV", "defaultContent":"" },
+			    	        			 { "mData": "ngaysinhTV", "defaultContent":"" },
+			    	        			 { "mData": "ngayxuongtau", "defaultContent":"" },
+			    	        			 { "mData": "chucdanhht", "defaultContent":"" },
+			    	        			 { "mData": "month_leave", "defaultContent":"" },
+			    	        			 { "mData": "ghichuon", "defaultContent":"" },
+			    	        			 { "mData": null},
+			    	        			 { "mData": null}
+			    	        			 ];
+			    	                    var columnDefs =  [
+			    	        				{"title": "STT","targets": 0},
+			    	        		  		{ "targets": 1,"visible": false,"searchable": false},
+			    	        		  		{ "targets": 2,"visible": false,"searchable": false},
+			    	        		  		{ "targets": 3,"visible": false,"searchable": false},
+			    	        		  		{
+			    	        					  "title": "TRANSFER",
+			    	        					  "targets": 4,
+			    	        			          "width":"10%",
+			    	        			          "className": "text-center",
+			    	        			          "render": function (data, type, row, meta) {
+
+			    	        			        	  	/*
+			    	        			        	  	var color = "<button class='color bg-green'></button>";
+			    	        			        	  	var f_month_leave = parseFloat( row['month_leave'] );
+
+			    	        	                    	if( f_month_leave >= 2 && f_month_leave <= 3 )
+			    	        	                    		color =  "<button class='color bg-yellow'></button>";
+
+			    	        	                    	if( f_month_leave >3 )
+			    	        	                    		color =  "<button class='color bg-red'></button>";
+			    	        	                    	*/
+
+
+			    	        			        	  var stop = '<button type="button" class="btnRoiTau" data-id=' + row['thuyenvienId'] + ' > </button>';
+
+			    	        			        	  return stop ;
+			    	        			           }
+
+			    	        				  },
+
+			    	        		  		{
+			    	        		  			"title": "NAME",
+			    	        		  			"targets": 5,
+			    	        	                "width": "15%",
+			    	        	                "render": function (data, type, row, meta) {
+			    	        	                    return '<a   href="' + _ctx + 'crew/' + row['thuyenvienId'] +  '"><span style="color:black">' + data + '</span></a>';
+			    	        	                }
+			    	        		  		},
+			    	        			    {
+			    	        					  "title": "D.O.B",
+			    	        					  "targets": 6,
+			    	        		                "render": function (data) {
+
+			    	        		                	if(isNaN(data))
+			    	        		                	{
+			    	        		                		return '';
+			    	        		                	}
+			    	        		                	else
+			    	        		                		return formatDate(data);
+			    	        		                }
+			    	        				  },
+			    	        				    {
+			    	        					  "title": "DATE ON",
+			    	        					  "targets": 7,
+			    	        		                "render": function (data) {
+
+			    	        		                	if(isNaN(data))
+			    	        		                	{
+			    	        		                		return '';
+			    	        		                	}
+			    	        		                	else
+			    	        		                		return formatDate(data);
+			    	        		                }
+			    	        				  },
+			    	        			    {"title": "RANK","targets": 8,"width":"10%"},
+			    	        			    {"title": "MONTHS TOUR","targets": 9,"width":"3%"},
+			    	        			    {"title": "NOTE","targets": 10,"width":"20%"},
+
+			    	        		  {
+			    	        			  "title": "",
+			    	        			  "targets": 11,
+
+			    	        	          "render": function (data, type, row, meta) {
+			    	        	        	   return '<button type="button" class="btn-success source dieudong-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';
+			    	        	           }
+
+			    	        		  },
+			    	        		  {
+			    	        			  "title": "",
+			    	        			  "targets": 12,
+			    	        			  "render": function (data, type, row, meta) {
+			    	        	        	   return '<button type="button" class="btn-success source dieudong-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';
+			    	        	           }
+			    	        		  }
+			    	        		  ];
+										
+			    	                    
+			    	                    tableBoard = $('#board').DataTable({
+			    	                        data: response.data,
+			    	                        "columnDefs": columnDefs,
+			    	                        "aoColumns": aoData,
+			    	                        "bInfo": false,
+			    	                        "bPaginate": false,
+			    	                        "searching": false,
+			    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+			    	                            var index = iDisplayIndex + 1;
+			    	                            $('td:eq(0)', nRow).html(index);
+			    	                            return nRow;
+			    	                        },
+			    	                        "createdRow": function(row, data, dataIndex, full) {
+			    	                            $(row).attr('data-id', data.id);
+			    	                        }
+			    	                        
+			    	                    });
+			    	                    
+			    	                    
+			    	                    var url = _ctx + 'editDieuDong/';
+			    	            		initEventClickForEditOrDelete("board",".dieudong-edit",url);
+			    	            		
+			    	            		 var url = _ctx + 'deleteDieuDong/';
+				    	            		initEventClickForEditOrDelete("board",".dieudong-delete",url);
+			    	            		
+			    	                    /*
+			    	                    var url = _ctx + 'editChucDanh/';
+			    	            		initEventClickForEditOrDelete("board",".chucdanh-edit",url);
+			    	            		
+			    	            		url = _ctx + 'deleteChucDanh/';
+			    	            		initEventClickForEditOrDelete("board",".chucdanh-delete",url);
+			    	            		
+			    	            		$( ".btnRoiTau-add" ).bind( "click", function() {
+			    	            			popupModalAdd( _ctx + 'editInformationFamily/0' );
+			    	            		});
+			    	            		*/
+			    	            		
+			    	            		
+			    	            		
+			    	            		
+			    	                });
+				                	
+				                	
+				                	axios.get(_ctx + "loadTVDuTru/" + this.selected )
+			    	                .then(response => {
+			    	                  
+			    	                    var aoData = [{ "mData": "stt","defaultContent":""},
+			    	           			 { "mData": "id", "defaultContent":"" },
+			    	        			 { "mData": "thuyenvienId", "defaultContent":"" },
+			    	        			 { "mData": "tauId", "defaultContent":"" },
+			    	        			 { "mData": null},
+			    	        		     { "mData": "hoten", "defaultContent":"" },
+			    	        			 { "mData": "ngaysinh", "defaultContent":"" },
+			    	        			 { "mData": "diachitamtru", "defaultContent":"" },
+			    	        			 { "mData": "chucdanh", "defaultContent":"" },
+			    	        			 { "mData": "ttddText", "defaultContent":"" },
+			    	        			 { "mData": "ghichu", "defaultContent":"" }
+			    	        			 ];
+			    	                    var columnDefs = [
+			    	        				{"title": "STT","targets": 0},
+			    	        		  		{ "targets": 1,"visible": false,"searchable": false},
+			    	        		  		{ "targets": 2,"visible": false,"searchable": false},
+			    	        		  		{ "targets": 3,"visible": false,"searchable": false},
+
+
+			    	        		  		{
+			    	        					  "title": "ACTION",
+			    	        					  "targets": 4,
+			    	        					  "width": "8%",
+
+			    	        			          "render": function (data, type, row, meta) {
+
+			    	        			        	  var play = '<button type="button" class="btnXuongTau" data-id=' + row['id'] + ' > </button>';
+			    	        			        	  var his = '<button type="button" class="btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
+
+
+			    	        			        	  return play + his;
+
+			    	        			           }
+
+			    	        				  },
+
+			    	        		  		{
+			    	        		  			"title": "NAME",
+			    	        		  			"targets": 5,
+			    	        	                "width": "15%",
+			    	        	                "render": function (data, type, row, meta) {
+
+
+			    	        	                    return '<a   href="' + _ctx + 'crew/' + row['id'] +  '"><strong>' + data + '</strong></a>';
+			    	        	                }
+			    	        		  		},
+			    	        			    {
+			    	        					  "title": "D.O.B",
+			    	        					  "targets": 6,
+			    	        		                "render": function (data) {
+
+			    	        		                	if(isNaN(data))
+			    	        		                	{
+			    	        		                		return '';
+			    	        		                	}
+			    	        		                	else
+			    	        		                		return formatDate(data);
+			    	        		                }
+			    	        				  },
+			    	        				    {
+			    	        					  "title": "RESIDENCE",
+			    	        					  "targets": 7
+			    	        				  },
+			    	        			    {"title": "RANK","targets": 8,"width":"15%"},
+			    	        			    {"title": "STATUS","targets": 9,"width":"15%"},
+			    	        			    {"title": "NOTE","targets": 10,"width":"15%"}
+			    	        		  ];
+										
+			    	                    
+			    	                    tableLeave = $('#leave').DataTable({
+			    	                        data: response.data,
+			    	                        "columnDefs": columnDefs,
+			    	                        "aoColumns": aoData,
+			    	                        "bInfo": false,
+			    	                        "bPaginate": false,
+			    	                        "searching": false,
+			    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+			    	                            var index = iDisplayIndex + 1;
+			    	                            $('td:eq(0)', nRow).html(index);
+			    	                            return nRow;
+			    	                        },
+			    	                        "createdRow": function(row, data, dataIndex, full) {
+			    	                            $(row).attr('data-id', data.id);
+			    	                        }
+			    	                        
+			    	                    });
+			    	                    
+			    	                    /*
+			    	                    var url = _ctx + 'editInformationFamily/';
+			    	            		initEventClickForEditOrDelete("family",".information-edit",url);
+			    	            		
+			    	            		url = _ctx + 'deleteInformationFamily/';
+			    	            		initEventClickForEditOrDelete("family",".information-delete",url);
+			    	            		
+			    	            		$( ".information-add" ).bind( "click", function() {
+			    	            			popupModalAdd( _ctx + 'editInformationFamily/0' );
+			    	            		});
+			    	            		*/
+			    	            		
+			    	            		$( ".btnXuongTau" ).bind( "click", function() {
+			    	            			var crewID = this.getAttribute("data-id");
+			    	            			popupModalAdd( _ctx + 'editDieuDong/0/' + crewID  );
+			    	            			
+			    	            		});
+			    	            		
+			    	                    
+			    	            		
+			    	            		
+			    	            		
+			    	                });
+			                   }
+			                   
+			                   
+			                   
+			               },
+			               
+			               onChange: function (){
+			                	
+			                	console.log(this.selected);
+			                	
+			                	window.location = _ctx + "assignment/" +  this.selected;
+			                    
+			                },
+			                
+			                ExportCertificate(){
+			                	
+			                	console.log(1);
+		        	        	window.location = _ctx + "report/Crewlist/" +  this.selected;
+		        	        },
+			            
+			
+			               Save: function(event) {
+			
+			                   /*Validate Form
+			                   this.errors = [];
+			                   console.log(this.record.loaingoaingu);
+			                   if (this.record.loaingoaingu == null) {
+			                       this.errors.push({
+			                           message: "Type language required."
+			                       });
+			                   }*/
+			
+			             
+			                   if (!this.errors.length) {
+			                       // Call Insert
+			
+			                       this.record.thuyenvienid = getLastParameterOnURL();
+			                       axios.post(_ctx + "saveExperience", this.record)
+			                           .then(response => {
+			                           		location.reload();
+			                           	
+			                           })
+			                           .catch(e => {
+			                               this.errors.push(e)
+			                           })
+			                   }
+			                   
+			               }
+			               
+			
+			           }
+			
+			       });
+         	
+         
+         </script>
+      </div>
+   </body>
+</html>

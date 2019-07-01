@@ -81,3 +81,33 @@
 table.dataTable tbody th, table.dataTable tbody td {
      padding: 5px !important; 
 }
+
+.btnXuongTau {
+    width: 26px;
+    height: 26px;
+    background: url(../../images/seagull/onboard-icon.png) 0% 0% / 24px no-repeat transparent;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+}
+
+.btnQuaTrinhCongTac {
+    width: 26px;
+    height: 26px;
+    background: url(../../images/seagull/history-icon.png) 0% 0% / 24px no-repeat transparent;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    outline: none;
+}
+.btnRoiTau {
+    background: transparent url(../../images/seagull/leave-icon.png) no-repeat;
+    background-size: 24px;
+    width: 26px;
+    height: 26px;
+    border: none;
+    outline: none;
+}

@@ -8,8 +8,10 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -33,10 +37,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.xmlunit.builder.Input;
 
 import com.saigonbpo.dc.Common.FuncUtil;
 import com.saigonbpo.dc.Mapper.AppMapper;
+import com.saigonbpo.dc.Mapper.SeaTauMapper;
 import com.saigonbpo.dc.Mapper.SeaThongTinThuyenVienMapper;
+import com.saigonbpo.dc.Model.MasterData;
+import com.saigonbpo.dc.Model.SeaTau;
 import com.saigonbpo.dc.Model.SeaThongTinThuyenVien;
 import com.saigonbpo.dc.Model.ShortProfileCrew;
 
@@ -58,6 +66,9 @@ public class ExportController {
 	private AppMapper appService;
 	
 	@Autowired
+	SeaTauMapper seaTauMapper;
+	
+	@Autowired
 	private SeaThongTinThuyenVienMapper seaThongTinThuyenVienMapper;
 	
 	
@@ -74,12 +85,13 @@ public class ExportController {
 	}
 	*/
 
-	/*
+
 	@RequestMapping(value = "/report/Crewlist/{tauid}", method = RequestMethod.GET)
 	public ModelAndView getExcel(@PathVariable("tauid") int tauid, HttpServletResponse response)
 			throws EncryptedDocumentException, InvalidFormatException, IOException, ParseException {
 
-		Map<String, Object> ship = shipService.sp_get_ship_by_id(tauid);
+
+		SeaTau ship = seaTauMapper.selectByPrimaryKey(tauid);
 		// Input
 		Map<String, Object> Input = new HashMap<>();
 		List<Map<String, Object>> ListOfCrew = new ArrayList<>();
@@ -89,14 +101,14 @@ public class ExportController {
 		for (Iterator<Map<String, Object>> iter = ListOfCrew.iterator(); iter.hasNext();) {
 			Map<String, Object> map = iter.next();
 			Object c_id = map.get("tauOffHoacOnGanNhat").toString();
-			if (!c_id.equals(ship.get("ten").toString()))
+			if (!c_id.equals(ship.getTen()))
 				iter.remove();
 		}
 
 		if (ship != null) {
 
 			// Set Name File Download
-			String fileName = ship.get("ten") + ".xlsx";
+			String fileName = ship.getTen() + ".xlsx";
 			response.setHeader("Content-disposition", "attachment; filename=" + fileName);
 
 			// Read Template
@@ -112,11 +124,11 @@ public class ExportController {
 			int tempRow = 9;
 			int tempCol = 3;
 
-			FuncUtil.setCellValH(ship.get("ten") != null ? ship.get("ten").toString() : "", sheet, tempRow, tempCol,
+			FuncUtil.setCellValH(ship.getTen() != null ? ship.getTen() : "", sheet, tempRow, tempCol,
 					null);
-			FuncUtil.setCellValH(ship.get("IMO") != null ? ship.get("IMO").toString() : "", sheet, tempRow, tempCol + 4,
+			FuncUtil.setCellValH(ship.getImo() != null ? ship.getImo() : "", sheet, tempRow, tempCol + 4,
 					null);
-			FuncUtil.setCellValH(ship.get("callsign") != null ? ship.get("callsign").toString() : "", sheet, tempRow,
+			FuncUtil.setCellValH(ship.getCallsign() != null ? ship.getCallsign() : "", sheet, tempRow,
 					(tempCol + 4 * 2), null);
 
 			int rowbegin = 13;
@@ -136,9 +148,7 @@ public class ExportController {
 				c.setCellStyle(cellStyle17);
 			}
 
-			Map<String, Object> input_master_data = new HashMap<>();
-			input_master_data.put("code", "S001");
-			List<Map<String, Object>> list_master_data = appService.SP_LOV_GET(input_master_data);
+			List<MasterData> list_master_data = appService.SP_LOV_GET("S001");
 
 			for (Map<String, Object> datanew : ListOfCrew) {
 				// FuncUtil.removeEmptyStringColumn(datanew);
@@ -158,15 +168,16 @@ public class ExportController {
 					FuncUtil.setCellValH(InfoCrew.get("noisinh").toString(), sheet, rowbegin, 6, cellStyle);
 
 				if (InfoCrew.get("quoctich") != null) {
-					for (Map<String, Object> quoctich : list_master_data) {
-						logger.info("quoctich:" + quoctich);
+					for (MasterData quoctich : list_master_data) {
+				
 
 						String quoctichid = InfoCrew.get("quoctich").toString();
+						
 						@SuppressWarnings("unchecked")
-						String quoctichm = ((Map<String, Object>) quoctich.get("lov")).get("ID").toString();
+						String quoctichm = quoctich.getLov().getID()+"";
 
 						if (quoctichid.equals(quoctichm)) {
-							FuncUtil.setCellValH(quoctich.get("TEXT").toString(), sheet, rowbegin, 4, cellStyle);
+							FuncUtil.setCellValH(quoctich.getTEXT(), sheet, rowbegin, 4, cellStyle);
 						}
 					}
 				}
@@ -219,7 +230,7 @@ public class ExportController {
 		return null;
 		// return new ModelAndView(new ExcelView(), "type_report", 1);
 	}
-	*/
+	
 
 	@RequestMapping(value = "/report/Certificate/{thuyenvienId}", method = RequestMethod.GET)
 	public ModelAndView getCertificate(@PathVariable("thuyenvienId") int thuyenvienId, HttpServletResponse response)

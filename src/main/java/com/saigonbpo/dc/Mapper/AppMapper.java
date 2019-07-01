@@ -37,6 +37,12 @@ public interface AppMapper {
 
 	List<Map<String, Object>> SP_Boatman_Position_Search(int crewId);
 
+	List<Map<String, Object>> getMainCertificateCrew(Map<String, Object> filter);
+
+	Map<String, Object> sp_get_info_crew(Map<String, Object> filter);
+
+	Map<String, Object> getSeamanBook(Map<String, Object> filter);
+
 
 
 }

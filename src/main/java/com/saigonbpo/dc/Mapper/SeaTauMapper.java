@@ -3,6 +3,8 @@ package com.saigonbpo.dc.Mapper;
 import com.saigonbpo.dc.Model.SeaTau;
 import com.saigonbpo.dc.Model.SeaTauExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SeaTauMapper {
@@ -27,4 +29,8 @@ public interface SeaTauMapper {
     int updateByPrimaryKeySelective(SeaTau record);
 
     int updateByPrimaryKey(SeaTau record);
+
+	List<Map<String, Object>> loadCrewOnShip(int tauid);
+
+	List<Map<String, Object>> loadTVDuTru(int tauid);
 }
