@@ -13,13 +13,13 @@
                      <h5 class="title" style="color:#f96332">
                         <a style="color:black"   :href="'/crew/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null ">  Profile  </a>
                         <a style="color:black" :href="'/crew/resume/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Resumes  </a>
-                        <a style="color:black" :href="'/crew/experience/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Experience  </a>
-                        | Certificate 
+                        | Experience 
+                        <a style="color:black"  :href="'/crew/certificate/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Certificate  </a>
                         <a style="color:black"   :href="'/crew/rank/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Rank  </a>
                      </h5>
                   </div>
                   <div v-show="debug">
-                     <p>{{family}}</p>
+       
                   </div>
                   <ul v-if="errors && errors.length" id="error_id">
                      <li v-for="error of errors" style="color:red">
@@ -27,13 +27,29 @@
                      </li>
                   </ul>
                   <div class="card-body">
-           
+                     <h6>Oil - Chemical - Gas</h6>
                      <div class="nav navbar-right panel_toolbox">
-                        <a href="javascript:void(0)" data-id="0" class="btn btn-primary btn-xs certificate-add" > <i class="fa fa-plus"> </i>  Add</a>
-                        <button data-id="0" type="button" class="btn btn-primary btn-xs information-add" v-on:click="ExportCertificate" > <i class="fa fa-download"> </i>  Export Excel</button>
+                        <button data-id="0" type="button" class="btn btn-primary btn-xs experience-add" > <i class="fa fa-plus"> </i>  Add</button>
                      </div>
-                     <div id="div_certificate">
-                        <table id="certificate"
+                     <div id="div_kinhnghiemlamviec">
+                        <table id="kinhnghiemlamviec"
+                           class="table table-striped table-bordered dataTable no-footer jambo_table bulk_action"
+                           style="width: 100%">
+                           <thead>
+                           </thead>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="card">
+                  <div class="card-body">
+                     <h6>Others</h6>
+                     <div class="nav navbar-right panel_toolbox">
+                     
+                     </div>
+                     <div id="div_kinhnghiemlamviec_other">
+                        <table id="kinhnghiemlamviec_other"
                            class="table table-striped table-bordered dataTable no-footer jambo_table bulk_action"
                            style="width: 100%">
                            <thead>
@@ -132,100 +148,147 @@
          </div>
        
          <script>
-         var tableCertificate;
-
+        
+         var tableKinhNghiemLamViec;
+         var tableKinhNghiemLamViecOther;
+        
          new Vue({
         	    el: '#root',
         	    data: {
         	        profile: {},
-        	        nations: [],
         	        debug: false,
         	        errors: [],
-        	        family: []
+        	        
         	    },
         	    mounted() {
-        	        this.LoadDataChungChi();
+        	    	var columnDefs = [{"title": "STT","targets": 0},
+      				  { 
+    					"targets": 1,
+    					"visible": false,
+    	                "searchable": false
+    				  },
+    				  {"title": "COMPANY","targets": 2,"width":"20%"
+    				  },
+    				  
+    				  {"title": "VESSEL NAME","targets": 3},
+    				  {"title": "VESSEL TYPE","targets": 4},
+    				  {"title": "GRT/M.EP (MT/KW)","targets": 5},
+    				  {"title": "RANK","targets": 6},
+    				  {
+    					  "title": "SIGN ON",
+    					  "targets": 7,
+    		                "render": function (data) {
+    		                	if(isNaN(data))
+    		                	{
+    		                		return '';
+    		                	}
+    		                	else
+    		                		return formatDate(data);
+    		                }
+    				  },
+    				  {
+    					  "title": "SIGN OFF",
+    					  "targets": 8,
+    		                "render": function (data) {
+    		                	if(isNaN(data))
+    		                	{
+    		                		return '';
+    		                	}
+    		                	else
+    		                		return formatDate(data);
+    		                }
+    				  },
+    				  {
+    					  "title": "MONTHS",
+    					  "targets": 9,
+    					  "render": function (data, type, row, meta) {
+    						  var remainder = (data.denngay- data.tungay) ;
+    						  var month = remainder / (1000*60*60*24*30);
+    						  
+    						   return month.toFixed(2);
+    	                   } 
+    				  },
+    				  {
+    					  "title": "",
+    					  "targets":10,
+    	                  "render": function (data, type, row, meta) {  
+    	                	  var edit = '<a href="javascript:void(0)"  class="experience-edit" data-id=' + row['id'] + ' > Edit</a>';
+    	                	  var remove = '<a href="javascript:void(0)" class="experience-delete" data-id=' + row['id'] + ' > Delete</a>';
+    	                	   return edit + remove;      
+    	                   }
+    				  }
+    				  ];
+		
+		    	      var aoData =  [{ "mData": "stt","defaultContent":""},
+		 				 { "mData": "id", "defaultContent":"" },
+						 { "mData": "tencongty", "defaultContent":"" },
+					     { "mData": "tentau", "defaultContent":"" },
+					  	 { "mData": "loaitau_text", "defaultContent":"" },
+						 { "mData": "trongtai", "defaultContent":"" },
+						 { "mData": "chucdanh_text", "defaultContent":"" },
+						 { "mData": "tungay", "defaultContent":"" },
+						 { "mData": "denngay", "defaultContent":"" },
+						 { "mData": null},
+						 { "mData": null}
+						 
+						 ];
+        	        this.LoadDataKinhNghiemLamViec(columnDefs,aoData);
+        	        this.LoadDataKinhNghiemLamViecOther(columnDefs,aoData);
         	    },
         	    computed: {},
         	    methods: {
-        	    	LoadDataChungChi() {
-
-        	            axios.get(_ctx + "crew/certificate/" + getLastParameterOnURL () )
+        	    	LoadDataKinhNghiemLamViec(columnDefs,aoData) {
+        	    		   axios.get(_ctx + "crew/profile/" + getLastParameterOnURL() )
+       	                .then(response => {
+       	                    this.profile = response.data;
+       	                    if (this.profile.seaFile && this.profile.seaFile.name) {
+       	                        this.profile.seaFile.name = _ctx + 'disk/' + this.profile.seaFile.name;
+       	                    }
+       	                })
+       	                .catch(e => {
+       	                    this.errors.push(e)
+       	                });
+        	    		   
+        	            axios.get(_ctx + "crew/experience/" + getLastParameterOnURL () )
     	                .then(response => {
-    	                    this.family = response.data;
-    	                    var aoData = [{ "mData": "stt","defaultContent":""},
-    	       				 { "mData": "id", "defaultContent":"" },
-    	    			     { "mData": "tenchungchi", "defaultContent":"" },
-    	    			  	 { "mData": "so", "defaultContent":"" },
-    	    				 { "mData": "tungay", "defaultContent":"" },
-    	    				 { "mData": "denngay", "defaultContent":"" },
-    	    				 { "mData": "hscanDownName", "defaultContent":"" },
-    	    				 { "mData": null}
-    	    				 ];
+    	                    tableKinhNghiemLamViec = $('#kinhnghiemlamviec').DataTable({
+    	                         data: response.data,
+    	                        "columnDefs": columnDefs,
+    	                        "aoColumns": aoData,
+    	                        "bInfo": false,
+    	                        "bPaginate": false,
+    	                        "searching": false,
+    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+    	                            var index = iDisplayIndex + 1;
+    	                            $('td:eq(0)', nRow).html(index);
+    	                            return nRow;
+    	                        },
+    	                        "createdRow": function(row, data, dataIndex, full) {
+    	                            $(row).attr('data-id', data.id);
+    	                        }
+    	                        
+    	                    });
     	                    
-    	                    var columnDefs = [{"title": "STT","targets": 0},
-    	      				  { 
-    	    					"targets": 1,
-    	    					"visible": false,
-    	    	                "searchable": false
-    	    				  },
-    	    				  {"title": "Tên","targets": 2,"width":"35%",
-    	    					  "mRender" : function ( data, type, full ) { 
-    	    						  
-    	    					        return full['tenchungchi'] + '<br>' + (full['tenchungchiEn']==null? '':full['tenchungchiEn']) ;
-    	    					      }
-    	    				  },
-    	    				  
-    	    				  {"title": "Số","targets": 3},
-    	    				  {
-    	    					  "title": "Ngày cấp",
-    	    					  "targets": 4,
-    	    					  "width":"10%",
-    	    		                "render": function (data) {
-    	    		                	if(isNaN(data))
-    	    		                	{
-    	    		                		return '';
-    	    		                	}
-    	    		                	else
-    	    		                		return formatDate(data);
-    	    		                }
-    	    				  },
-    	    				  {
-    	    					  "title": "Ngày hết hạn",
-    	    					  "targets": 5,
-    	    		                "render": function (data) {
-    	    		                	if(isNaN(data))
-    	    		                	{
-    	    		                		return '';
-    	    		                	}
-    	    		                	else
-    	    		                		return formatDate(data);
-    	    		                }
-    	    				  },
-    	    				  {"title": "Hình scan","targets": 6, "width":"10%",
-    	    					  "mRender" : function ( data, type, full ) { 
-    	    						  
-    	    						 
-    	    						  return (full['hscanName']==null ? '':"<a style='text-decoration: underline;color:blue' id='hinhScanLink' href='" + $('#PageContext').val() + 'disk/' + full['hscanDownName'] + "' target='_blank' title='Download hình scan' >" + full['hscanName']  + "</a>") ;
-    	    					     
-    	    					  }
-    	    				  
-    	    				  },
-    	    				  {
-    	    					  "title": "",
-    	    					  "targets": 7,
-    	    	                  
-    	    	                  "render": function (data, type, row, meta) {
-    	    	                	  var edit = '<a href="javascript:void(0)"  class="certificate-edit" data-id=' + row['id'] + ' > Edit</a>';
-    	    	                	  var remove = '<a href="javascript:void(0)" class="certificate-delete" data-id=' + row['id'] + ' > Delete</a>';
-    	    	                	   return edit + remove;           
-    	    	                   }
-    	    	         
-    	    				  }
-    	    				  ];
-							
+    	                    var url = _ctx + 'editExperience/';
+    	            		initEventClickForEditOrDelete("kinhnghiemlamviec",".experience-edit",url);
+    	            		
+    	            		url = _ctx + 'deleteExperience/';
+    	            		initEventClickForEditOrDelete("kinhnghiemlamviec",".experience-delete",url);
+    	            		
+    	            		$( ".experience-add" ).bind( "click", function() {
+    	            			popupModalAdd( _ctx + 'editExperience/0' );
+    	            		});
+    	            		
+    	                });
+        	        },
+        	        LoadDataKinhNghiemLamViecOther(columnDefs,aoData) {
+
+        	            axios.get(_ctx + "crew/experienceOther/" + getLastParameterOnURL() )
+    	                .then(response => {
     	                    
-    	                    tableCertificate = $('#certificate').DataTable({
+    	                    
+    	                    
+    	                	tableKinhNghiemLamViecOther = $('#kinhnghiemlamviec_other').DataTable({
     	                        data: response.data,
     	                        "columnDefs": columnDefs,
     	                        "aoColumns": aoData,
@@ -243,48 +306,17 @@
     	                        
     	                    });
     	                    
-    	                    
-    	                 
-    	            		var url = _ctx + 'deleteCertificate/';
-    	            		initEventClickForEditOrDelete("certificate",".certificate-delete",url);
+    	                    var url = _ctx + 'editExperience/';
+    	            		initEventClickForEditOrDelete("kinhnghiemlamviec_other",".experience-edit",url);
     	            		
-    	            		 url = _ctx + 'editCertificate/';
-       	            		initEventClickForEditOrDelete("certificate",".certificate-edit",url);
-       	            		
-       	            		
-       	            		
-    	            		$( ".certificate-add" ).bind( "click", function() {
-    	            			popupModalAdd( _ctx + 'editCertificate/0' );
-    	            		});
-    	            		
-    	            		
-    	            		
+    	            		url = _ctx + 'deleteExperience/';
+    	            		initEventClickForEditOrDelete("kinhnghiemlamviec_other",".experience-delete",url);
+    	       
     	                });
-        	            
-        	            
-        	            axios.get(_ctx + "crew/profile/" + getLastParameterOnURL() )
-        	                .then(response => {
-        	                    this.profile = response.data;
-        	                    if (this.profile.seaFile && this.profile.seaFile.name) {
-        	                        this.profile.seaFile.name = _ctx + 'disk/' + this.profile.seaFile.name;
-        	                    }
-        	                })
-        	                .catch(e => {
-        	                    this.errors.push(e)
-        	                });
-
-        	            axios.get(_ctx + "masterdata/S001")
-        	                .then(response => {
-        	                    this.nations = response.data;
-        	                })
-        	                .catch(e => {
-        	                    this.errors.push(e)
-        	                });
         	        },
         	        ExportCertificate(){
         	        	window.location = $('#PageContext').val() + "report/Certificate/" +  getLastParameterOnURL();
         	        },
-        	        
         	        Save: function(event) {
 
         	            //Validate Form

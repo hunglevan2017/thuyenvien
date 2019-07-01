@@ -37,6 +37,12 @@ public class CrewCtrl {
 		return mav;
 	}
 	
+	@RequestMapping(value = { "/crew/experience/{id}" }, method = RequestMethod.GET)
+	public ModelAndView crewExperience(@PathVariable("id") int crewId) {
+		ModelAndView mav = new ModelAndView("component/CrewExperience");
+		return mav;
+	}
+	
 	@RequestMapping(value = { "/crew/certificate/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crewCertificate(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/CrewCertificate");
@@ -113,5 +119,22 @@ public class CrewCtrl {
 		mav.addObject("SeaChungChiThuyenVienID", SeaChungChiThuyenVienID);
 		return mav;
 	}
+	
+	
+	@RequestMapping(value = { "/editExperience/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editExperience(@PathVariable("id") int SeaKinhNghiemLamViecID) {
+		ModelAndView mav = new ModelAndView("component/experience/experience_edit");
+		mav.addObject("SeaKinhNghiemLamViecID", SeaKinhNghiemLamViecID);
+		return mav;
+	}
+
+	@RequestMapping(value = { "/deleteExperience/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteExperience(@PathVariable("id") int SeaKinhNghiemLamViecID) {
+		ModelAndView mav = new ModelAndView("component/experience/experience_delete");
+		mav.addObject("SeaKinhNghiemLamViecID", SeaKinhNghiemLamViecID);
+		return mav;
+	}
+	
+	
 
 }

@@ -7,6 +7,13 @@ public class MasterData {
 
 	private String CODE;
 	private String TEXT;
+	private String val;
+	public String getVal() {
+		return val;
+	}
+	public void setVal(String val) {
+		this.val = val;
+	}
 	private Lov lov;
 	
 

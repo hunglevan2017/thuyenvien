@@ -29,6 +29,12 @@ public interface AppMapper {
 
 	List<Lov> getCertificatesNotExist(int crewId);
 
+	List<Map<String, Object>> queryKinhNghiemLamviec(String crewId);
+
+	List<Map<String, Object>> queryKinhNghiemLamviecOther(String crewId);
+
+	List<Map<String, Object>> sp_sea_get_profile_user(Map<String, Object> filter);
+
 
 
 }

@@ -107,7 +107,7 @@ new Vue({
                 .then(response => {
                     this.record = response.data;
                     
-                    if ( $('#SeaChungChiThuyenVienID').val() != "0" )
+                    if ( this.record.hinhscan != null )
                     {
                     	  axios.get( _ctx + "crew/getFile/" + this.record.hinhscan )
                           .then(response => {
