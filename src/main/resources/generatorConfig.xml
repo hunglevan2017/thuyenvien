@@ -33,7 +33,7 @@
 			targetProject="dc" type="XMLMAPPER" />
 			
 
-		<table catalog="${jdbc.schema}" tableName="sea_tau"  domainObjectName="SeaTau">		
+		<table catalog="${jdbc.schema}" tableName="sea_thongtinchucdanh"  domainObjectName="SeaThongTinChucDanh">		
 			 <!-- 
 	 			<property name="enableInsert" value="true"/>
 	 			<property name="enableSelectByPrimaryKey" value="true"/>

@@ -35,6 +35,8 @@ public interface AppMapper {
 
 	List<Map<String, Object>> sp_sea_get_profile_user(Map<String, Object> filter);
 
+	List<Map<String, Object>> SP_Boatman_Position_Search(int crewId);
+
 
 
 }

@@ -153,6 +153,12 @@
 		    
 		    
   	</select>
+  	
+  		 
+	 <select id="SP_Boatman_Position_Search" resultType="map" parameterType="int">
+		call ${jdbc.schema}.SP_Boatman_Position_Search (413,#{thuyenvien_id},null,null,null,null,null,1,100000);
+	</select>
+	
 	
 	
 	

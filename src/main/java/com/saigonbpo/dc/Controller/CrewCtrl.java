@@ -48,6 +48,12 @@ public class CrewCtrl {
 		ModelAndView mav = new ModelAndView("component/CrewCertificate");
 		return mav;
 	}
+	
+	@RequestMapping(value = { "/crew/rank/{id}" }, method = RequestMethod.GET)
+	public ModelAndView crewRank(@PathVariable("id") int crewId) {
+		ModelAndView mav = new ModelAndView("component/CrewRank");
+		return mav;
+	}
 
 	@RequestMapping(value = { "/editInformationFamily/{id}" }, method = RequestMethod.GET)
 	public ModelAndView editInformationFamily(@PathVariable("id") int SeaThongTinGiaDinhID) {
@@ -135,6 +141,20 @@ public class CrewCtrl {
 		return mav;
 	}
 	
+	
+	@RequestMapping(value = { "/editRank/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editRank(@PathVariable("id") int SeaThongTinChucDanhID) {
+		ModelAndView mav = new ModelAndView("component/rank/rank_edit");
+		mav.addObject("SeaThongTinChucDanhID", SeaThongTinChucDanhID);
+		return mav;
+	}
+
+	@RequestMapping(value = { "/deleteRank/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteRank(@PathVariable("id") int SeaThongTinChucDanhID) {
+		ModelAndView mav = new ModelAndView("component/rank/rank_delete");
+		mav.addObject("SeaThongTinChucDanhID", SeaThongTinChucDanhID);
+		return mav;
+	}
 	
 
 }

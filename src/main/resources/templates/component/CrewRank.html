@@ -13,13 +13,13 @@
                      <h5 class="title" style="color:#f96332">
                         <a style="color:black"   :href="'/crew/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null ">  Profile  </a>
                         <a style="color:black" :href="'/crew/resume/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Resumes  </a>
-                        | Experience 
+                        <a style="color:black" :href="'/crew/experience/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Experience  </a>
                         <a style="color:black"  :href="'/crew/certificate/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Certificate  </a>
-                        <a style="color:black"   :href="'/crew/rank/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Rank  </a>
+                        | Rank 
                      </h5>
                   </div>
                   <div v-show="debug">
-       
+                 
                   </div>
                   <ul v-if="errors && errors.length" id="error_id">
                      <li v-for="error of errors" style="color:red">
@@ -27,12 +27,12 @@
                      </li>
                   </ul>
                   <div class="card-body">
-                     <h6>Oil - Chemical - Gas</h6>
+                     <h6>Rank</h6>
                      <div class="nav navbar-right panel_toolbox">
-                        <button data-id="0" type="button" class="btn btn-primary btn-xs experience-add" > <i class="fa fa-plus"> </i>  Add</button>
+                        <button data-id="0" type="button" class="btn btn-primary btn-xs rank-add" > <i class="fa fa-plus"> </i> Add </button>
                      </div>
-                     <div id="div_kinhnghiemlamviec">
-                        <table id="kinhnghiemlamviec"
+                     <div id="div_rank">
+                        <table id="rank"
                            class="table table-striped table-bordered dataTable no-footer jambo_table bulk_action"
                            style="width: 100%">
                            <thead>
@@ -41,24 +41,6 @@
                      </div>
                   </div>
                </div>
-               
-               <div class="card">
-                  <div class="card-body">
-                     <h6>Others</h6>
-                     <div class="nav navbar-right panel_toolbox">
-                     
-                     </div>
-                     <div id="div_kinhnghiemlamviec_other">
-                        <table id="kinhnghiemlamviec_other"
-                           class="table table-striped table-bordered dataTable no-footer jambo_table bulk_action"
-                           style="width: 100%">
-                           <thead>
-                           </thead>
-                        </table>
-                     </div>
-                  </div>
-               </div>
-               
                
                
                
@@ -148,158 +130,93 @@
          </div>
        
          <script>
-        
-         var tableKinhNghiemLamViec;
-         var tableKinhNghiemLamViecOther;
-        
+         var tableRank;
          new Vue({
         	    el: '#root',
         	    data: {
         	        profile: {},
+        	        nations: [],
         	        debug: false,
         	        errors: [],
-        	        
+        	        family: []
         	    },
         	    mounted() {
-        	    	var columnDefs = [
-        	    	  {"title": "#","targets": 0, "visible": true,
-        	                "searchable": true},
-      				  { 
-    					"targets": 1,
-    					"visible": false,
-    	                "searchable": false
-    				  },
-    				  {"title": "COMPANY","targets": 2,"width":"20%"
-    				  },
-    				  
-    				  {"title": "VESSEL NAME","targets": 3},
-    				  {"title": "VESSEL TYPE","targets": 4},
-    				  {"title": "MT/KW","targets": 5},
-    				  {"title": "RANK","targets": 6},
-    				  {
-    					  "title": "SIGN ON",
-    					  "targets": 7,
-    		                "render": function (data) {
-    		                	if(isNaN(data))
-    		                	{
-    		                		return '';
-    		                	}
-    		                	else
-    		                		return formatDate(data);
-    		                }
-    				  },
-    				  {
-    					  "title": "SIGN OFF",
-    					  "targets": 8,
-    		                "render": function (data) {
-    		                	if(isNaN(data))
-    		                	{
-    		                		return '';
-    		                	}
-    		                	else
-    		                		return formatDate(data);
-    		                }
-    				  },
-    				  {
-    					  "title": "MON",
-    					  "targets": 9,
-    					  "render": function (data, type, row, meta) {
-    						  var remainder = (data.denngay- data.tungay) ;
-    						  var month = remainder / (1000*60*60*24*30);
-    						  
-    						   return month.toFixed(2);
-    	                   } 
-    				  },
-    				  {
-    					  "title": "",
-    					  "targets":10,
-    	                  "render": function (data, type, row, meta) {  
-    	                	  var edit = '<a href="javascript:void(0)"  class="experience-edit" data-id=' + row['id'] + ' > Edit</a>';
-    	                	  var remove = '<a href="javascript:void(0)" class="experience-delete" data-id=' + row['id'] + ' > Delete</a>';
-    	                	   return edit + remove;      
-    	                   }
-    				  }
-    				  ];
-		
-		    	      var aoData =  [
-		    	    	 { "mData": "stt","defaultContent":""},
-		 				 { "mData": "id", "defaultContent":"" },
-						 { "mData": "tencongty", "defaultContent":"" },
-					     { "mData": "tentau", "defaultContent":"" },
-					  	 { "mData": "loaitau_text", "defaultContent":"" },
-						 { "mData": "trongtai", "defaultContent":"" },
-						 { "mData": "chucdanh_text", "defaultContent":"" },
-						 { "mData": "tungay", "defaultContent":"" },
-						 { "mData": "denngay", "defaultContent":"" },
-						 { "mData": null},
-						 { "mData": null}
-						 
-						 ];
-        	        this.LoadDataKinhNghiemLamViec(columnDefs,aoData);
-        	        this.LoadDataKinhNghiemLamViecOther(columnDefs,aoData);
+        	        this.LoadDataRank();
+ 
         	    },
         	    computed: {},
         	    methods: {
-        	    	LoadDataKinhNghiemLamViec(columnDefs,aoData) {
-        	    		   axios.get(_ctx + "crew/profile/" + getLastParameterOnURL() )
-       	                .then(response => {
-       	                    this.profile = response.data;
-       	                    if (this.profile.seaFile && this.profile.seaFile.name) {
-       	                        this.profile.seaFile.name = _ctx + 'disk/' + this.profile.seaFile.name;
-       	                    }
-       	                })
-       	                .catch(e => {
-       	                    this.errors.push(e)
-       	                });
-        	    		   
-        	            axios.get(_ctx + "crew/experience/" + getLastParameterOnURL () )
-    	                .then(response => {
-    	                    tableKinhNghiemLamViec = $('#kinhnghiemlamviec').DataTable({
-    	                         data: response.data,
-    	                        "columnDefs": columnDefs,
-    	                        "aoColumns": aoData,
-    	                        "bInfo": false,
-    	                        "bPaginate": false,
-    	                        "searching": false,
-    	                        "ordering": false,
-    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
-    	                            var index = iDisplayIndex + 1;
-    	                            $('td:eq(0)', nRow).html(index);
-    	                            return nRow;
-    	                        },
-    	                        "createdRow": function(row, data, dataIndex, full) {
-    	                            $(row).attr('data-id', data.id);
-    	                        }
-    	                        
-    	                    });
-    	                    
-    	                    var url = _ctx + 'editExperience/';
-    	            		initEventClickForEditOrDelete("kinhnghiemlamviec",".experience-edit",url);
-    	            		
-    	            		url = _ctx + 'deleteExperience/';
-    	            		initEventClickForEditOrDelete("kinhnghiemlamviec",".experience-delete",url);
-    	            		
-    	            		$( ".experience-add" ).bind( "click", function() {
-    	            			popupModalAdd( _ctx + 'editExperience/0' );
-    	            		});
-    	            		
-    	                });
-        	        },
-        	        LoadDataKinhNghiemLamViecOther(columnDefs,aoData) {
+        	    	LoadDataRank() {
 
-        	            axios.get(_ctx + "crew/experienceOther/" + getLastParameterOnURL() )
+        	            axios.get(_ctx + "crew/rank/" + getLastParameterOnURL () )
     	                .then(response => {
+    	                
     	                    
+    	                    var aoData = [{ "mData": "stt","defaultContent":""},
+    	       				 { "mData": "id", "defaultContent":"" },
+    	    			     { "mData": "chucdanh", "defaultContent":"" },
+    	    				 { "mData": "tungay", "defaultContent":"" },
+    	    				 { "mData": "denngay", "defaultContent":"" },
+    	    				 { "mData": "ghichu", "defaultContent":"" },
+    	    				 { "mData": null},
+    	    				 { "mData": null}
+    	    				 ];
     	                    
+    	                    var columnDefs = [
+    							{"title": "STT","targets": 0},
+    					  		{ "targets": 1,"visible": false,"searchable": false},
+    						    {"title": "Chức Danh","targets": 2,"width":"15%"},
+    						    {
+    							  "title": "Từ Ngày",
+    							  "targets": 3,
+    				                "render": function (data) {
+    				                	if(isNaN(data))
+    				                	{
+    				                		return '';
+    				                	}
+    				                	else
+    				                		return formatDate(data);
+    				                }
+    					  },
+    					  {
+    						  "title": "Đến Ngày",
+    						  "targets": 4,
+    			                "render": function (data) {
+    			                	if(isNaN(data))
+    			                	{
+    			                		return '';
+    			                	}
+    			                	else
+    			                		return formatDate(data);
+    			                }
+    					  },
+    					  {"title": "Ghi Chú","targets": 5 },
+    					  {
+    						  "title": "",
+    						  "targets": 6,
+    		                  
+    		                  "render": function (data, type, row, meta) {
+    		                	   return '<button type="button" class="btn btn-primary btn-xs rank-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';           
+    		                   }
+    		         
+    					  },
+    					  {
+    						  "title": "",
+    						  "targets": 7,
+    						  "render": function (data, type, row, meta) {
+    		                	   return '<button type="button" class="btn btn-primary btn-xs rank-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';           
+    		                   }
+    					  }
+    					  ];
+							
     	                    
-    	                	tableKinhNghiemLamViecOther = $('#kinhnghiemlamviec_other').DataTable({
+    	                    tableRank = $('#rank').DataTable({
     	                        data: response.data,
     	                        "columnDefs": columnDefs,
     	                        "aoColumns": aoData,
     	                        "bInfo": false,
     	                        "bPaginate": false,
     	                        "searching": false,
-    	                        "ordering": false,
     	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
     	                            var index = iDisplayIndex + 1;
     	                            $('td:eq(0)', nRow).html(index);
@@ -311,17 +228,31 @@
     	                        
     	                    });
     	                    
-    	                    var url = _ctx + 'editExperience/';
-    	            		initEventClickForEditOrDelete("kinhnghiemlamviec_other",".experience-edit",url);
+    	                    var url = _ctx + 'editRank/';
+    	            		initEventClickForEditOrDelete("rank",".rank-edit",url);
     	            		
-    	            		url = _ctx + 'deleteExperience/';
-    	            		initEventClickForEditOrDelete("kinhnghiemlamviec_other",".experience-delete",url);
-    	       
+    	            		url = _ctx + 'deleteRank/';
+    	            		initEventClickForEditOrDelete("rank",".rank-delete",url);
+    	            		
+    	            		$( ".rank-add" ).bind( "click", function() {
+    	            			popupModalAdd( _ctx + 'editRank/0' );
+    	            		});
     	                });
+        	            
+        	            
+        	            axios.get(_ctx + "crew/profile/" + getLastParameterOnURL() )
+        	                .then(response => {
+        	                    this.profile = response.data;
+        	                    if (this.profile.seaFile && this.profile.seaFile.name) {
+        	                        this.profile.seaFile.name = _ctx + 'disk/' + this.profile.seaFile.name;
+        	                    }
+        	                })
+        	                .catch(e => {
+        	                    this.errors.push(e)
+        	                });
+
         	        },
-        	        ExportCertificate(){
-        	        	window.location = $('#PageContext').val() + "report/Certificate/" +  getLastParameterOnURL();
-        	        },
+        	       
         	        Save: function(event) {
 
         	            //Validate Form
