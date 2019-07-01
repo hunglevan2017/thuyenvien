@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,6 +226,27 @@ public class CrewRestCtrl {
 
 		}
 		return profile;
+
+	}
+	
+	@RequestMapping(value = { "user/updateSS" }, method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public int updateSS(@RequestBody List<Map<String, Object>> condition) throws JSONException {
+		try {
+			
+			
+			for (Map<String, Object> map : condition) {
+				
+				SeaThongTinThuyenVien record = seaThongTinThuyenVienMapper.selectByPrimaryKey(Integer.parseInt(map.get("id").toString()));
+				record.setSs(Integer.parseInt(map.get("ss").toString()));
+				seaThongTinThuyenVienMapper.updateByPrimaryKeySelective(record);
+				
+			}
+			return 1;
+		} catch (Exception ex) {
+			logger.info(ex.toString());
+			return 0;
+		}
 
 	}
 	

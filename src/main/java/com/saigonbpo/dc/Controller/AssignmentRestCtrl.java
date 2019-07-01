@@ -124,6 +124,24 @@ public class AssignmentRestCtrl {
 			
 			SeaThongTinThuyenVien seaThongTinThuyenVien = seaThongTinThuyenVienMapper.selectByPrimaryKey(record.getThuyenvienid());
 			seaThongTinThuyenVien.setTinhtrangdieudong(1);
+			seaThongTinThuyenVien.setSs(0);
+			seaThongTinThuyenVienMapper.updateByPrimaryKeySelective(seaThongTinThuyenVien);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return null;
+		}
+		return record;
+	}
+	
+	@RequestMapping(value = { "/saveDieuDongRoiTau" }, method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public SeaThongTinDieuDong saveDieuDongRoiTau(@RequestBody SeaThongTinDieuDong record) {
+		try
+		{
+			seaThongTinDieuDongMapper.updateByPrimaryKeySelective(record);
+			SeaThongTinThuyenVien seaThongTinThuyenVien = seaThongTinThuyenVienMapper.selectByPrimaryKey(record.getThuyenvienid());
+			seaThongTinThuyenVien.setTinhtrangdieudong(0);
 			seaThongTinThuyenVienMapper.updateByPrimaryKeySelective(seaThongTinThuyenVien);
 		}
 		catch(Exception ex)

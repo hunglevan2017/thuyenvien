@@ -182,6 +182,15 @@ public class CrewCtrl {
 		mav.addObject("crewID", seaThongTinDieuDong.getThuyenvienid());
 		return mav;
 	}
+	
+	@RequestMapping(value = { "/editDieuDongRoiTau/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editDieuDongRoiTau(@PathVariable("id") int SeaThongTinDieuDongID) {
+		ModelAndView mav = new ModelAndView("component/assignment/dieudong_roitau_edit");
+		SeaThongTinDieuDong seaThongTinDieuDong= seaThongTinDieuDongMapper.selectByPrimaryKey(SeaThongTinDieuDongID);
+		mav.addObject("SeaThongTinDieuDongID", SeaThongTinDieuDongID);
+		mav.addObject("crewID", seaThongTinDieuDong.getThuyenvienid());
+		return mav;
+	}
 
 	@RequestMapping(value = { "/deleteDieuDong/{id}" }, method = RequestMethod.GET)
 	public ModelAndView deleteDieuDong(@PathVariable("id") int SeaThongTinDieuDongID) {

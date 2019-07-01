@@ -137,7 +137,7 @@
 			    	        	                    	*/
 
 
-			    	        			        	  var stop = '<button type="button" class="btnRoiTau" data-id=' + row['thuyenvienId'] + ' > </button>';
+			    	        			        	  var stop = '<a style="padding:0px;" class="btn btnRoiTau" data-id=' + row['id'] + ' > </button>';
 
 			    	        			        	  return stop ;
 			    	        			           }
@@ -187,7 +187,7 @@
 			    	        			  "targets": 11,
 
 			    	        	          "render": function (data, type, row, meta) {
-			    	        	        	   return '<button type="button" class="btn-success source dieudong-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';
+			    	        	        	   return '<button type="button" class="btn-success source dieudong-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> </button>';
 			    	        	           }
 
 			    	        		  },
@@ -195,11 +195,11 @@
 			    	        			  "title": "",
 			    	        			  "targets": 12,
 			    	        			  "render": function (data, type, row, meta) {
-			    	        	        	   return '<button type="button" class="btn-success source dieudong-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';
+			    	        	        	   return '<button type="button" class="btn-success source dieudong-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> </button>';
 			    	        	           }
 			    	        		  }
 			    	        		  ];
-										
+			    	           
 			    	                    
 			    	                    tableBoard = $('#board').DataTable({
 			    	                        data: response.data,
@@ -226,17 +226,13 @@
 			    	            		 var url = _ctx + 'deleteDieuDong/';
 				    	            		initEventClickForEditOrDelete("board",".dieudong-delete",url);
 			    	            		
-			    	                    /*
-			    	                    var url = _ctx + 'editChucDanh/';
-			    	            		initEventClickForEditOrDelete("board",".chucdanh-edit",url);
-			    	            		
-			    	            		url = _ctx + 'deleteChucDanh/';
-			    	            		initEventClickForEditOrDelete("board",".chucdanh-delete",url);
-			    	            		
-			    	            		$( ".btnRoiTau-add" ).bind( "click", function() {
-			    	            			popupModalAdd( _ctx + 'editInformationFamily/0' );
+				    	            		
+				    	            		
+			    	            		$( ".btnRoiTau" ).bind( "click", function() {
+			    	            			var DieuDongID = this.getAttribute("data-id");
+			    	            			popupModalAdd( _ctx + 'editDieuDongRoiTau/' + DieuDongID);
 			    	            		});
-			    	            		*/
+			    	            
 			    	            		
 			    	            		
 			    	            		
@@ -265,7 +261,7 @@
 			    	        		  		{ "targets": 2,"visible": false,"searchable": false},
 			    	        		  		{ "targets": 3,"visible": false,"searchable": false},
 
-
+			    	        		         
 			    	        		  		{
 			    	        					  "title": "ACTION",
 			    	        					  "targets": 4,
@@ -273,11 +269,11 @@
 
 			    	        			          "render": function (data, type, row, meta) {
 
-			    	        			        	  var play = '<button type="button" class="btnXuongTau" data-id=' + row['id'] + ' > </button>';
-			    	        			        	  var his = '<button type="button" class="btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
+			    	        			        	  var play = '<a style="padding:0px;margin-right:5px" class="btn btnXuongTau" data-id=' + row['id'] + ' > </button>';
+			    	        			        	  var his = '<a  style="padding:0px" class="btn btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
 
 
-			    	        			        	  return play + his;
+			    	        			        	  return play ;
 
 			    	        			           }
 
