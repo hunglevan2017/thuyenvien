@@ -27,7 +27,7 @@
           </li>
            -->
           
-          <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/1' ? 'active':''}" >
+          <li  th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/1' ? 'active':''}" >
             <a th:href="@{/ListOfBoat/1}">
               <i class="now-ui-icons education_atom"></i>
               <p>Crew On Board</p>

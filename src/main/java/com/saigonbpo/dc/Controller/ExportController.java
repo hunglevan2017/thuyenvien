@@ -30,14 +30,12 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
-import org.xmlunit.builder.Input;
 
 import com.saigonbpo.dc.Common.FuncUtil;
 import com.saigonbpo.dc.Mapper.AppMapper;
@@ -56,8 +54,6 @@ public class ExportController {
 	@Autowired
 	RestTemplate restTemplate;
 
-	@Autowired
-	private Environment env;
 
 	// Log
 	Logger logger = LoggerFactory.getLogger(ExportController.class);

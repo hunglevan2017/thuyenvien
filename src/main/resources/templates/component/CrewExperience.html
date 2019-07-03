@@ -162,8 +162,8 @@
         	    },
         	    mounted() {
         	    	var columnDefs = [
-        	    	  {"title": "#","targets": 0, "visible": true,
-        	                "searchable": true},
+        	    	  {"title": "#","targets": 0, "visible": false,
+        	                "searchable": false},
       				  { 
     					"targets": 1,
     					"visible": false,
@@ -256,16 +256,18 @@
     	                .then(response => {
     	                    tableKinhNghiemLamViec = $('#kinhnghiemlamviec').DataTable({
     	                         data: response.data,
+    	                         
     	                        "columnDefs": columnDefs,
     	                        "aoColumns": aoData,
     	                        "bInfo": false,
     	                        "bPaginate": false,
     	                        "searching": false,
     	                        "ordering": false,
+    	                        "scrollX": true,
     	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
-    	                            var index = iDisplayIndex + 1;
-    	                            $('td:eq(0)', nRow).html(index);
-    	                            return nRow;
+    	                          //  var index = iDisplayIndex + 1;
+    	                          //  $('td:eq(0)', nRow).html(index);
+    	                          //  return nRow;
     	                        },
     	                        "createdRow": function(row, data, dataIndex, full) {
     	                            $(row).attr('data-id', data.id);
@@ -300,10 +302,11 @@
     	                        "bPaginate": false,
     	                        "searching": false,
     	                        "ordering": false,
+    	                        "scrollX": true,
     	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
-    	                            var index = iDisplayIndex + 1;
-    	                            $('td:eq(0)', nRow).html(index);
-    	                            return nRow;
+    	                           // var index = iDisplayIndex + 1;
+    	                         //   $('td:eq(0)', nRow).html(index);
+    	                          //  return nRow;
     	                        },
     	                        "createdRow": function(row, data, dataIndex, full) {
     	                            $(row).attr('data-id', data.id);
