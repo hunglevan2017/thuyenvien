@@ -111,9 +111,13 @@ table.dataTable tbody th, table.dataTable tbody td {
     border: none;
     outline: none;
 }
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: white;
-}
 table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
-    background-color: white;
+    background-color: white !important;
+}
+.dataTables tbody tr {
+min-height: 35px; /* or whatever height you need to make them all consistent */
+}
+
+.table > tbody > tr {
+    height:40px !important;
 }

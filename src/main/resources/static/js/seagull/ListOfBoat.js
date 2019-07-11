@@ -264,6 +264,9 @@ $(document).ready( function () {
           url = page_context + 'history/';
   		initEventClickForEditOrDelete("tb_ListOfCrew",".btnQuaTrinhCongTac",url);
   		
+  		$(window).on('resize', function () {
+  		   table.columns.adjust();
+  		    } );
 		 
 });
 $('#cusloading').hide();

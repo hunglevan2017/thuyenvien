@@ -35,14 +35,14 @@
           </li>
           <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}" >
             <a th:href="@{/ListOfBoat/0}">
-              <i class="now-ui-icons location_map-big"></i>
+              <i class="now-ui-icons travel_istanbul"></i>
               <p>Crew On Leave</p>
             </a>
           </li>
       
           <li th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/assignment') == true ? 'active':''}">
             <a th:href="@{/assignment/0}" >
-              <i class="now-ui-icons users_single-02"></i>
+              <i class="now-ui-icons ui-1_settings-gear-63"></i>
               <p>Crew Assignment</p>
             </a>
           </li>
