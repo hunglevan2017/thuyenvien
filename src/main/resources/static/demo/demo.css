@@ -63,8 +63,8 @@
 }
 
 .btn-success {
-    background: #26B99A !important;
-    border: 1px solid #169F85 !important;
+    background: #486a94 !important;
+    border: 1px solid #486a94 !important;
     color:white !important;
 }
 .rightProfile {
@@ -110,4 +110,10 @@ table.dataTable tbody th, table.dataTable tbody td {
     height: 26px;
     border: none;
     outline: none;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: white;
+}
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
+    background-color: white;
 }
