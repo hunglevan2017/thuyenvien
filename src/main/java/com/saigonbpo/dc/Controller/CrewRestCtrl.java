@@ -250,6 +250,27 @@ public class CrewRestCtrl {
 
 	}
 	
+	@RequestMapping(value = { "/searchRest" }, method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public List<Map<String, Object>> searchRest(@RequestParam("crew") String crew) {
+
+		logger.info("ListOfBoatFollowState");
+		// Input
+		Map<String, Object> Input = new HashMap<>();
+		List<Map<String, Object>> ListOfCrew = new ArrayList<>();
+
+		logger.info("Crew Search:" + crew );
+		Input.put("crew", crew);
+
+	
+		ListOfCrew = appMapper.getListOfBoat_4(Input);
+		
+		logger.info("Size Search:" + ListOfCrew.size() );
+
+		return ListOfCrew;
+
+	}
+	
 
 
 }

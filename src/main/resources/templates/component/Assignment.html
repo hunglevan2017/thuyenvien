@@ -208,7 +208,7 @@
 			    	                        "aoColumns": aoData,
 			    	                        "bInfo": false,
 			    	                        "bPaginate": false,
-			    	                        "searching": false,
+			    	                        "searching": true,
 			    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
 			    	                            var index = iDisplayIndex + 1;
 			    	                            $('td:eq(0)', nRow).html(index);
@@ -274,7 +274,7 @@
 			    	        			        	  var his = '<a  style="padding:0px" class="btn btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
 
 
-			    	        			        	  return play ;
+			    	        			        	  return play + his ;
 
 			    	        			           }
 
@@ -319,7 +319,7 @@
 			    	                        "aoColumns": aoData,
 			    	                        "bInfo": false,
 			    	                        "bPaginate": false,
-			    	                        "searching": false,
+			    	                        "searching": true,
 			    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
 			    	                            var index = iDisplayIndex + 1;
 			    	                            $('td:eq(0)', nRow).html(index);
@@ -348,6 +348,16 @@
 			    	            			popupModalAdd( _ctx + 'editDieuDong/0/' + crewID  );
 			    	            			
 			    	            		});
+			    	            		
+			    	            		$( ".btnQuaTrinhCongTac" ).bind( "click", function() {
+			    	            			var crewID = this.getAttribute("data-id");
+			    	            			popupModalAdd( _ctx + 'history/' + crewID  );
+			    	      
+			    	            	  		
+			    	            			
+			    	            		});
+			    	            		
+			    	            	  
 			     	            		
 			    	              		$(window).on('resize', function () {
 			    	              			tableLeave.columns.adjust();

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+
+<head>
+    <title>Layout</title>
+    
+</head>
+
+<body>
+ <!--  table-responsive -->
+      <div class="content" layout:fragment="content">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="card">
+                  <div class="card-body">
+                     <div class="table-responsive">
+                        <table id="tb_ListOfCrew" class="display table table-striped  dataTable no-footer jambo_table bulk_action" style="width:100%">
+                           <!-- Header Table -->
+                           <thead>
+                           </thead>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+        
+        <input onClick="this.select();" type="hidden" id="tinhtrangdieudong" name="tinhtrangdieudong" th:value="${tinhtrangdieudong}">
+        
+     
+        
+       <script th:src="@{/js/seagull/search.js}" th:inline="javascript"></script>
+</div>
+
+    
+</body>
+
+</html>

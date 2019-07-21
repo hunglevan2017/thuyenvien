@@ -43,6 +43,12 @@ public interface AppMapper {
 
 	Map<String, Object> getSeamanBook(Map<String, Object> filter);
 
+	List<Map<String, Comparable>> SP_DieuDong_Search(String thuyenvienid);
+
+	List<Map<String, Object>> SP_Kinh_Nghiem_Lam_Viec(String thuyenvienid);
+
+	List<Map<String, Object>> getListOfBoat_4(Map<String, Object> input);
+
 
 
 }

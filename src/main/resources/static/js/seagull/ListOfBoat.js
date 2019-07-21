@@ -222,13 +222,10 @@ $(document).ready( function () {
                     "targets": 11,
                     "data": null,
                     "render": function (data, type, row, meta) {
-			        	  
-                    	
-                    		var   his = '<a style="color:#0c2646"  href="#" class="btnQuaTrinhCongTac" data-id=' + row['id'] + ' > <i class="fa fa-history"></i> </a>';
+
                     
-                    
-			        	  
-			        	  return  '';
+                    		var his = '<a  style="padding:0px" class="btn btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
+			        	  return  his;
 			        	              
 			           }
                 

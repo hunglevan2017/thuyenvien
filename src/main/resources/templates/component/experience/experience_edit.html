@@ -17,14 +17,14 @@
                   </div>
                   
                 <div class="form-group form-inline">
-                    <label class="col-sm-4 control-label  left-title"  >VESSEL NAME </label>
+                    <label class="col-sm-4 control-label  left-title requiredStar"  >VESSEL NAME </label>
                     <div class="col-sm-8">
                        <input type="text" class="form-control"  v-model="record.tentau" >
                     </div>
                 </div>
             
              	<div class="form-group form-inline">
-                    <label class="col-sm-4 control-label left-title" >VESSEL TYPE </label>
+                    <label class="col-sm-4 control-label left-title requiredStar" >VESSEL TYPE </label>
                     <div class="col-sm-8">
                      		<select class="form-control" v-model="record.loaitau" >
                                  <option v-for="option in typeShips" v-bind:value="option.lov.id" >{{ option.text }}</option>
@@ -87,7 +87,7 @@
                 </div>
 
             <div class="modal-footer">
-                <button id="save" type="button" class="btn btn-success" v-on:click="Save" data-dismiss="modal"><i
+                <button id="save" type="button" class="btn btn-success" v-on:click="Save" ><i
                         class="mdi mdi-check mdi-17px"></i> Save
                 </button>
                 
@@ -102,6 +102,8 @@
 </div>
 
 <script >
+
+
 
 new Vue({
     el: '#root',
@@ -122,6 +124,26 @@ new Vue({
             axios.get( _ctx + "crew/experienceById/" + $('#SeaKinhNghiemLamViecID').val() )
                 .then(response => {
                     this.record = response.data;
+                    console.log(111);
+                    
+                    if( $('#SeaKinhNghiemLamViecID').val() ==="0" ){
+                    	if(localStorage.getItem("tencongty111")  )
+                    	{
+                    		console.log("value not null");	
+                    	}
+                    	else
+                    		console.log("value null");	
+                    	
+                    	
+                    	if (typeof(Storage) !== "undefined") {
+           	  			 this.record.tencongty =  localStorage.getItem("tencongty");
+           	  			 this.record.tentau =  localStorage.getItem("tentau");
+   
+	           	  		} else {
+	           	  			 console.log( "Sorry, your browser does not support Web Storage..." );
+	           	  		}
+                    	
+                    }
                 })
                 .catch(e => {
                     this.errors.push(e)
@@ -142,6 +164,8 @@ new Vue({
             .catch(e => {
                 this.errors.push(e)
             });
+            
+
 
             //Load Family Information
 
@@ -151,16 +175,24 @@ new Vue({
 
         Save: function(event) {
 
-            /*Validate Form
+          
             this.errors = [];
-            console.log(this.record.loaingoaingu);
-            if (this.record.loaingoaingu == null) {
+            if (this.record.tentau == null) {
                 this.errors.push({
-                    message: "Type language required."
+                    message: "Vessel name required."
                 });
-            }*/
-
-      
+            }
+            
+            if (this.record.loaitau == null) {
+                this.errors.push({
+                    message: "Vessel type required."
+                });
+            }
+            
+            
+	        localStorage.setItem("tencongty",  this.record.tencongty );
+      	    localStorage.setItem("tentau",  this.record.tentau  );
+      	    
             if (!this.errors.length) {
                 // Call Insert
 
@@ -173,6 +205,10 @@ new Vue({
                     .catch(e => {
                         this.errors.push(e)
                     })
+            }
+            else
+            {
+            	alert("Error: " + this.errors[0].message); 
             }
             
         }
