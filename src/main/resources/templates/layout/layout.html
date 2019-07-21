@@ -28,13 +28,51 @@
          </div>
       </div>
       
+      <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0px">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          
+           <a th:href="@{/ListOfBoat/1}" style="color:black" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/1' ? 'active':''}" >
+              <i class="now-ui-icons education_atom"></i>
+              <p>Crew On Board</p>
+           </a>
+           
+            <a th:href="@{/ListOfBoat/0}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}">
+              <i class="now-ui-icons travel_istanbul"></i>
+              <p>Crew On Leave</p>
+            </a>
+            
+            <a th:href="@{/assignment/0}"  style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/assignment') == true ? 'active':''}">
+              <i class="now-ui-icons ui-1_settings-gear-63"></i>
+              <p>Crew Assignment</p>
+            </a>
+            
+            <a th:href="@{/crew/0}"  style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/crew') == true ? 'active':''}">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Make A New Crew</p>
+            </a>
+          
+        </div>
+     
+      </div>
+    </nav>
+      
       <div id="wrapper">
          <!-- <div id="TemplateDialog1" class="modal fade" data-backdrop="static" role="dialog" ></div> -->
          
+         <!--  style="width:100%"
        
-         <div th:replace="fragments/sidebar :: sidebar"></div>
+           <div th:replace="fragments/sidebar :: sidebar"></div>  -->
+           
+           
          
-         <div  class="main-panel ps ps--active-y" id="main-panel" >
+         <div  class="main-panel ps ps--active-y" id="main-panel"  style="width:100%">
          		 <nav th:replace="fragments/nav :: nav"></nav>
          		 <div class="panel-header panel-header-sm"></div>
                  <div layout:fragment="content"></div>
