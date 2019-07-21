@@ -50,7 +50,7 @@ function getRowContractSelect(table)
 
 $(document).ready( function () {
 	
-	 $('#TitlePage').text( $("a.active").text() );
+	 $('#TitlePage').text( $("a.active p").text() );
 	
 	var nameShip="LAST VESSEL";
 	var dateOn="DATE OFF";

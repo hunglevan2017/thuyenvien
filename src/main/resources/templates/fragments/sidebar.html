@@ -53,6 +53,14 @@
               <p>Make A New Crew</p>
             </a>
           </li>
+          
+          <li  th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/-3' ? 'active':''}" >
+            <a th:href="@{/ListOfBoat/-3}">
+              <i class="now-ui-icons ui-1_simple-remove"></i>
+              <p>Re-Signed</p>
+            </a>
+          </li>
+          
           <!-- 
           <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/-3' ? 'active':''}" >
             <a th:href="@{/ListOfBoat/-3}">
