@@ -10,13 +10,16 @@
             <div class="col-md-9">
                <div class="card">
                   <div class="card-header" v-if="profile.seaThongTinThuyenVien">
-                     <h5 class="title" style="color:#f96332">
-                        <a style="color:black"   :href="'/crew/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null ">  Profile  </a>
-                        <a style="color:black" :href="'/crew/resume/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Resumes  </a>
-                        <a style="color:black" :href="'/crew/experience/' + profile.seaThongTinThuyenVien.id " v-if=" profile.seaThongTinThuyenVien.id != null "> | Experience  </a>
-                        | Certificate 
-                        <a style="color:black"   :href="'/crew/rank/' + + profile.seaThongTinThuyenVien.id" v-if=" profile.seaThongTinThuyenVien.id != null "> | Rank  </a>
+                  
+                      <h5 class="title" style="color:#f96332">
+	                     <a style="color:black"   th:href="@{'/crew/' + ${crewid} }"> Profile  </a>
+	                     <a style="color:black"   th:href="@{'/crew/resume/' + ${crewid} }"> | Resumes  </a>
+	                     <a style="color:black"  th:href="@{'/crew/experience/' + ${crewid} }" > | Experience  </a>
+	                     | Certificate 
+	                     <a style="color:black"  th:href="@{'/crew/rank/' + ${crewid} }" > | Rank  </a>
                      </h5>
+                  
+               
                   </div>
                   <div v-show="debug">
                      <p>{{family}}</p>

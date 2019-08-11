@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ import com.saigonbpo.dc.Model.SeaThongTinChucDanh;
 import com.saigonbpo.dc.Model.SeaThongTinDieuDong;
 import com.saigonbpo.dc.Model.SeaThongTinThuyenVien;
 
+import ch.qos.logback.classic.Logger;
+
 @Controller
 public class HistoryRestCtrl {
 	
@@ -45,6 +48,8 @@ public class HistoryRestCtrl {
 	
 	@Autowired
 	SeaThongTinThuyenVienMapper seaThongTinThuyenVienMapper;
+	
+
 	
 	@RequestMapping(value = { "/history/{thuyenvienid}" }, method = RequestMethod.GET)
 	public ModelAndView History( @PathVariable("thuyenvienid") String thuyenvienid ) {
@@ -72,20 +77,22 @@ public class HistoryRestCtrl {
 		for(int i=0;i<result.size();i++)
 		{
 			
-			if(result.get(i).get("chucdanhht")!=null && result.get(i).get("chucdanhtext")!=null)
+			if(result.get(i).get("chucdanhht")!=null )
 			{
 				resultt.add(result.get(i));
 			}
 			
 			
 		}
-		
-		
 
+		System.out.println("list_history:" + resultt.size() );
+		System.out.println("list_history1:" + result.size() );
+		
 		mav.addObject("list_history", resultt);
 		mav.addObject("size_history", resultt.size()+1);
-		
 		mav.addObject("list_history1", result1);
+		
+		
 		return mav;
 	}
 	

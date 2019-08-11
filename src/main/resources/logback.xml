@@ -140,13 +140,13 @@
 	
 
 	<root name="com.saigonbpo.dc" level="INFO">
-			<!--<appender-ref ref="consoleAppender" /> -->
+			<appender-ref ref="consoleAppender" /> 
 		<appender-ref ref="INFO-LOG-FILE" />
 	</root>
 	  
 	
 	<logger name="com.saigonbpo.dc.Mapper" level="DEBUG">
-		 <appender-ref ref="consoleAppender" /> 
+		
 		<appender-ref ref="DEBUG-LOG-FILE" />
 	</logger>
 	

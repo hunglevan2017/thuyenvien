@@ -17,11 +17,11 @@
                <div class="modal-header panel-heading">
                   <button type="button" class="close" data-dismiss="modal"
                      aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="myModalLabel">Hệ thống</h4>
+                  <h4 class="modal-title" id="myModalLabel">Há»‡ thá»‘ng</h4>
                </div>
-               <div class="modal-body" id="modalBodySuccess">Lưu dữ liệu thành công</div>
+               <div class="modal-body" id="modalBodySuccess">LÆ°u dá»¯ liá»‡u thÃ nh cÃ´ng</div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Ä�Ã³ng
                   (ESC)</button>
                </div>
             </div>
@@ -37,6 +37,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          
+           <a th:href="@{/dashboard}" style="color:black" th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}" >
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+           </a>
           
            <a th:href="@{/ListOfBoat/1}" style="color:black" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/1' ? 'active':''}" >
               <i class="now-ui-icons education_atom"></i>
@@ -103,11 +108,23 @@
       
          </div>
             -->
-         
+        <script th:src="@{/js/fastclick/lib/fastclick.js}"></script>
+		<script th:src="@{/js/nprogress/nprogress.js}"></script>
+        <script th:src="@{/js/Chart.js/dist/Chart.min.js}"></script>
+        
+        <!-- 
         <script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script> 
 		<script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
 		<script th:src="@{/js/now-ui-dashboard.min.js?v=1.3.0}" type="text/javascript"></script>
+		 -->
+		
 		<script th:src="@{/demo/demo.js}"></script>
+		
+		<script th:src="@{/js/gauge.js/dist/gauge.min.js}"></script>
+		<script th:src="@{/js/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+		<script th:src="@{/js/iCheck/icheck.min.js}"></script>
+		<script th:src="@{/js/skycons/skycons.js}"></script>
+		  
          
          
       </div>

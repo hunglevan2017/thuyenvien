@@ -79,7 +79,7 @@ public class CrewRestCtrl {
 			fullProfileCrew.setSeaThongTinThuyenVien(seaThongTinThuyenVien);
 			if( shortProfileCrew.size()>1 )
 			{
-				if ("1".equals(shortProfileCrew.get(0).getTinhtrangdieudong())) {
+				if (shortProfileCrew.get(0).getTinhtrangdieudong() == 1) {
 					shortProfileCrew.get(0).setStatus_ship("On board");
 				} else
 					shortProfileCrew.get(0).setStatus_ship("On leave");
@@ -181,7 +181,9 @@ public class CrewRestCtrl {
 			String filepath = Paths.get(directoryName, filename).toString();
 
 			// Save the file locally
+			logger.info("333");
 			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+			logger.info("222");
 			stream.write(uploadfile.getBytes());
 			stream.close();
 
@@ -202,6 +204,7 @@ public class CrewRestCtrl {
 			seaFileMapper.insertSelective(seaFile);
 	
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 			return null;
 		}

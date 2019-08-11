@@ -210,13 +210,29 @@
 			    	                        "bInfo": false,
 			    	                        "bPaginate": false,
 			    	                        "searching": true,
-			    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
-			    	                            var index = iDisplayIndex + 1;
-			    	                            $('td:eq(0)', nRow).html(index);
-			    	                            return nRow;
-			    	                        },
+			    	                     
 			    	                        "createdRow": function(row, data, dataIndex, full) {
 			    	                            $(row).attr('data-id', data.id);
+			    	                        },
+			    	                        "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			    	                            
+			    	                            
+			    	                            var f_month_leave = parseFloat( aData.month_leave );
+			    	                    
+			    	                          
+			    	                           // $('td', nRow).css('font-weight','bold');
+			    	                        	if( f_month_leave >= 4 && f_month_leave < 6 )
+			    	                        		  $('td', nRow).css('background-color', 'rgb(250, 250, 139)');
+			    	                        	
+			    	                        	if( f_month_leave >= 6 )
+			    	                        	{
+			    	                        		 $('td', nRow).css('color','black');
+			    	                        		  $('td', nRow).css('background-color', 'rgb(255, 168, 168)');
+			    	                        	}
+			    	                        	
+			    	                        	 var index = iDisplayIndex + 1;
+				    	                            $('td:eq(0)', nRow).html(index);
+				    	                            return nRow;
 			    	                        }
 			    	                        
 			    	                    });

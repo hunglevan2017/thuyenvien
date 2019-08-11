@@ -85,7 +85,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 .btnXuongTau {
     width: 26px;
     height: 26px;
-    background: url(../../images/seagull/onboard-icon.png) 0% 0% / 24px no-repeat transparent;
+    background: url(http://14.161.1.128:8888/seagull_v2/images/seagull/onboard-icon.png) 0% 0% / 24px no-repeat transparent;
     border-width: initial;
     border-style: none;
     border-color: initial;
@@ -96,7 +96,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 .btnQuaTrinhCongTac {
     width: 26px;
     height: 26px;
-    background: url(../../images/seagull/history-icon.png) 0% 0% / 24px no-repeat transparent;
+    background: url(http://14.161.1.128:8888/seagull_v2/images/seagull/history-icon.png) 0% 0% / 24px no-repeat transparent;
     border-width: initial;
     border-style: none;
     border-color: initial;
@@ -104,7 +104,7 @@ table.dataTable tbody th, table.dataTable tbody td {
     outline: none;
 }
 .btnRoiTau {
-    background: transparent url(../../images/seagull/leave-icon.png) no-repeat;
+    background: transparent url(http://14.161.1.128:8888/seagull_v2/images/seagull/leave-icon.png) no-repeat;
     background-size: 24px;
     width: 26px;
     height: 26px;

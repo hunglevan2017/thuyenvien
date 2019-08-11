@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layout">
+<head>
+<title>Header</title>
+</head>
+<body>
+	<!--  table-responsive -->
+	<div class="content" layout:fragment="content">
+
+
+		<div class="row" style="margin-top: 50px;">
+		
+		
+		
+			<div class="card  mb-3" style="max-width: 15rem;margin-right:15px">
+				<div class="card-header">
+					<h3 style="margin-top: 0px; margin-bottom: 0px;   "><i style=" color: #5A738E;" class="fa fa-users"></i> <strong> <a style=" color: #5A738E;" th:href="@{ListOfBoat/-2}" th:text="${SumaryCrew.total}"></a>  </strong></h3>
+				</div>
+				<div class="card-body">
+					<div class="count" style="    font-size: initial;">
+						Total Crews
+					</div>
+				</div>
+			</div>
+			
+			<div class="card  mb-3" style="max-width: 15rem;margin-right:15px">
+				<div class="card-header">
+					<h3 style="margin-top: 0px; margin-bottom: 0px;   ">
+					<i style=" color: #5A738E;" class="fa fa-users"></i> 
+					<strong> 
+						<a style=" color: #5A738E;" th:href="@{ListOfBoat/-2}" th:text="${SumaryCrew.onboard}"></a>
+						<a style="color: #2e9aa7;font-size: large;" th:href="@{ListOfBoat/-2}"  th:text="${ '(' + SumaryCrew.onboard*100/SumaryCrew.total + '%)'  }"></a>  
+					</strong>
+					</h3>
+				</div>
+				<div class="card-body">
+					<div class="count" style="    font-size: initial;">
+						On board
+					</div>
+				</div>
+			</div>
+			
+			<div class="card  mb-3" style="max-width: 15rem;margin-right:15px">
+				<div class="card-header">
+					<h3 style="margin-top: 0px; margin-bottom: 0px;   ">
+					<i style=" color: #5A738E;" class="fa fa-users"></i> 
+					<strong> 
+						<a style=" color: #5A738E;" th:href="@{ListOfBoat/-2}" th:text="${SumaryCrew.onleave}"></a>
+						<a style="color: #2e9aa7;font-size: large;" th:href="@{ListOfBoat/-2}"  th:text="${ '(' + (100 - SumaryCrew.onboard*100/SumaryCrew.total) +'%)'  }"></a>  
+					</strong>
+					</h3>
+				</div>
+				<div class="card-body">
+					<div class="count" style="    font-size: initial;">
+						On Leave
+					</div>
+				</div>
+			</div>
+			
+			<div class="card  mb-3" style="max-width: 15rem;margin-right:15px">
+				<div class="card-header">
+					<h3 style="margin-top: 0px; margin-bottom: 0px;   ">
+					<i style=" color: #5A738E;" class="fa fa-users"></i> 
+					<strong> 
+						<a style=" color: #5A738E;" th:href="@{ListOfBoat/-2}" th:text="${SumaryCrew.applicant}"></a>
+						  
+					</strong>
+					</h3>
+				</div>
+				<div class="card-body">
+					<div class="count" style="    font-size: initial;">
+						Applicant
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="row" >
+				
+			<div class="card  mb-3" style="max-width: 31rem;margin-right:15px">
+				  <table class="" style="width:100%">
+                  <tbody>
+                    <tr>
+                      <th style="width:37%;">
+                        <p>&nbsp;</p>
+                      </th>
+                      <th>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                          <p class="">Rank</p>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                          <p class=""></p>
+                        </div>
+                      </th>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: initial;"><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+                        <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0px; width: 140px; height: 140px;"></canvas>
+                      </td>
+                      <td>
+                        <table class="tile_info">
+                          <tbody>
+                          
+                          <input onClick="this.select();" id="ttListCrewDepartment" type="hidden" th:value="${ListCrewDepartment}"></input>
+                            <th:block th:each="CrewShip,iter : ${ListCrewDepartment}">
+                            <tr>
+                              <td>
+                                <p style="margin-bottom:5px">
+                                	<i class="fa fa-square" th:style="'color:' + ${CrewShip.color} + ';'" ></i><a href="#"> <span th:text=${CrewShip.chucdanh_text}></a> 
+                                
+                                </p>
+                              </td>
+                              <td  th:text="${CrewShip.total}"></td>
+                            </tr>
+                            </th:block>
+                          
+                           
+                           
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+			</div>
+			
+			
+			<div class="card  mb-3" style="max-width: 31rem;margin-right:15px">
+			
+			<table class="table table-hover tile_info table-striped">
+                  <thead>
+                    <tr style="font-size:small">
+                      <th>#</th>
+                      <th>Ship</th>
+                      <th>Total</th>
+                      <th>Percent</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+	                  <th:block th:each="CrewShip,iter : ${ListCrewShip}">
+	                    <tr style="color:black">
+	                    
+	                   
+	                      <th scope="row" th:text="${iter.count}"></th>
+	                      
+	                      
+	                      <td style="padding:5px">
+	                        <p ><a th:href="@{'/assignment/'+ ${CrewShip.tauid} }" th:text="${CrewShip.ten}"></a></p>
+	                      </td>
+	                      <td style="padding:5px" th:text="${CrewShip.sl}"></td>
+	                      <td style="padding:5px" th:text="${CrewShip.sl*100/SumaryCrew.total + '%'}  "></td>
+	                   
+	                   
+	                    </tr>
+	                 </th:block>  
+                  </tbody>
+                </table>
+			</div>
+				
+		</div>
+
+
+	</div>
+</body>
+</html>

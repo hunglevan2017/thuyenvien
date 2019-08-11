@@ -49,6 +49,12 @@ public interface AppMapper {
 
 	List<Map<String, Object>> getListOfBoat_4(Map<String, Object> input);
 
+	Map<String, Object> get_SP_Get_statistical_DashBoard(Map<String, Object> input);
+
+	List<Map<String, Object>> sp_statistic_ship(Map<String, Object> input);
+
+	List<Map<String, Object>> sp_statistic_department(Map<String, Object> input);
+
 
 
 }

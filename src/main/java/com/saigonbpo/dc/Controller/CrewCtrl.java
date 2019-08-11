@@ -40,31 +40,35 @@ public class CrewCtrl {
 	@RequestMapping(value = { "/crew/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crew(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/crew");
-
+		mav.addObject("crewid", crewId);
 		return mav;
 	}
 
 	@RequestMapping(value = { "/crew/resume/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crewResume(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/CrewResume");
+		mav.addObject("crewid", crewId);
 		return mav;
 	}
 	
 	@RequestMapping(value = { "/crew/experience/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crewExperience(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/CrewExperience");
+		mav.addObject("crewid", crewId);
 		return mav;
 	}
 	
 	@RequestMapping(value = { "/crew/certificate/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crewCertificate(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/CrewCertificate");
+		mav.addObject("crewid", crewId);
 		return mav;
 	}
 	
 	@RequestMapping(value = { "/crew/rank/{id}" }, method = RequestMethod.GET)
 	public ModelAndView crewRank(@PathVariable("id") int crewId) {
 		ModelAndView mav = new ModelAndView("component/CrewRank");
+		mav.addObject("crewid", crewId);
 		return mav;
 	}
 

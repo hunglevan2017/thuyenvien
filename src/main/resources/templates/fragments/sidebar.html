@@ -18,19 +18,20 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-        	<!-- 
-          <li th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'active':''}" >
-            <a href="#">
+        	
+          <li th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}" >
+            <a th:href="@{/dashboard}">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
           </li>
-           -->
+           
+           
           
           <li  th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/1' ? 'active':''}" >
             <a th:href="@{/ListOfBoat/1}">
               <i class="now-ui-icons education_atom"></i>
-              <p>Crew On Board</p>
+              <p>Crew On Board1</p>
             </a>
           </li>
           <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}" >
