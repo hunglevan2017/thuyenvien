@@ -31,12 +31,14 @@
       <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0px">
       <div class="container-fluid">
         <div class="navbar-header">
+        <!-- 
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+           -->
           
            <a th:href="@{/dashboard}" style="color:black" th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}" >
               <i class="now-ui-icons design_app"></i>
@@ -64,10 +66,17 @@
             </a>
             
             
-              <a th:href="@{/ListOfBoat/-3}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/-3' ? 'active':''}">
+            <a th:href="@{/ListOfBoat/-3}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/-3' ? 'active':''}">
               <i class="now-ui-icons now-ui-icons ui-1_simple-remove"></i>
               <p>Re-Signed</p>
             </a>
+            
+            <!-- 
+             <a th:href="@{/User}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/User' ? 'active':''}">
+              <i class="now-ui-icons now-ui-icons ui-1_simple-remove"></i>
+              <p>User Management</p>
+            </a>
+             -->
             
           
         </div>
@@ -108,8 +117,7 @@
       
          </div>
             -->
-        <script th:src="@{/js/fastclick/lib/fastclick.js}"></script>
-		<script th:src="@{/js/nprogress/nprogress.js}"></script>
+
         <script th:src="@{/js/Chart.js/dist/Chart.min.js}"></script>
         
         <!-- 
@@ -119,11 +127,7 @@
 		 -->
 		
 		<script th:src="@{/demo/demo.js}"></script>
-		
-		<script th:src="@{/js/gauge.js/dist/gauge.min.js}"></script>
-		<script th:src="@{/js/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
-		<script th:src="@{/js/iCheck/icheck.min.js}"></script>
-		<script th:src="@{/js/skycons/skycons.js}"></script>
+
 		  
          
          

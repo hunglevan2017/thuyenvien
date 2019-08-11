@@ -1,5 +1,7 @@
 package com.saigonbpo.dc.Common;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,4 +84,20 @@ public class FuncUtil {
 		String output = ArrayNgaySinh[2] + "/" + ArrayNgaySinh[1] + "/" + ArrayNgaySinh[0];
 		return output;
 	}
+	
+
+	public static String ConvertToMD5(String strTemp ) throws NoSuchAlgorithmException {
+		String original = strTemp;
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(original.getBytes());
+		byte[] digest = md.digest();
+		StringBuffer sb = new StringBuffer();
+		for (byte b : digest) {
+			sb.append(String.format("%02x", b & 0xff));
+		}
+		return sb.toString();
+	}
+	
+	
+	
 }

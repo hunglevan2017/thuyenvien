@@ -4,10 +4,15 @@
 <head>
 <title>Header</title>
 </head>
+
 <body>
 	<!--  table-responsive -->
 	<div class="content" layout:fragment="content">
-
+	<style>
+	a{
+		color:black;
+	}
+	</style>
 
 		<div class="row" style="margin-top: 50px;">
 		
@@ -108,7 +113,7 @@
                             <tr>
                               <td>
                                 <p style="margin-bottom:5px">
-                                	<i class="fa fa-square" th:style="'color:' + ${CrewShip.color} + ';'" ></i><a href="#"> <span th:text=${CrewShip.chucdanh_text}></a> 
+                                	<i class="fa fa-square" th:style="'color:' + ${CrewShip.color} + ';'" ></i> <span th:text=${CrewShip.chucdanh_text}>
                                 
                                 </p>
                               </td>

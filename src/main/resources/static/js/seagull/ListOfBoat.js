@@ -237,9 +237,16 @@ $(document).ready( function () {
                     "data": null,
                     "render": function (data, type, row, meta) {
 
-                    
-                    		var his = '<a  style="padding:0px" class="btn btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
-			        	  return  his;
+                    	var his='';
+                    	if( $('#tinhtrangdieudong').val()==="-3")
+                    	{
+                    		
+                    	   //his = '<a  style="padding:0px" class="btn xoaThuyenVien" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> </a>';
+                    	}
+                    	else
+                    	   his = '<a  style="padding:0px" class="btn btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
+			        	  
+                    	  return  his;
 			        	              
 			           }
                 
@@ -272,8 +279,11 @@ $(document).ready( function () {
           }
           table.columns.adjust().draw();
           
-          url = page_context + 'history/';
+        url = page_context + 'history/';
   		initEventClickForEditOrDelete("tb_ListOfCrew",".btnQuaTrinhCongTac",url);
+  		
+  	    //url = page_context + 'delete/';
+  		//initEventClickForEditOrDelete("tb_ListOfCrew",".xoaThuyenVien",url);
   		
   		$(window).on('resize', function () {
   		   table.columns.adjust();
