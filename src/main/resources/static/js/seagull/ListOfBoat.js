@@ -241,7 +241,7 @@ $(document).ready( function () {
                     	if( $('#tinhtrangdieudong').val()==="-3")
                     	{
                     		
-                    	   //his = '<a  style="padding:0px" class="btn xoaThuyenVien" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> </a>';
+                    	   his = '<button  style="padding:0px" class="btn xoaThuyenVien btn-success" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i>&nbsp;Delete </button>';
                     	}
                     	else
                     	   his = '<a  style="padding:0px" class="btn btnQuaTrinhCongTac" data-id=' + row['id'] + ' > </button>';
@@ -282,8 +282,8 @@ $(document).ready( function () {
         url = page_context + 'history/';
   		initEventClickForEditOrDelete("tb_ListOfCrew",".btnQuaTrinhCongTac",url);
   		
-  	    //url = page_context + 'delete/';
-  		//initEventClickForEditOrDelete("tb_ListOfCrew",".xoaThuyenVien",url);
+  	    url = page_context + 'deleteCrew/';
+  		initEventClickForEditOrDelete("tb_ListOfCrew",".xoaThuyenVien",url);
   		
   		$(window).on('resize', function () {
   		   table.columns.adjust();

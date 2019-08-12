@@ -53,8 +53,8 @@ var columnDefs_certificate = [{"title": "STT","targets": 0},
 				  {"title": "Avatar","targets": 7,
 					  "mRender" : function ( data, type, full ) { 
 						  
-						 
-						  return (full['hinh_avatar']==null ? '':"<a style='text-decoration: underline;color:blue' id='hinhScanLink' href='" + $('#PageContext').val() + 'disk/' + full['hinh_avatar'] + "' target='_blank' title='Download hình scan' >" + full['hinh_avatar']  + "</a>") ;
+				
+						  return (full['hinh_avatar']==null ? '':"<img  id='hinhScanLink' src='" + $('#PageContext').val() + 'disk/' + full['hinh_avatar']  + "'/>") ;
 					     
 					  }
 				  
@@ -64,7 +64,7 @@ var columnDefs_certificate = [{"title": "STT","targets": 0},
 					  "targets": 8,
 	                  
 	                  "render": function (data, type, row, meta) {
-	                	   return '<button type="button" class="btn btn-primary btn-xs User-edit" data-id=' + row['UserId'] + ' > <i class="fa fa-edit"> </i> Edit</button>';           
+	                	   return '<button type="button" class="btn btn-success btn-xs User-edit" data-id=' + row['UserId'] + ' > <i class="fa fa-edit"> </i> Edit</button>';           
 	                   }
 	         
 				  },
@@ -72,7 +72,7 @@ var columnDefs_certificate = [{"title": "STT","targets": 0},
 					  "title": "",
 					  "targets": 9,
 					  "render": function (data, type, row, meta) {
-	                	   return '<button type="button" class="btn btn-primary btn-xs User-delete" data-id=' + row['UserId'] + ' > <i class="fa fa-trash"> </i> Delete</button>';           
+	                	   return '<button type="button" class="btn btn-success btn-xs User-delete" data-id=' + row['UserId'] + ' > <i class="fa fa-trash"> </i> Delete</button>';           
 	                   }
 				  }
 				  ];

@@ -223,6 +223,13 @@ public class CrewCtrl {
 
 	}
 	
+	@RequestMapping(value = { "/deleteCrew/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteCrew(@PathVariable("id") int thuyenVienId) {
+		ModelAndView mav = new ModelAndView("component/crew_delete");
+		mav.addObject("thuyenVienId", thuyenVienId);
+		return mav;
+	}
+	
 	
 	
 

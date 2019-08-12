@@ -34,6 +34,7 @@ import com.saigonbpo.dc.Mapper.SeaThongTinThuyenVienMapper;
 import com.saigonbpo.dc.Model.FullProfileCrew;
 import com.saigonbpo.dc.Model.ResResult;
 import com.saigonbpo.dc.Model.SeaFile;
+import com.saigonbpo.dc.Model.SeaThongTinDieuDong;
 import com.saigonbpo.dc.Model.SeaThongTinThuyenVien;
 import com.saigonbpo.dc.Model.ShortProfileCrew;
 
@@ -271,6 +272,23 @@ public class CrewRestCtrl {
 		logger.info("Size Search:" + ListOfCrew.size() );
 
 		return ListOfCrew;
+
+	}
+	
+	@RequestMapping(value = { "/removeCrew/{id}" }, method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean removeDieuDong(@PathVariable("id") int SeaThongTinDieuDongID) {
+		try
+		{
+				SeaThongTinThuyenVien seaThongTinDieuDong = seaThongTinThuyenVienMapper.selectByPrimaryKey(SeaThongTinDieuDongID);
+				seaThongTinThuyenVienMapper.deleteByPrimaryKey(SeaThongTinDieuDongID);
+				
+				return true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
 
 	}
 	

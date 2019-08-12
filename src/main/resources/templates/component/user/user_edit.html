@@ -10,9 +10,9 @@
 		<!-- Modal content-->
 		<div class="modal-content">
 
-			<div class="modal-header">
+			<div class="modal-header" style="display: table;">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Edit Account</h4>
+				<h4 class="modal-title" style="margin-top:0px">Edit Account</h4>
 			</div>
 			<div class="modal-body">
 				<input onClick="this.select();"  th:if="${data!=null}" id="UserId" name="UserId" type="hidden" th:value="${data.UserId}"></input>
