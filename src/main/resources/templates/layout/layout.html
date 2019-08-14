@@ -50,10 +50,13 @@
               <p>Crew On Board</p>
            </a>
            
-            <a th:href="@{/ListOfBoat/0}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}">
-              <i class="now-ui-icons travel_istanbul"></i>
-              <p>Crew On Leave</p>
-            </a>
+    
+            
+	            <a th:href="@{/ListOfBoat/0}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}">
+	              <i class="now-ui-icons travel_istanbul"></i>
+	              <p>Crew On Leave</p>
+	            </a>
+            
             
             <a th:href="@{/assignment/0}"  style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/assignment') == true ? 'active':''}">
               <i class="now-ui-icons ui-1_settings-gear-63"></i>
@@ -71,12 +74,12 @@
               <p>Re-Signed</p>
             </a>
             
-            <!-- 
+            
              <a th:href="@{/User}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/User' ? 'active':''}">
               <i class="now-ui-icons now-ui-icons design_vector"></i>
               <p>User Management</p>
             </a>
-             -->
+             
              
             
           

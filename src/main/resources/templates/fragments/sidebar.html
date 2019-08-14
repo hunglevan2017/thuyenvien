@@ -34,12 +34,16 @@
               <p>Crew On Board1</p>
             </a>
           </li>
-          <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}" >
-            <a th:href="@{/ListOfBoat/0}">
-              <i class="now-ui-icons travel_istanbul"></i>
-              <p>Crew On Leave</p>
-            </a>
-          </li>
+          
+
+
+	          <li th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}" >
+	            <a th:href="@{/ListOfBoat/0}">
+	              <i class="now-ui-icons travel_istanbul"></i>
+	              <p>Crew On Leave</p>
+	            </a>
+	          </li>
+          
       
           <li th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/assignment') == true ? 'active':''}">
             <a th:href="@{/assignment/0}" >

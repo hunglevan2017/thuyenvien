@@ -23,8 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.reflect.TypeToken;
 import com.saigonbpo.dc.Mapper.AppMapper;
+import com.saigonbpo.dc.Mapper.MemberShipMapper;
 import com.saigonbpo.dc.Mapper.SeaThongTinDieuDongMapper;
 import com.saigonbpo.dc.Mapper.UserMapper;
+import com.saigonbpo.dc.Model.MemberShip;
+import com.saigonbpo.dc.Model.SeaThongTinChucDanh;
 import com.saigonbpo.dc.Model.SeaThongTinDieuDong;
 
 @Controller
@@ -41,6 +44,7 @@ public class UserCtrl {
 	
 	@Autowired
 	AppMapper 	appMapper;
+
 	
 
 	@RequestMapping(value = { "/User" }, method = RequestMethod.GET)
@@ -48,26 +52,23 @@ public class UserCtrl {
 		ModelAndView mav = new ModelAndView("component/user/index");
 		return mav;
 	}
+	
+	
+	
 
 	@RequestMapping(value = { "/addUser" }, method = RequestMethod.GET)
 	public ModelAndView addShip() {
 
-		ModelAndView mav = new ModelAndView("component/user/user_add");
+		ModelAndView mav = new ModelAndView("component/user/user_add_edit");
+		mav.addObject("userId",  0);
 		return mav;
 	}
 
 	@RequestMapping(value = { "/editUser/{id}" }, method = RequestMethod.GET)
 	public ModelAndView editShip(@PathVariable("id") int id) {
 
-		ModelAndView mav = new ModelAndView("component/user/user_edit");
-
-		Map<String, Object> information = userMapper.sp_get_user_by_id(id);
-		
-
-		logger.info("msg:" + information);
-
-		mav.addObject("ships", appMapper.SP_LOV_GET("T001"));
-		mav.addObject("data",  information);
+		ModelAndView mav = new ModelAndView("component/user/user_add_edit");
+		mav.addObject("userId",  id);
 
 		return mav;
 	}

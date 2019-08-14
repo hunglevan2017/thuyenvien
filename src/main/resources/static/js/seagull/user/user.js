@@ -67,13 +67,6 @@ var columnDefs_certificate = [{"title": "STT","targets": 0},
 	                	   return '<button type="button" class="btn btn-success btn-xs User-edit" data-id=' + row['UserId'] + ' > <i class="fa fa-edit"> </i> Edit</button>';           
 	                   }
 	         
-				  },
-				  {
-					  "title": "",
-					  "targets": 9,
-					  "render": function (data, type, row, meta) {
-	                	   return '<button type="button" class="btn btn-success btn-xs User-delete" data-id=' + row['UserId'] + ' > <i class="fa fa-trash"> </i> Delete</button>';           
-	                   }
 				  }
 				  ];
 
@@ -85,7 +78,6 @@ var aoColumns_certificate = [{ "mData": "stt","defaultContent":""},
 				 { "mData": "phone", "defaultContent":"" },
 				 { "mData": "IsActive", "defaultContent":"" },
 				 { "mData": "hinh_avatar", "defaultContent":"" },
-				 { "mData": null},
 				 { "mData": null}
 				 ];
 
