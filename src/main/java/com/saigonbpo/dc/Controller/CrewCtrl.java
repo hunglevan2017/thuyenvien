@@ -236,6 +236,21 @@ public class CrewCtrl {
 		return mav;
 	}
 	
+
+	@RequestMapping(value = { "/editShip/{id}" }, method = RequestMethod.GET)
+	public ModelAndView editShip(@PathVariable("id") int ShipID) {
+		ModelAndView mav = new ModelAndView("component/ship/ship_edit");
+		mav.addObject("ShipID", ShipID);
+		return mav;
+	}
+
+	@RequestMapping(value = { "/deleteShip/{id}" }, method = RequestMethod.GET)
+	public ModelAndView deleteShip(@PathVariable("id") int ShipID) {
+		ModelAndView mav = new ModelAndView("component/ship/ship_delete");
+		mav.addObject("ShipID", ShipID);
+		return mav;
+	}
+	
 	
 
 }

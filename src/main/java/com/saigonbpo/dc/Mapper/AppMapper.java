@@ -55,6 +55,22 @@ public interface AppMapper {
 
 	List<Map<String, Object>> sp_statistic_department(Map<String, Object> input);
 
+	List<Map<String, Object>> sp_get_ship();
+
+	List<Map<String, Object>> sp_tab_department();
+
+	Map<String, Object> SP_TAB_LOV_CAT_GETPARENTCODE(String code);
+
+	List<Map<String, Object>> SP_TAB_LOV(String string);
+
+	Map<String, Object> sp_get_Masterdata_by_id(int id);
+
+	void add_masterdata(Map<String, Object> condition);
+
+	void edit_masterdata(Map<String, Object> condition);
+
+	void delete_masterdata(Map<String, Object> condition);
+
 
 
 }

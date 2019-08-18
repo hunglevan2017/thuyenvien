@@ -41,8 +41,8 @@
            -->
           
            <a th:href="@{/dashboard}" style="color:black" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/dashboard') == true ? 'active':''}" >
-              <i class="now-ui-icons design_app"></i>
-              <p>Dashboard</p>
+              <i class="fas fa-align-justify"></i>
+              <p>DashBoard</p>
            </a>
           
           <!-- 
@@ -50,45 +50,53 @@
           sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SUBADMIN')"
            -->
                
-           <a sec:authorize="hasAnyRole('Marine Director','ROLE_SUBADMIN')" th:href="@{/ListOfBoat/1}" style="color:black" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/1')==true ? 'active':''}" >
-              <i class="now-ui-icons education_atom"></i>
+           <a sec:authorize="hasAnyRole('ROLE_Marine Director','ROLE_ADMIN')" th:href="@{/ListOfBoat/1}" style="color:black" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/1')==true ? 'active':''}" >
+              <i class="fas fa-running"></i>
               <p>Crew On Board</p>
            </a>
            
     
             
 	            <a th:href="@{/ListOfBoat/0}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/0')==true ? 'active':''}">
-	              <i class="now-ui-icons travel_istanbul"></i>
+	              <i class="fas fa-users"></i>
 	              <p>Crew On Leave</p>
 	            </a>
             
             
             <a th:href="@{/assignment/0}"  style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/assignment') == true ? 'active':''}">
-              <i class="now-ui-icons ui-1_settings-gear-63"></i>
+              <i class="fas fa-users-cog"></i>
               <p>Crew Assignment</p>
             </a>
             
             <a th:href="@{/crew/0}"  style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/crew/0') == true ? 'active':''}">
-              <i class="now-ui-icons users_single-02"></i>
+              <i class="fas fa-user-plus"></i>
               <p>Make A New Crew</p>
             </a>
             
             
             <a th:href="@{/ListOfBoat/-3}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/-3')==true ? 'active':''}">
-              <i class="now-ui-icons now-ui-icons ui-1_simple-remove"></i>
+              <i class="fas fa-user-slash"></i>
               <p>Re-Signed</p>
             </a>
             
+            <!-- 
+            <a  th:href="@{/MasterData}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/MasterData') == true ? 'active':''}">
+              <i class="fa fa-file"></i>
+              <p>MasterData</p>
+            </a>
+             -->
             
-             <a sec:authorize="hasAnyRole('Marine Director','ROLE_SUBADMIN')" th:href="@{/Ship}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/Ship') == true ? 'active':''}">
+             <a  th:href="@{/Ship}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/Ship') == true ? 'active':''}">
               <i class="fa fa-ship"></i>
               <p>Ship Management</p>
             </a>
             
-             <a sec:authorize="hasAnyRole('Marine Director','ROLE_SUBADMIN')" th:href="@{/User}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/User') == true ? 'active':''}">
-              <i class="now-ui-icons now-ui-icons design_vector"></i>
+             <a sec:authorize="hasAnyRole('Marine Director','ROLE_ADMIN')" th:href="@{/User}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/User') == true ? 'active':''}">
+              <i class="fas fa-cogs"></i>
               <p>User Management</p>
             </a>
+         
+           
              
              
             

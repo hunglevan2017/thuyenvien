@@ -178,6 +178,10 @@
 		call ${jdbc.schema}.sp_get_trinhdongoaingu(413,#{thuyenvien_id}) 
 	</select>
 	
+	<select id="sp_get_ship" resultType="map" >
+		call ${jdbc.schema}.SP_Ship_Search (413,null,null,null,null,null,true,1,100000);
+	</select>
+	
 	
 	
 
