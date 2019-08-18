@@ -230,6 +230,11 @@ public class CrewCtrl {
 		return mav;
 	}
 	
+	@RequestMapping(value = { "/Ship" }, method = RequestMethod.GET)
+	public ModelAndView deleteCrew() {
+		ModelAndView mav = new ModelAndView("component/ship/ShipIndex");
+		return mav;
+	}
 	
 	
 

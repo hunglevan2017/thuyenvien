@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+   <head>
+      <title>Header</title>
+   </head>
+   <body>
+      <!--  table-responsive -->
+      <div class="content" layout:fragment="content" id="root" >
+         
+          <div class="row">
+            <div class="col-md-12">
+               <div class="card">
+                  <div class="card-body">
+                     
+            		 <div id="div_family">
+                        <table id="family"
+                           class="table table-striped table-bordered dataTable no-footer jambo_table bulk_action"
+                           style="width: 100%">
+                           <thead>
+                           </thead>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+       
+         <script>
+         var tableInformation;
+         var tableChuyenMon;
+         var tableNgoaiNgu;
+         var tableViTinh;
+         new Vue({
+        	    el: '#root',
+        	    data: {
+        	        profile: {},
+        	        nations: [],
+        	        debug: false,
+        	        errors: [],
+        	        family: []
+        	    },
+        	    mounted() {
+        	        this.LoadDataThongTinGiaDinh();
+        	        this.LoadDataTrinhDoChuyenMon();
+        	        this.LoadDataTrinhDoNgoaiNgu();
+        	        this.LoadDataTrinhDoViTinh();
+        	    },
+        	    computed: {},
+        	    methods: {
+        	    	LoadDataThongTinGiaDinh() {
+
+        	            axios.get(_ctx + "crew/thongtingiadinh/" + getLastParameterOnURL () )
+    	                .then(response => {
+    	                    this.family = response.data;
+    	                    var aoData = [
+    	                    	{"mData": null,"defaultContent": ""},
+    	                    	{"mData": "id","defaultContent": ""},
+    	                        {"mData": "hoten","defaultContent": ""},
+    	                        {"mData": "text","defaultContent": ""},
+    	                        {"mData": "nghenghiep","defaultContent": ""},
+    	                        {"mData": "dienthoai","defaultContent": ""},
+    	                        {"mData": "diachi","defaultContent": ""},
+    	                        {"mData": "congty","defaultContent": ""},
+    	                        {"mData": null,"defaultContent": ""},
+    	                        {"mData": null,"defaultContent": ""}
+    	                    ];
+    	                    var columnDefs = [
+    	                    	{"title": "STT","targets": 0},
+    	                        {"targets": 1,"visible": false,"searchable": false},
+    	                        {"title": "Họ tên","targets": 2,"className": "dt-left","width": "20%"},
+    	                        {"title": "Quan hệ","targets": 3,},
+    	                        {"title": "Nghề nghiệp","targets": 4,"visible": false,"searchable": false},
+    	                        {"title": "Điện thoại","targets": 5},
+    	                        {"title": "Địa chỉ","targets": 6},
+    	                        {"title": "Năm sinh","targets": 7},
+    	                        {"title": "","targets": 8,
+    	                            "render": function(data, type, row, meta) {
+    	                                return '<button type="button" class="dt-button btn btn-success source  information-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';
+    	                            }
+    	                        },
+    	                        {"title": "","targets": 9,
+    	                            "render": function(data, type, row, meta) {
+    	                                return '<button type="button" class="dt-button btn btn-success source  information-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';
+    	                            }
+    	                        },
+    	                        {"className": "dt-center","targets": "_all"}
+    	                    ];
+							
+    	                    
+    	                    tableInformation = $('#family').DataTable({
+    	                        data: response.data,
+    	                        "columnDefs": columnDefs,
+    	                        "aoColumns": aoData,
+    	                        "bInfo": false,
+    	                        "bPaginate": false,
+    	                        "searching": false,
+    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+    	                            var index = iDisplayIndex + 1;
+    	                            $('td:eq(0)', nRow).html(index);
+    	                            return nRow;
+    	                        },
+    	                        "createdRow": function(row, data, dataIndex, full) {
+    	                            $(row).attr('data-id', data.id);
+    	                        }
+    	                        
+    	                    });
+    	                    
+    	                    var url = _ctx + 'editInformationFamily/';
+    	            		initEventClickForEditOrDelete("family",".information-edit",url);
+    	            		
+    	            		url = _ctx + 'deleteInformationFamily/';
+    	            		initEventClickForEditOrDelete("family",".information-delete",url);
+    	            		
+    	            		$( ".information-add" ).bind( "click", function() {
+    	            			popupModalAdd( _ctx + 'editInformationFamily/0' );
+    	            		});
+    	                });
+        	            
+        	            
+        	            axios.get(_ctx + "crew/profile/" + getLastParameterOnURL() )
+        	                .then(response => {
+        	                    this.profile = response.data;
+        	                    if (this.profile.seaFile && this.profile.seaFile.name) {
+        	                        this.profile.seaFile.name = _ctx + 'disk/' + this.profile.seaFile.name;
+        	                    }
+        	                })
+        	                .catch(e => {
+        	                    this.errors.push(e)
+        	                });
+
+        	            axios.get(_ctx + "masterdata/S001")
+        	                .then(response => {
+        	                    this.nations = response.data;
+        	                })
+        	                .catch(e => {
+        	                    this.errors.push(e)
+        	                });
+        	        },
+        	        LoadDataTrinhDoChuyenMon() {
+
+        	            axios.get(_ctx + "crew/chuyenmon/" + getLastParameterOnURL () )
+    	                .then(response => {
+    	                    var columnDefs = [{"title": "STT","targets": 0},
+    	      				  { 
+    	      					"targets": 1,
+    	      					"visible": false,
+    	      	                "searchable": false
+    	      				  },
+    	      				  {"title": "Năm bắt đầu","targets": 2,"width":"15%"},
+    	      				  {"title": "Năm tốt nghiệp","targets": 3},
+    	      				  {"title": "Bằng cấp (đại học hoặc khác)","targets": 4},
+    	      				  {"title": "Chuyên ngành","targets": 5},
+    	      				  {"title": "Trường đào tạo","targets": 6},
+    	      				  {"title": "Xếp loại","targets": 7},
+    	      				  {
+    	      					  "title": "",
+    	      					  "targets": 8,
+    	      	                  
+    	      	                  "render": function (data, type, row, meta) {
+    	      	                	   return '<button type="button" class="dt-button btn btn-success source  trinhdochuyenmon-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';           
+    	      	                   }
+    	      	         
+    	      				  },
+    	      				  {
+    	      					  "title": "",
+    	      					  "targets": 9,
+    	      					  "render": function (data, type, row, meta) {
+    	      	                	   return '<button type="button" class="dt-button btn btn-success source  trinhdochuyenmon-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';           
+    	      	                   }
+    	      				  }
+    	      				  ];
+			
+			    	      var aoData = [{ "mData": "stt","defaultContent":""},
+			    	      				 { "mData": "id", "defaultContent":"" },
+			    	      			     { "mData": "tungay", "defaultContent":"" },
+			    	      			  	 { "mData": "denngay", "defaultContent":"" },
+			    	      				 { "mData": "bangcap", "defaultContent":"" },
+			    	      				 { "mData": "chuyennganh", "defaultContent":"" },
+			    	      				 { "mData": "truong", "defaultContent":"" },
+			    	      				 { "mData": "xeploai", "defaultContent":"" },
+			    	      				 { "mData": null},
+			    	      				 { "mData": null}
+			    	      				 ];
+    	                    
+    	                    
+			    	      tableChuyenMon = $('#chuyenmon').DataTable({
+    	                        data: response.data,
+    	                        "columnDefs": columnDefs,
+    	                        "aoColumns": aoData,
+    	                        "bInfo": false,
+    	                        "bPaginate": false,
+    	                        "searching": false,
+    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+    	                            var index = iDisplayIndex + 1;
+    	                            $('td:eq(0)', nRow).html(index);
+    	                            return nRow;
+    	                        },
+    	                        "createdRow": function(row, data, dataIndex, full) {
+    	                            $(row).attr('data-id', data.id);
+    	                        }
+    	                        
+    	                    });
+    	                    
+    	                    var url = _ctx + 'editChuyenMon/';
+    	            		initEventClickForEditOrDelete("chuyenmon",".trinhdochuyenmon-edit",url);
+    	            		
+    	            		url = _ctx + 'deleteChuyenMon/';
+    	            		initEventClickForEditOrDelete("chuyenmon",".trinhdochuyenmon-delete",url);
+    	            		
+    	            		$( ".trinhdochuyenmon-add" ).bind( "click", function() {
+    	            			popupModalAdd( _ctx + 'editChuyenMon/0' );
+    	            		});
+    	                });
+        	        },
+        	        LoadDataTrinhDoNgoaiNgu() {
+        	            axios.get(_ctx + "crew/ngoaingu/" + getLastParameterOnURL () )
+    	                .then(response => {
+    	             
+    	                    var columnDefs = [{"title": "STT","targets": 0},
+    	      				  { 
+    	    					"targets": 1,
+    	    					"visible": false,
+    	    	                "searchable": false
+    	    				  },
+    	    				  {"title": "Ngoại ngữ","targets": 2,"width":"15%"},
+    	    				  {"title": "Nghe","targets": 3},
+    	    				  {"title": "Nói","targets": 4},
+    	    				  {"title": "Đọc","targets": 5},
+    	    				  {"title": "Viết","targets": 6},
+    	    				  {"title": "Ghi Chú","targets": 7},
+    	    				  {
+    	    					  "title": "",
+    	    					  "targets": 8,
+    	    	                  
+    	    	                  "render": function (data, type, row, meta) {
+    	    	                	   return '<button type="button" class="dt-button btn btn-success source  trinhdongoaingu-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';           
+    	    	                   }
+    	    	         
+    	    				  },
+    	    				  {
+    	    					  "title": "",
+    	    					  "targets": 9,
+    	    					  "render": function (data, type, row, meta) {
+    	    	                	   return '<button type="button" class="dt-button btn btn-success source  trinhdongoaingu-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';           
+    	    	                   }
+    	    				  }
+    	    				  ];
+			
+			    	      var aoData = [{ "mData": "stt","defaultContent":""},
+			 				 { "mData": "id", "defaultContent":"" },
+						     { "mData": "text", "defaultContent":"" },
+						  	 { "mData": "nghe", "defaultContent":"" },
+							 { "mData": "noi", "defaultContent":"" },
+							 { "mData": "doc", "defaultContent":"" },
+							 { "mData": "viet", "defaultContent":"" },
+							 { "mData": "ghichu", "defaultContent":"" },
+							 { "mData": null},
+							 { "mData": null}
+							 ];
+			    	      
+			    	      
+    	                    
+    	                    
+			    	      tableNgoaiNgu = $('#ngoaingu').DataTable({
+    	                        data: response.data,
+    	                        "columnDefs": columnDefs,
+    	                        "aoColumns": aoData,
+    	                        "bInfo": false,
+    	                        "bPaginate": false,
+    	                        "searching": false,
+    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+    	                            var index = iDisplayIndex + 1;
+    	                            $('td:eq(0)', nRow).html(index);
+    	                            return nRow;
+    	                        },
+    	                        "createdRow": function(row, data, dataIndex, full) {
+    	                            $(row).attr('data-id', data.id);
+    	                        }
+    	                        
+    	                    });
+    	                    
+    	                    var url = _ctx + 'editNgoaiNgu/';
+    	            		initEventClickForEditOrDelete("ngoaingu",".trinhdongoaingu-edit",url);
+    	            		
+    	            		url = _ctx + 'deleteNgoaiNgu/';
+    	            		initEventClickForEditOrDelete("ngoaingu",".trinhdongoaingu-delete",url);
+    	            		
+    	            		$( ".trinhdongoaingu-add" ).bind( "click", function() {
+    	            			popupModalAdd( _ctx + 'editNgoaiNgu/0' );
+    	            		});
+    	                });
+        	        },
+        	        
+        	        LoadDataTrinhDoViTinh() {
+        	            axios.get(_ctx + "crew/vitinh/" + getLastParameterOnURL () )
+    	                .then(response => {
+    	             
+    	                    var columnDefs = [{"title": "STT","targets": 0},
+    	      				  { 
+    	    					"targets": 1,
+    	    					"visible": false,
+    	    	                "searchable": false
+    	    				  },
+    	    				  {"title": "Tên phần mềm","targets": 2,"width":"15%"},
+    	    				  {"title": "Xếp loại","targets": 3},
+    	    				  {"title": "Ghi Chú","targets": 4},
+    	    				  {
+    	    					  "title": "",
+    	    					  "targets": 5,
+    	    	                  
+    	    	                  "render": function (data, type, row, meta) {
+    	    	                	   return '<button type="button" class="dt-button btn btn-success source  trinhdovitinh-edit" data-id=' + row['id'] + ' > <i class="fa fa-edit"> </i> Edit</button>';           
+    	    	                   }
+    	    	         
+    	    				  },
+    	    				  {
+    	    					  "title": "",
+    	    					  "targets": 6,
+    	    					  "render": function (data, type, row, meta) {
+    	    	                	   return '<button type="button" class="dt-button btn btn-success source  trinhdovitinh-delete" data-id=' + row['id'] + ' > <i class="fa fa-trash"> </i> Delete</button>';           
+    	    	                   }
+    	    				  }
+    	    				  ];
+			
+			    	      var aoData = [{ "mData": "stt","defaultContent":""},
+			 				 { "mData": "id", "defaultContent":"" },
+						  	 { "mData": "tenphanmem", "defaultContent":"" },
+						     { "mData": "text", "defaultContent":"" },
+							 { "mData": "ghichu", "defaultContent":"" },
+							 { "mData": null},
+							 { "mData": null}
+							 ];
+			    	      
+			    	      
+    	                    
+    	                    
+			    	      tableViTinh = $('#vitinh').DataTable({
+    	                        data: response.data,
+    	                        "columnDefs": columnDefs,
+    	                        "aoColumns": aoData,
+    	                        "bInfo": false,
+    	                        "bPaginate": false,
+    	                        "searching": false,
+    	                        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+    	                            var index = iDisplayIndex + 1;
+    	                            $('td:eq(0)', nRow).html(index);
+    	                            return nRow;
+    	                        },
+    	                        "createdRow": function(row, data, dataIndex, full) {
+    	                            $(row).attr('data-id', data.id);
+    	                        }
+    	                        
+    	                    });
+    	                    
+    	                    var url = _ctx + 'editViTinh/';
+    	            		initEventClickForEditOrDelete("vitinh",".trinhdovitinh-edit",url);
+    	            		
+    	            		url = _ctx + 'deleteViTinh/';
+    	            		initEventClickForEditOrDelete("vitinh",".trinhdovitinh-delete",url);
+    	            		
+    	            		$( ".trinhdovitinh-add" ).bind( "click", function() {
+    	            			popupModalAdd( _ctx + 'editViTinh/0' );
+    	            		});
+    	                });
+        	        },
+
+        	        Save: function(event) {
+
+        	            //Validate Form
+        	            this.errors = [];
+        	            console.log(this.profile.seaThongTinThuyenVien.hoten);
+        	            if (this.profile.seaThongTinThuyenVien.hoten == null) {
+        	                this.errors.push({
+        	                    message: "Name required."
+        	                });
+        	            }
+
+        	            if (this.profile.seaThongTinThuyenVien.cmnd == null) {
+        	                this.errors.push({
+        	                    message: "ID Card required."
+        	                });
+        	            }
+        	            if (!this.errors.length) {
+        	                // Call Insert
+        	                axios.post(_ctx + "crew/save", this.profile)
+        	                    .then(response => {
+        	                        alert("Success");
+        	                        this.LoadData();
+        	                    })
+        	                    .catch(e => {
+        	                        this.errors.push(e)
+        	                    })
+        	            }
+        	        }
+
+        	    }
+
+        	});
+         </script>
+      </div>
+   </body>
+</html>

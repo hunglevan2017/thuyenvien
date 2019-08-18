@@ -53,6 +53,7 @@ function init_chart_doughnut() {
 }
 $(document).ready(function() {
      init_chart_doughnut();
+     $('#TitlePage').text( $("a.active p").text() );
 });
 
 

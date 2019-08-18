@@ -40,19 +40,24 @@
           </button>
            -->
           
-           <a th:href="@{/dashboard}" style="color:black" th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}" >
+           <a th:href="@{/dashboard}" style="color:black" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/dashboard') == true ? 'active':''}" >
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
            </a>
           
-           <a th:href="@{/ListOfBoat/1}" style="color:black" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/1' ? 'active':''}" >
+          <!-- 
+          <span th:utext="${#request.userPrincipal.name}">111</span>
+          sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SUBADMIN')"
+           -->
+               
+           <a sec:authorize="hasAnyRole('Marine Director','ROLE_SUBADMIN')" th:href="@{/ListOfBoat/1}" style="color:black" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/1')==true ? 'active':''}" >
               <i class="now-ui-icons education_atom"></i>
               <p>Crew On Board</p>
            </a>
            
     
             
-	            <a th:href="@{/ListOfBoat/0}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/0' ? 'active':''}">
+	            <a th:href="@{/ListOfBoat/0}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/0')==true ? 'active':''}">
 	              <i class="now-ui-icons travel_istanbul"></i>
 	              <p>Crew On Leave</p>
 	            </a>
@@ -63,19 +68,24 @@
               <p>Crew Assignment</p>
             </a>
             
-            <a th:href="@{/crew/0}"  style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/crew') == true ? 'active':''}">
+            <a th:href="@{/crew/0}"  style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/crew/0') == true ? 'active':''}">
               <i class="now-ui-icons users_single-02"></i>
               <p>Make A New Crew</p>
             </a>
             
             
-            <a th:href="@{/ListOfBoat/-3}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/ListOfBoat/-3' ? 'active':''}">
+            <a th:href="@{/ListOfBoat/-3}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/-3')==true ? 'active':''}">
               <i class="now-ui-icons now-ui-icons ui-1_simple-remove"></i>
               <p>Re-Signed</p>
             </a>
             
             
-             <a th:href="@{/User}" style="color:black;margin-left:10px" th:classappend="${#httpServletRequest.getRequestURI() == '/User' ? 'active':''}">
+             <a sec:authorize="hasAnyRole('Marine Director','ROLE_SUBADMIN')" th:href="@{/Ship}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/Ship') == true ? 'active':''}">
+              <i class="fa fa-ship"></i>
+              <p>Ship Management</p>
+            </a>
+            
+             <a sec:authorize="hasAnyRole('Marine Director','ROLE_SUBADMIN')" th:href="@{/User}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/User') == true ? 'active':''}">
               <i class="now-ui-icons now-ui-icons design_vector"></i>
               <p>User Management</p>
             </a>

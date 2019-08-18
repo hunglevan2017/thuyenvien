@@ -54,6 +54,7 @@
                   <div>
                   
                     <label class="col-sm-4 control-label  left-title"  >File chứng chỉ </label>
+                     <progress max="100" :value.prop="uploadPercentage"></progress>
                     <div class="col-sm-12">
                        <input onclick="this.select();" type="file" ref="file" v-on:change="handleFileUpload()" accept="*">
                    
@@ -94,7 +95,9 @@ new Vue({
         certificates: [],
         debug: false,
         errors: [],
-        file:{}
+        file:{},
+        uploadPercentage: 0
+        
     },
     mounted() {
         this.LoadData();
@@ -139,7 +142,12 @@ new Vue({
     	    this.file = this.$refs.file.files[0];
     	    let formData = new FormData();
     	    formData.append('file', this.file);
-    	    axios.post( _ctx + "crew/upload",formData,  {headers: {'Content-Type': 'multipart/form-data'}})
+    	    axios.post( _ctx + "crew/upload",formData,  {headers: {'Content-Type': 'multipart/form-data'},
+    	    	
+    	        onUploadProgress: function( progressEvent ) {
+    	          this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ) );
+    	        }.bind(this)
+    	        })
             .then(response => {
             	
               this.file = response.data;
@@ -175,6 +183,13 @@ new Vue({
                 this.errors.push({
                     message: "Ngày cấp không được rỗng"
                 });
+            }
+            
+            if(this.uploadPercentage>0 && this.uploadPercentage<100)
+            {
+            	 this.errors.push({
+                     message: "Waiting upload file complete!."
+                 });
             }
 
       

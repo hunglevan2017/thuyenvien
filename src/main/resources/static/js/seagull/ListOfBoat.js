@@ -50,7 +50,7 @@ function getRowContractSelect(table)
 
 $(document).ready( function () {
 	
-	 $('#TitlePage').text( $("a.active p").text() );
+	
 	
 	var nameShip="LAST VESSEL";
 	var dateOn="DATE OFF";
@@ -91,6 +91,19 @@ $(document).ready( function () {
                 className:'btn btn-success source',
                 action: function ( e, dt, node, config ) {
                 	window.location = page_context + "report/onboard";
+                }
+            }
+        ];
+    }
+    
+    if($('#tinhtrangdieudong').val()==="-2"  )
+    {
+    	report =  [
+            {
+                text: '<i class="fa fa-download"></i> EXCEL',
+                className:'btn btn-success source',
+                action: function ( e, dt, node, config ) {
+                	window.location = page_context + "report/all";
                 }
             }
         ];

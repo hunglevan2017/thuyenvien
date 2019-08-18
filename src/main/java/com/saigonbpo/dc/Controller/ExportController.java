@@ -267,9 +267,18 @@ public class ExportController {
 			FuncUtil.setCellValH(
 					seaThongTinThuyenVien.getNgaysinh() != null ? seaThongTinThuyenVien.getNgaysinh().toString() : "", sheet, 5,
 					3, null);
+			
+			if(profile.get(0)!=null)
+			{
 			FuncUtil.setCellValH(
 					profile.get(0).getChucdanh() != null ? profile.get(0).getChucdanh() : "", sheet, 5,
 					6, null);
+			}
+			else {
+				FuncUtil.setCellValH(
+						"", sheet, 5,
+						6, null);
+			}
 
 			int rowbegin = 13;
 			int i = 0;
@@ -486,5 +495,74 @@ public class ExportController {
 		return null;
 		// return new ModelAndView(new ExcelView(), "type_report", 1);
 	}
+	
+
+	@RequestMapping(value = "/report/all", method = RequestMethod.GET)
+	public ModelAndView getAll(HttpServletResponse response)
+			throws EncryptedDocumentException, InvalidFormatException, IOException, ParseException {
+
+		Map<String, Object> filter = new HashMap<>();
+		filter.put("tinhtrangdieudong", null);
+
+		// Call Service
+
+		// Set Name File Download
+		String fileName = "Danh Sach Thuyen Vien on board" + ".xlsx";
+		fileName = URLEncoder.encode(fileName, "UTF-8");
+		response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+
+		// Read Template
+		InputStream fis = null;
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		fis = classloader.getResourceAsStream("ReportTemplate/DSTV - Onboard.xlsx");
+
+		// Init WorkBook
+		org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(fis);
+		Sheet sheet = workbook.getSheetAt(0);
+
+		int rowbegin = 8;
+		int i = 0;
+
+		CellStyle cellStyle = sheet.getRow(rowbegin - 1).getCell(0).getCellStyle();
+		cellStyle.setAlignment(HorizontalAlignment.CENTER);
+
+		List<Map<String, Object>> result = appService.getListOfBoat_v3(filter);
+		
+		for (Iterator<Map<String, Object>> iter = result.iterator(); iter.hasNext();) {
+			Map<String, Object> map = iter.next();
+			Object c_id = map.get("trangthaiId").toString();
+			if (c_id.equals("-2"))
+				iter.remove();
+		}
+
+
+			sheet.shiftRows(rowbegin, sheet.getLastRowNum(), result.size());
+
+			for (Map<String, Object> data : result) {
+				FuncUtil.setCellValH(String.valueOf(i + 1), sheet, rowbegin, 1, cellStyle);
+				FillData(data.get("hoten"), sheet, rowbegin, 2, cellStyle);
+				FillData(data.get("chucdanh"), sheet, rowbegin, 3, cellStyle);
+				FillData(data.get("diachitamtru"), sheet, rowbegin, 4, cellStyle);
+				FillData(data.get("ngayOffHoacOnGanNhat"), sheet, rowbegin, 5, cellStyle);
+				for(int j=6 ;j<=15;j++)
+				{
+					FuncUtil.setCellValH("", sheet, rowbegin, j, cellStyle);
+				}
+				i++;
+				rowbegin++;
+			}
+			OutputStream out = response.getOutputStream();
+			workbook.write(out);
+			out.flush();
+
+			fis.close();
+			out.close();
+
+
+
+		return null;
+		// return new ModelAndView(new ExcelView(), "type_report", 1);
+	}
+
 
 }

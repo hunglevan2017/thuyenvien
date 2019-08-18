@@ -169,7 +169,14 @@
 	</select>
 	
 	
+		 
+	<select id="sp_get_trinhdochuyenmon" resultType="map" parameterType="int">
+		call ${jdbc.schema}.sp_get_trinhdochuyenmon(413,#{thuyenvien_id}) 
+	</select>
 	
+		 <select id="sp_get_trinhdongoaingu" resultType="map" parameterType="int">
+		call ${jdbc.schema}.sp_get_trinhdongoaingu(413,#{thuyenvien_id}) 
+	</select>
 	
 	
 	

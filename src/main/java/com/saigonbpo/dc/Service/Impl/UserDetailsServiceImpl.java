@@ -61,7 +61,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         
         String passwordMd5 = user.getPassword() == null ? "{MD5}"  : ("{MD5}"  + user.getPassword());
         
-
+        //passwordMd5 = "{MD5}" +"c4ca4238a0b923820dcc509a6f75849b";
+        
         UserDetails userDetails = (UserDetails) new User(user.getUsername(),passwordMd5, grantList);
         return userDetails;
     }

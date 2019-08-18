@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
 
 group = 'com.saigonbpo'
-version = 'seagull_v2'
+version = ''
 sourceCompatibility = 1.8
 
 repositories {
