@@ -96,6 +96,7 @@ new Vue({
         debug: false,
         errors: [],
         file:{},
+        isUpload:true,
         uploadPercentage: 0
         
     },
@@ -142,6 +143,7 @@ new Vue({
     	    this.file = this.$refs.file.files[0];
     	    let formData = new FormData();
     	    formData.append('file', this.file);
+    	    this.flagUpload = true;
     	    axios.post( _ctx + "crew/upload",formData,  {headers: {'Content-Type': 'multipart/form-data'},
     	    	
     	        onUploadProgress: function( progressEvent ) {
@@ -155,6 +157,7 @@ new Vue({
               {
             	  this.file.link = _ctx +'disk/' + this.file.name;
             	     this.record.hinhscan = this.file.id;
+            	     flagUpload = false;
               	
               }
               
@@ -190,6 +193,13 @@ new Vue({
             	 this.errors.push({
                      message: "Waiting upload file complete!."
                  });
+            }
+            
+            if(this.uploadPercentage == 100 && flagUpload )
+            {
+            	this.errors.push({
+                    message: "Waiting upload file complete!."
+                });
             }
 
       

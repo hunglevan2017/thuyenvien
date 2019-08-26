@@ -8,7 +8,7 @@
    <body>
       <input type="hidden" id="PageContext" name="PageContext" th:value="@{/}">
       <script>var _ctx = $("#PageContext").val();</script>
-      
+      `
       <div id="modal-confirm" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="padding:0px"></div>
       <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -48,9 +48,10 @@
           <!-- 
           <span th:utext="${#request.userPrincipal.name}">111</span>
           sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SUBADMIN')"
+          sec:authorize="hasAnyRole('ROLE_Marine Director','ROLE_ADMIN')"
            -->
-               
-           <a sec:authorize="hasAnyRole('ROLE_Marine Director','ROLE_ADMIN')" th:href="@{/ListOfBoat/1}" style="color:black" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/1')==true ? 'active':''}" >
+                 
+           <a th:if="${#request.userPrincipal.name} != myngan AND ${#request.userPrincipal.name} != Hanh AND ${#request.userPrincipal.name} != nhatha "  th:href="@{/ListOfBoat/1}" style="color:black" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(), '/ListOfBoat/1')==true ? 'active':''}" >
               <i class="fas fa-running"></i>
               <p>Crew On Board</p>
            </a>
@@ -91,7 +92,7 @@
               <p>Ship Management</p>
             </a>
             
-             <a sec:authorize="hasAnyRole('Marine Director','ROLE_ADMIN')" th:href="@{/User}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/User') == true ? 'active':''}">
+             <a th:href="@{/User}" style="color:black;margin-left:10px" th:classappend="${#strings.contains(#httpServletRequest.getRequestURI(),'/User') == true ? 'active':''}">
               <i class="fas fa-cogs"></i>
               <p>User Management</p>
             </a>
@@ -149,6 +150,15 @@
 		 -->
 		
 		<script th:src="@{/demo/demo.js}"></script>
+		
+		       <script>
+				        $("#search").on('keyup', function (e) {
+				            if (e.keyCode == 13) {
+				            	window.location.href = _ctx + "search/" + this.value;
+				                // Do something
+				            }
+				        });
+				</script>
 
 		  
          
