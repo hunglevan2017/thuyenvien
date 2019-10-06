@@ -261,11 +261,16 @@ public class ExportController {
 			// Set Data Ship
 			int tempRow = 9;
 			int tempCol = 3;
+			
+			
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+
 
 			FuncUtil.setCellValH(seaThongTinThuyenVien.getHoten()  != null ? seaThongTinThuyenVien.getHoten()  : "",
 					sheet, 4, 3, null);
 			FuncUtil.setCellValH(
-					seaThongTinThuyenVien.getNgaysinh() != null ? seaThongTinThuyenVien.getNgaysinh().toString() : "", sheet, 5,
+					seaThongTinThuyenVien.getNgaysinh() != null ? format.format(seaThongTinThuyenVien.getNgaysinh()) : "", sheet, 5,
 					3, null);
 			
 			if(profile.get(0)!=null)
