@@ -94,7 +94,8 @@ public class CertificateRestCtrl {
 			if(record.getId() == null )
 				seaChungChiThuyenVienMapper.insertSelective(record);
 			else
-				seaChungChiThuyenVienMapper.updateByPrimaryKeySelective(record);
+				//seaChungChiThuyenVienMapper.updateByPrimaryKeySelective(record);
+				seaChungChiThuyenVienMapper.updateByPrimaryKey(record);
 		}
 		catch(Exception ex)
 		{

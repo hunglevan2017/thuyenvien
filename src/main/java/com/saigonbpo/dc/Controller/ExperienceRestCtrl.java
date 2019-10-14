@@ -73,7 +73,9 @@ public class ExperienceRestCtrl {
 			if(record.getId() == null )
 				seaKinhNghiemLamViecMapper.insertSelective(record);
 			else
-				seaKinhNghiemLamViecMapper.updateByPrimaryKeySelective(record);
+			{
+				seaKinhNghiemLamViecMapper.updateByPrimaryKey(record);
+			}
 		}
 		catch(Exception ex)
 		{
